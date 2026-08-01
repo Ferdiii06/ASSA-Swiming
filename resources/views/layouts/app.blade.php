@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Swim Dashboard')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Backdrop Overlay for Mobile Sidebar -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/60 z-20 hidden md:hidden transition-opacity"></div>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed md:sticky top-0 left-0 z-30 h-screen w-64 bg-slate-900 text-white flex flex-col shrink-0 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-5 border-b border-slate-700 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-water text-cyan-400 text-2xl"></i>
+                    <span class="text-lg font-bold">SwimDash</span>
+                </div>
+                <!-- Close Button on Mobile -->
+                <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+                <a href="{{ route('dashboard') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('dashboard') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-gauge w-5"></i> Dashboard
+                </a>
+                <a href="{{ route('students.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('students.*') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-graduation-cap w-5"></i> Siswa
+                </a>
+                <a href="{{ route('acara.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('acara.*') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-calendar-days w-5"></i> Acara
+                </a>
+                <a href="{{ route('seri.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('seri.*') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-layer-group w-5"></i> Seri
+                </a>
+                <a href="{{ route('lomba.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('lomba.*') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-person-swimming w-5"></i> Lomba
+                </a>
+                <a href="{{ route('club.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('club.*') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-people-group w-5"></i> Club
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-700 text-xs text-slate-400">
+                &copy; {{ date('Y') }} Swim les
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col min-w-0">
+            <header class="bg-white shadow-sm px-4 sm:px-6 py-3.5 flex justify-between items-center sticky top-0 z-10 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <!-- Hamburger Button Mobile -->
+                    <button id="open-sidebar-btn" class="md:hidden text-slate-600 hover:text-slate-900 p-1.5 rounded-lg focus:outline-none hover:bg-slate-100">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <h1 class="text-lg sm:text-xl font-semibold text-slate-800 truncate">@yield('title', 'Dashboard')</h1>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Role Switcher -->
+                    <div class="bg-slate-100 p-1 rounded-lg flex gap-0.5 sm:gap-1 text-xs font-medium text-slate-600">
+                        <button class="px-2 sm:px-3 py-1 rounded-md bg-white text-slate-900 shadow-sm border border-slate-200 font-semibold">Admin</button>
+                        <button class="px-2 sm:px-3 py-1 rounded-md hover:text-slate-900 transition hidden sm:inline-block">Coach</button>
+                        <button class="px-2 sm:px-3 py-1 rounded-md hover:text-slate-900 transition hidden sm:inline-block">Parent</button>
+                    </div>
+                    <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                    <i class="fa-regular fa-bell text-slate-500 cursor-pointer hover:text-slate-700 text-sm sm:text-base"></i>
+                    <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm">A</div>
+                </div>
+            </header>
+
+            <main class="p-4 sm:p-6 flex-1">
+                @yield('content')
+            </main>
+        </div>
+    </div>
+
+    <!-- Responsive Sidebar Script -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        const openBtn = document.getElementById('open-sidebar-btn');
+        const closeBtn = document.getElementById('close-sidebar-btn');
+
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('hidden');
+        }
+
+        if (openBtn) openBtn.addEventListener('click', openSidebar);
+        if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+        if (backdrop) backdrop.addEventListener('click', closeSidebar);
+    </script>
+</body>
+</html>

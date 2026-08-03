@@ -11,11 +11,14 @@ class Payment extends Model
 
     protected $fillable = [
         'enrollment_id',
+        'student_id',
+        'package_id',
         'amount',
         'payment_type',
         'payment_method',
         'qris_token',
         'transaction_id',
+        'proof_image',
         'status',
         'paid_at',
         'payment_period',
@@ -56,5 +59,11 @@ class Payment extends Model
     public function isPaid()
     {
         return $this->status === 'success';
+    }
+
+    // Relasi ke Package
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
     }
 }

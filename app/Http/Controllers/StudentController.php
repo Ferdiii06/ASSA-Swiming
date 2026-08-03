@@ -9,6 +9,10 @@ class StudentController extends Controller
 {
     public function index(Request $request)
     {
+        if (session('role', 'admin') === 'parent') {
+            return redirect()->route('dashboard')->with('error', 'Akses Ditolak: Orang Tua (Parent) tidak diizinkan mengakses data manajemen siswa.');
+        }
+
         $search = $request->get('search');
         $location = $request->get('location');
         $program = $request->get('program');

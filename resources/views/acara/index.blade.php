@@ -4,9 +4,11 @@
 @section('content')
 <div class="flex justify-between items-center mb-5">
     <p class="text-slate-500">Kelola semua acara renang</p>
+    @if(session('role', 'admin') !== 'parent')
     <a href="{{ route('acara.create') }}" class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-cyan-700">
         <i class="fa-solid fa-plus mr-1"></i> Tambah Acara
     </a>
+    @endif
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">

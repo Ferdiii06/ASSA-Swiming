@@ -103,9 +103,11 @@
         </form>
 
         <!-- Add Student Button -->
+        @auth
         <a href="{{ route('students.create') }}" class="w-full lg:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-xl shadow-sm transition whitespace-nowrap">
             <i class="fa-solid fa-plus text-xs"></i> Add Student
         </a>
+        @endauth
     </div>
 
     <!-- Students Table Card -->
@@ -119,7 +121,9 @@
                         <th class="py-3.5 px-5">Level & Jadwal</th>
                         <th class="py-3.5 px-5">Progress</th>
                         <th class="py-3.5 px-5">Status</th>
+                        @auth
                         <th class="py-3.5 px-5 text-right">Actions</th>
+                        @endauth
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-sm">
@@ -178,6 +182,7 @@
                         </td>
 
                         <!-- Actions -->
+                        @auth
                         <td class="py-4 px-5 text-right">
                             <div class="inline-flex items-center gap-3">
                                 <a href="{{ route('students.show', $student->id) }}" class="text-slate-400 hover:text-cyan-600 transition" title="View Detail">
@@ -192,10 +197,15 @@
                                 </form>
                             </div>
                         </td>
+                        @endauth
                     </tr>
                     @empty
                     <tr>
+                        @auth
                         <td colspan="6" class="py-8 text-center text-slate-400">
+                        @else
+                        <td colspan="5" class="py-8 text-center text-slate-400">
+                        @endauth
                             No students found.
                         </td>
                     </tr>

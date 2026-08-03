@@ -2,68 +2,87 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
-    <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-cyan-500">
-        <p class="text-slate-500 text-sm">Total Acara</p>
-        <p class="text-2xl font-bold text-slate-800">{{ $totalAcara ?? 12 }}</p>
-    </div>
-    <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-indigo-500">
-        <p class="text-slate-500 text-sm">Total Seri</p>
-        <p class="text-2xl font-bold text-slate-800">{{ $totalSeri ?? 34 }}</p>
-    </div>
-    <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-amber-500">
-        <p class="text-slate-500 text-sm">Total Lomba</p>
-        <p class="text-2xl font-bold text-slate-800">{{ $totalLomba ?? 210 }}</p>
-    </div>
-    <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-emerald-500">
-        <p class="text-slate-500 text-sm">Total Club</p>
-        <p class="text-2xl font-bold text-slate-800">{{ $totalClub ?? 58 }}</p>
-    </div>
+<!-- Header Section -->
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Selamat Datang di ASSA Swimming</h1>
+    <p class="text-gray-500 text-sm mt-1">Portal informasi kegiatan, jadwal perlombaan, dan pengelolaan data klub renang.</p>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-5">
-        <h2 class="font-semibold text-slate-800 mb-4">Acara Terdekat</h2>
-        <table class="w-full text-sm">
-            <thead>
-                <tr class="text-left text-slate-500 border-b">
-                    <th class="py-2">Nama Acara</th>
-                    <th class="py-2">Tanggal</th>
-                    <th class="py-2">Lokasi</th>
-                    <th class="py-2">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($upcomingAcara ?? [] as $acara)
-                <tr class="border-b last:border-0">
-                    <td class="py-3 font-medium text-slate-800">{{ $acara->nama }}</td>
-                    <td class="py-3">{{ \Carbon\Carbon::parse($acara->tanggal)->format('d M Y') }}</td>
-                    <td class="py-3">{{ $acara->lokasi }}</td>
-                    <td class="py-3">
-                        <span class="px-2 py-1 rounded-full text-xs bg-cyan-100 text-cyan-700">{{ $acara->status }}</span>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="4" class="py-3 text-slate-400">Belum ada acara terdekat.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+    
+    <!-- Card: Acara -->
+    <a href="{{ route('acara.index') }}" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-cyan-500 hover:shadow-sm transition-all duration-200">
+        <div class="flex items-start justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-cyan-50 flex items-center justify-center text-cyan-600">
+                <i class="fa-solid fa-calendar-days text-xl"></i>
+            </div>
+            @if(isset($totalAcara) && $totalAcara > 0)
+            <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{{ $totalAcara }} Item</span>
+            @endif
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-1">Jadwal Acara</h3>
+        <p class="text-sm text-gray-500">Informasi agenda kegiatan renang dan kompetisi.</p>
+    </a>
 
-    <div class="bg-white rounded-xl shadow-sm p-5">
-        <h2 class="font-semibold text-slate-800 mb-4">Club Teraktif</h2>
-        <ul class="space-y-3">
-            @forelse($topClubs ?? [] as $club)
-            <li class="flex items-center justify-between">
-                <span class="text-slate-700">{{ $club->nama }}</span>
-                <span class="text-xs bg-slate-100 px-2 py-1 rounded-full">{{ $club->jumlah_atlet }} atlet</span>
-            </li>
-            @empty
-            <li class="text-slate-400 text-sm">Belum ada data club.</li>
-            @endforelse
-        </ul>
+    <!-- Card: Lomba -->
+    <a href="{{ route('lomba.index') }}" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-cyan-500 hover:shadow-sm transition-all duration-200">
+        <div class="flex items-start justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                <i class="fa-solid fa-person-swimming text-xl"></i>
+            </div>
+            @if(isset($totalLomba) && $totalLomba > 0)
+            <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{{ $totalLomba }} Item</span>
+            @endif
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-1">Perlombaan</h3>
+        <p class="text-sm text-gray-500">Hasil pertandingan dan detail perlombaan.</p>
+    </a>
+
+    <!-- Card: Seri -->
+    <a href="{{ route('seri.index') }}" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-cyan-500 hover:shadow-sm transition-all duration-200">
+        <div class="flex items-start justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                <i class="fa-solid fa-layer-group text-xl"></i>
+            </div>
+            @if(isset($totalSeri) && $totalSeri > 0)
+            <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{{ $totalSeri }} Item</span>
+            @endif
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-1">Seri Pertandingan</h3>
+        <p class="text-sm text-gray-500">Pengelompokan berdasarkan gaya dan kategori.</p>
+    </a>
+
+    <!-- Card: Club -->
+    <a href="{{ route('club.index') }}" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-cyan-500 hover:shadow-sm transition-all duration-200">
+        <div class="flex items-start justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <i class="fa-solid fa-people-group text-xl"></i>
+            </div>
+            @if(isset($totalClub) && $totalClub > 0)
+            <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{{ $totalClub }} Item</span>
+            @endif
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-1">Daftar Klub</h3>
+        <p class="text-sm text-gray-500">Informasi klub renang yang terdaftar.</p>
+    </a>
+
+</div>
+
+@if(!Auth::check())
+<!-- Notice for Guest -->
+<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 flex items-start gap-4">
+    <div class="mt-0.5 text-blue-500">
+        <i class="fa-solid fa-circle-info text-xl"></i>
+    </div>
+    <div>
+        <h4 class="text-sm font-semibold text-blue-900">Akses Khusus Pelatih (Coach)</h4>
+        <p class="text-sm text-blue-700 mt-1 mb-3">Untuk mengelola data siswa dan melakukan penilaian (raport), silakan login terlebih dahulu menggunakan akun Coach Anda.</p>
+        <a href="{{ route('login') }}" class="text-sm font-medium text-blue-700 hover:text-blue-800 underline decoration-blue-300 underline-offset-4">
+            Buka Halaman Login &rarr;
+        </a>
     </div>
 </div>
+@endif
+
 @endsection

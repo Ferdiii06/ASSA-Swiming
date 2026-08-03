@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Swim Dashboard')</title>
+    <title>@yield('title', 'ASSA Swimming')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -16,8 +16,8 @@
         <aside id="sidebar" class="fixed md:sticky top-0 left-0 z-30 h-screen w-64 bg-slate-900 text-white flex flex-col shrink-0 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
             <div class="p-5 border-b border-slate-700 flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-water text-cyan-400 text-2xl"></i>
-                    <span class="text-lg font-bold">SwimDash</span>
+                    <img src="{{ asset('images/ASSAswim.png') }}" alt="ASSA Swimming Logo" class="h-8 bg-white rounded-md p-1">
+                    <span class="text-lg font-bold">ASSA Swimming</span>
                 </div>
                 <!-- Close Button on Mobile -->
                 <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-white p-1">
@@ -49,6 +49,22 @@
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('club.*') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-people-group w-5"></i> Club
                 </a>
+                
+                <div class="pt-4 mt-2 border-t border-slate-700"></div>
+                
+                @auth
+                <!-- Menu Admin/Coach -->
+                <a href="{{ route('payments.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('payments.index') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-emerald-400"></i> Kelola Pembayaran
+                </a>
+                @else
+                <!-- Menu Publik -->
+                <a href="{{ route('payments.create') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('payments.create') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-qrcode w-5 text-emerald-400"></i> Perpanjang Paket
+                </a>
+                @endauth
             </nav>
             <div class="p-4 border-t border-slate-700 text-xs text-slate-400">
                 &copy; {{ date('Y') }} Swim les
@@ -67,15 +83,36 @@
                 </div>
 
                 <div class="flex items-center gap-2 sm:gap-4">
-                    <!-- Role Switcher -->
-                    <div class="bg-slate-100 p-1 rounded-lg flex gap-0.5 sm:gap-1 text-xs font-medium text-slate-600">
-                        <button class="px-2 sm:px-3 py-1 rounded-md bg-white text-slate-900 shadow-sm border border-slate-200 font-semibold">Admin</button>
-                        <button class="px-2 sm:px-3 py-1 rounded-md hover:text-slate-900 transition hidden sm:inline-block">Coach</button>
-                        <button class="px-2 sm:px-3 py-1 rounded-md hover:text-slate-900 transition hidden sm:inline-block">Parent</button>
+                    <!-- Auth Menu -->
+                    @auth
+                    <div class="flex items-center gap-3 relative">
+                        <i class="fa-regular fa-bell text-slate-500 cursor-pointer hover:text-slate-700 text-sm sm:text-base mr-2"></i>
+                        <button id="profileDropdownBtn" class="flex items-center gap-2 focus:outline-none">
+                            <span class="text-sm font-medium text-slate-700 hidden sm:block">{{ Auth::user()->name ?? '' }}</span>
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm">
+                                {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="profileDropdown" class="hidden absolute right-0 top-12 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition">
+                                <i class="fa-regular fa-user w-4 mr-2 text-slate-400"></i> My Profile
+                            </a>
+                            <div class="border-t border-slate-100 my-1"></div>
+                            <form method="POST" action="{{ route('logout') }}" class="block">
+                                @csrf
+                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 transition">
+                                    <i class="fa-solid fa-arrow-right-from-bracket w-4 mr-2 text-rose-400"></i> Logout
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
-                    <i class="fa-regular fa-bell text-slate-500 cursor-pointer hover:text-slate-700 text-sm sm:text-base"></i>
-                    <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm">A</div>
+                    @else
+                    <a href="{{ route('login') }}" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-1.5 rounded-md text-sm font-medium transition shadow-sm">
+                        Login Coach
+                    </a>
+                    @endauth
                 </div>
             </header>
 
@@ -105,6 +142,23 @@
         if (openBtn) openBtn.addEventListener('click', openSidebar);
         if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
         if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+        // Profile Dropdown Script
+        const profileBtn = document.getElementById('profileDropdownBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.classList.add('hidden');
+                }
+            });
+        }
     </script>
 </body>
 </html>

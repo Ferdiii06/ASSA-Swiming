@@ -55,9 +55,11 @@
                    class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 shadow-sm transition">
         </form>
 
+        @if(session('role', 'admin') !== 'parent')
         <a href="{{ route('seri.create') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-xl shadow-sm transition">
             <i class="fa-solid fa-plus text-xs"></i> Tambah Seri
         </a>
+        @endif
     </div>
 
     <!-- Seri Table Card -->
@@ -102,6 +104,7 @@
                                 <a href="{{ route('seri.show', $seri->id) }}" class="text-slate-400 hover:text-cyan-600 transition" title="Lihat Detail">
                                     <i class="fa-regular fa-eye"></i>
                                 </a>
+                                @if(session('role', 'admin') !== 'parent')
                                 <form action="{{ route('seri.destroy', $seri->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus seri ini?');">
                                     @csrf
                                     @method('DELETE')
@@ -109,6 +112,7 @@
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                     </tr>

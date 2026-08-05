@@ -110,8 +110,71 @@
         @endauth
     </div>
 
-    <!-- Students Table Card -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+    <!-- Mobile Cards View (Hidden on md and up) -->
+    <div class="md:hidden space-y-4 mb-4">
+        @forelse($students as $student)
+        <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <h3 class="font-bold text-slate-800 uppercase">{{ $student->name }}</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">{{ $student->code }} @if(!empty($student->parent_name)) • Ortu: {{ $student->parent_name }} @endif</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-600 border border-emerald-200">
+                    {{ $student->status }}
+                </span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs mb-3">
+                <div class="bg-slate-50 p-2 rounded-lg">
+                    <span class="block text-slate-400 mb-0.5">Program</span>
+                    <span class="font-semibold text-slate-700 uppercase">{{ $student->program }}</span>
+                    @if(!empty($student->location))
+                        <div class="text-[10px] text-cyan-700 mt-0.5 truncate"><i class="fa-solid fa-location-dot mr-1"></i>{{ $student->location }}</div>
+                    @endif
+                </div>
+                <div class="bg-slate-50 p-2 rounded-lg">
+                    <span class="block text-slate-400 mb-0.5">Level</span>
+                    <span class="font-semibold text-slate-700 uppercase">{{ $student->level }}</span>
+                    @if(!empty($student->schedule))
+                        <div class="text-[10px] text-slate-500 mt-0.5 truncate"><i class="fa-regular fa-clock mr-1"></i>{{ $student->schedule }}</div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="flex justify-between text-xs mb-1">
+                    <span class="text-slate-500">Progress</span>
+                    <span class="font-semibold text-slate-700">{{ $student->progress }}%</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-1.5">
+                    <div class="bg-amber-400 h-1.5 rounded-full" style="width: {{ $student->progress }}%"></div>
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex justify-end gap-4 items-center">
+                @auth
+                <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus siswa ini?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-rose-500 hover:text-rose-700 text-sm transition">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </form>
+                @endauth
+                <a href="{{ route('students.show', $student->id) }}" class="text-cyan-600 hover:text-cyan-700 text-sm font-medium">
+                    Detail <i class="fa-solid fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+        @empty
+        <div class="bg-white rounded-xl p-8 text-center text-slate-400 border border-slate-100">
+            No students found.
+        </div>
+        @endforelse
+    </div>
+
+    <!-- Students Table Card (Hidden on mobile) -->
+    <div class="hidden md:block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>

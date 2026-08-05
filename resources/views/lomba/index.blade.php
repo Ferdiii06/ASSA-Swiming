@@ -62,8 +62,66 @@
         @endif
     </div>
 
-    <!-- Lomba Table Card -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+    <!-- Mobile Cards View (Hidden on md and up) -->
+    <div class="md:hidden space-y-4 mb-4">
+        @forelse($lombaList as $lomba)
+        <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+            <div class="flex justify-between items-start mb-3">
+                <div class="pr-2">
+                    <h3 class="font-bold text-slate-800 tracking-wide">{{ $lomba->nama_nomor }}</h3>
+                    <p class="text-xs text-slate-500 mt-1 font-medium">{{ $lomba->kategori }} • {{ $lomba->seri_nama }}</p>
+                </div>
+                
+                @if($lomba->status === 'Berlangsung')
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-600 border border-emerald-200 whitespace-nowrap">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
+                        {{ $lomba->status }}
+                    </span>
+                @elseif($lomba->status === 'Siap Dimulai')
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-cyan-50 text-cyan-600 border border-cyan-200 whitespace-nowrap">
+                        {{ $lomba->status }}
+                    </span>
+                @elseif($lomba->status === 'Selesai')
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600 whitespace-nowrap">
+                        {{ $lomba->status }}
+                    </span>
+                @else
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-50 text-amber-600 border border-amber-200 whitespace-nowrap">
+                        {{ $lomba->status }}
+                    </span>
+                @endif
+            </div>
+
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-50 text-slate-600 border border-slate-100">
+                    <i class="fa-solid fa-users mr-1.5 text-slate-400"></i> {{ $lomba->jumlah_peserta }} Atlet
+                </span>
+                
+                <div class="flex items-center gap-4">
+                    @if(session('role', 'admin') !== 'parent')
+                    <form action="{{ route('lomba.destroy', $lomba->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus nomor lomba ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-rose-500 hover:text-rose-700 text-sm transition" title="Hapus">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </form>
+                    @endif
+                    <a href="{{ route('lomba.show', $lomba->id) }}" class="text-cyan-600 hover:text-cyan-700 text-sm font-medium">
+                        Detail <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @empty
+        <div class="bg-white rounded-xl p-8 text-center text-slate-400 border border-slate-100">
+            Belum ada data nomor lomba.
+        </div>
+        @endforelse
+    </div>
+
+    <!-- Lomba Table Card (Hidden on mobile) -->
+    <div class="hidden md:block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>

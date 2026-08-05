@@ -24,6 +24,18 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $allowedCoaches = ['Coach Vicky', 'Coach Arin', 'Coach Tiwi', 'Coach Tasya'];
+
+            if (!in_array(Auth::user()->name, $allowedCoaches)) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Akses ditolak. Hanya pelatih tertentu yang diizinkan masuk.',
+                ])->onlyInput('email');
+            }
+
             $request->session()->regenerate();
 
             return redirect()->intended(route('dashboard'))->with('info', 'Selamat datang kembali, ' . Auth::user()->name . '!');

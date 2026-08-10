@@ -174,8 +174,65 @@
     <!-- Main Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
         
+        <!-- Widget 1: Total Siswa -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium mb-0.5">Total Siswa</p>
+                <h3 class="text-2xl font-bold text-gray-800">{{ $totalStudents ?? 0 }}</h3>
+            </div>
+        </div>
 
+        <!-- Widget 2: Siswa Aktif -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium mb-0.5">Siswa Aktif</p>
+                <h3 class="text-2xl font-bold text-gray-800">{{ $activeStudents ?? 0 }}</h3>
+            </div>
+        </div>
 
+        <!-- Widget 3: Total Program -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium mb-0.5">Program Kelas</p>
+                <h3 class="text-2xl font-bold text-gray-800">{{ $totalPrograms ?? 0 }}</h3>
+            </div>
+        </div>
+
+        <!-- Widget 4: Total Coach -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-whistle"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium mb-0.5">Total Coach</p>
+                <h3 class="text-2xl font-bold text-gray-800">{{ $totalCoaches ?? 4 }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Banner Section -->
+    <div class="bg-gradient-to-r from-cyan-600 to-blue-700 rounded-2xl p-8 text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+        <div>
+            <h2 class="text-2xl font-bold mb-2">Evaluasi Siswa Semakin Mudah</h2>
+            <p class="text-cyan-100 max-w-2xl text-sm leading-relaxed">
+                Gunakan menu Manajemen Siswa untuk melihat data lengkap, mengisi raport perkembangan (skills), mencatat kehadiran, serta memantau status pembayaran wali murid secara real-time.
+            </p>
+        </div>
+        <div class="shrink-0">
+            <a href="{{ route('students.index') }}" class="inline-block px-6 py-3 bg-white text-cyan-700 font-bold rounded-xl shadow hover:bg-cyan-50 transition">
+                <i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Kelola Data Siswa
+            </a>
+        </div>
     </div>
 
     @if(!Auth::check())

@@ -13,13 +13,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default Coach user
-        User::updateOrCreate(
-            ['email' => 'coach@gmail.com'],
-            [
-                'name' => 'Coach',
-                'password' => Hash::make('password'),
-            ]
-        );
+        $coaches = [
+            ['name' => 'Coach Vicky', 'email' => 'vicky@lesrenang.com', 'password' => Hash::make('password'), 'role' => 'coach'],
+            ['name' => 'Coach Arin', 'email' => 'arin@lesrenang.com', 'password' => Hash::make('password'), 'role' => 'coach'],
+            ['name' => 'Coach Tiwi', 'email' => 'tiwi@lesrenang.com', 'password' => Hash::make('password'), 'role' => 'coach'],
+            ['name' => 'Coach Tasya', 'email' => 'tasya@lesrenang.com', 'password' => Hash::make('password'), 'role' => 'coach'],
+        ];
+
+        foreach ($coaches as $coach) {
+            User::updateOrCreate(
+                ['email' => $coach['email']],
+                $coach
+            );
+        }
     }
 }

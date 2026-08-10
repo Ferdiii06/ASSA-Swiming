@@ -11,27 +11,35 @@ class CoachSeeder extends Seeder
     {
         $coaches = [
             [
-                'name' => 'Coach Budi',
-                'email' => 'budi@lesrenang.com',
-                'phone' => '08123456781',
-                'specialization' => 'Basic & Intermediate',
-                'bio' => 'Pelatih berpengalaman 5 tahun di bidang renang',
+                'name' => 'Coach Vicky',
+                'email' => 'vicky@lesrenang.com',
+                'phone' => '08111111111',
+                'specialization' => 'All Levels',
+                'bio' => 'Coach Vicky',
                 'is_active' => true
             ],
             [
-                'name' => 'Coach Siti',
-                'email' => 'siti@lesrenang.com',
-                'phone' => '08123456782',
-                'specialization' => 'Advanced & Private',
-                'bio' => 'Mantan atlet renang nasional',
+                'name' => 'Coach Arin',
+                'email' => 'arin@lesrenang.com',
+                'phone' => '08222222222',
+                'specialization' => 'All Levels',
+                'bio' => 'Coach Arin',
                 'is_active' => true
             ],
             [
-                'name' => 'Coach Andi',
-                'email' => 'andi@lesrenang.com',
-                'phone' => '08123456783',
-                'specialization' => 'Basic & Anak-anak',
-                'bio' => 'Spesialis renang untuk anak-anak',
+                'name' => 'Coach Tiwi',
+                'email' => 'tiwi@lesrenang.com',
+                'phone' => '08333333333',
+                'specialization' => 'All Levels',
+                'bio' => 'Coach Tiwi',
+                'is_active' => true
+            ],
+            [
+                'name' => 'Coach Tasya',
+                'email' => 'tasya@lesrenang.com',
+                'phone' => '08444444444',
+                'specialization' => 'All Levels',
+                'bio' => 'Coach Tasya',
                 'is_active' => true
             ],
         ];

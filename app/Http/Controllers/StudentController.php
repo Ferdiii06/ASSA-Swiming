@@ -123,7 +123,74 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        return redirect()->route('students.index');
+        $jsonPath = database_path('students_spreadsheet.json');
+        
+        if (!file_exists($jsonPath)) {
+            return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        $raw = file_get_contents($jsonPath);
+        $studentsData = collect(json_decode($raw));
+        
+        $student = $studentsData->firstWhere('id', (int) $id);
+        
+        if (!$student) {
+            return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
+        }
+
+        // Mock data for Skills based on level
+        $skills = [
+            'LEVEL 1' => [
+                'Adaptasi Air', 'Bubble', 'Floating', 'Streamline',
+                'Kick', 'Meluncur', 'Freestyle', 'Backstroke',
+                'Breaststroke', 'Butterfly', 'Diving', 'Survival', 'Water Safety'
+            ],
+            'LEVEL 2' => [
+                'Adaptasi Air', 'Bubble', 'Floating', 'Streamline',
+                'Kick', 'Meluncur', 'Freestyle', 'Backstroke',
+                'Breaststroke', 'Butterfly', 'Diving', 'Survival', 'Water Safety'
+            ],
+            'LEVEL 3' => [
+                'Adaptasi Air', 'Bubble', 'Floating', 'Streamline',
+                'Kick', 'Meluncur', 'Freestyle', 'Backstroke',
+                'Breaststroke', 'Butterfly', 'Diving', 'Survival', 'Water Safety'
+            ]
+        ];
+
+        // Determine student skills based on level
+        $studentLevel = strtoupper(trim($student->level ?? 'LEVEL 1'));
+        $studentSkills = $skills[$studentLevel] ?? $skills['LEVEL 1'];
+        
+        // Mock Progress for skills (randomly check some based on progress percentage)
+        $completedSkills = [];
+        $totalSkills = count($studentSkills);
+        $skillsToComplete = max(1, round(($student->progress ?? 0) / 100 * $totalSkills));
+        for ($i = 0; $i < $totalSkills; $i++) {
+            $completedSkills[$studentSkills[$i]] = $i < $skillsToComplete;
+        }
+
+        // Mock Attendance (8x pertemuan)
+        // Let's generate a mockup attendance based on their progress
+        $attendance = [];
+        $totalMeetings = 8;
+        $meetingsAttended = max(1, round(($student->progress ?? 0) / 100 * $totalMeetings));
+        for ($i = 1; $i <= $totalMeetings; $i++) {
+            if ($i <= $meetingsAttended) {
+                $status = 'Hadir'; // Most likely hadir
+                // Maybe 10% chance of alpha/izin if they haven't finished all
+            } else {
+                $status = 'Belum';
+            }
+            $attendance[] = [
+                'meeting' => $i,
+                'status' => $status
+            ];
+        }
+
+        // Payment status based on nominal
+        $paymentStatus = !empty($student->nominal) && $student->nominal !== '-' ? 'Lunas' : 'Belum Bayar';
+
+        return view('students.show', compact('student', 'completedSkills', 'attendance', 'paymentStatus'));
     }
 
     public function destroy($id)

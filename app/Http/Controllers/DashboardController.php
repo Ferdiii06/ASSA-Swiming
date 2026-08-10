@@ -29,14 +29,41 @@ class DashboardController extends Controller
             ]);
         }
 
+        // Get data from JSON
+        $jsonPath = database_path('students_spreadsheet.json');
+        $students = [];
+        $totalStudents = 0;
+        $activeStudents = 0;
+        $programs = [];
+        
+        if (file_exists($jsonPath)) {
+            $json = file_get_contents($jsonPath);
+            $students = json_decode($json, true);
+            
+            if (is_array($students)) {
+                $totalStudents = count($students);
+                foreach ($students as $student) {
+                    if (isset($student['status']) && $student['status'] === 'Active') {
+                        $activeStudents++;
+                    } elseif (isset($student['nominal']) && !empty($student['nominal'])) {
+                        $activeStudents++;
+                    }
+                    
+                    if (isset($student['program']) && !empty($student['program'])) {
+                        $programs[$student['program']] = true;
+                    }
+                }
+            }
+        }
+        
+        $totalPrograms = count(array_keys($programs));
+
         return view('dashboard', [
             'isParent' => false,
-            'totalAcara' => 12,
-            'totalSeri' => 34,
-            'totalLomba' => 210,
-            'totalClub' => 58,
-            'upcomingAcara' => [],
-            'topClubs' => [],
+            'totalStudents' => $totalStudents,
+            'activeStudents' => $activeStudents,
+            'totalPrograms' => $totalPrograms,
+            'totalCoaches' => 4, // Vicky, Arin, Tiwi, Tasya
         ]);
     }
 

@@ -248,8 +248,8 @@
                         @auth
                         <td class="py-4 px-5 text-right">
                             <div class="inline-flex items-center gap-3">
-                                <a href="{{ route('students.show', $student->id) }}" class="text-slate-400 hover:text-cyan-600 transition" title="View Detail">
-                                    <i class="fa-regular fa-eye"></i>
+                                <a href="{{ route('students.show', $student->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-cyan-50 text-cyan-700 hover:bg-cyan-600 hover:text-white rounded-lg text-xs font-semibold transition shadow-sm" title="Lihat Detail">
+                                    Detail <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </a>
                                 <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus siswa ini?');">
                                     @csrf

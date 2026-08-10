@@ -8,7 +8,29 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+
+        if ($user && $user->isParent()) {
+            $students = $user->students()->with([
+                'enrollments' => function($q) {
+                    $q->active()->with('schedule.coach', 'program');
+                },
+                'progressReports' => function($q) {
+                    $q->latest('created_at');
+                },
+                'payments' => function($q) {
+                    $q->latest('created_at');
+                }
+            ])->get();
+
+            return view('dashboard', [
+                'isParent' => true,
+                'students' => $students
+            ]);
+        }
+
         return view('dashboard', [
+            'isParent' => false,
             'totalAcara' => 12,
             'totalSeri' => 34,
             'totalLomba' => 210,

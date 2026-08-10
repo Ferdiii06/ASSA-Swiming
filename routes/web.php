@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AcaraController;
-use App\Http\Controllers\SeriController;
-use App\Http\Controllers\LombaController;
-use App\Http\Controllers\ClubController;
+
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
 
@@ -36,7 +33,3 @@ Route::middleware('auth')->group(function () {
 });
 
 // Other Resources
-Route::resource('acara', AcaraController::class);
-Route::resource('seri', SeriController::class);
-Route::resource('lomba', LombaController::class);
-Route::resource('club', ClubController::class);

@@ -19,7 +19,7 @@
         <div class="p-6 md:p-8 flex-1 border-b md:border-b-0 md:border-r border-slate-100">
             <form method="POST" action="{{ route('payments.store') }}" enctype="multipart/form-data">
                 @csrf
-                
+
                 <div class="space-y-6">
                     <!-- Pilih Siswa -->
                     <div>
@@ -79,21 +79,21 @@
                 </div>
             </form>
         </div>
-        
+
         <!-- QRIS Section -->
         <div class="p-6 md:p-8 md:w-80 bg-slate-50 flex flex-col items-center justify-center text-center">
             <h3 class="text-lg font-bold text-slate-800 mb-2">Scan QRIS</h3>
             <p class="text-xs text-slate-500 mb-6">Pembayaran resmi ASSA Swimming Course. Diterima oleh semua M-Banking & E-Wallet.</p>
-            
+
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-4 relative">
                 <!-- Placeholder Image for QRIS -->
                 <!-- We use a placeholder image service representing a QR code -->
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ASSA_SWIMMING_DUMMY_QRIS" alt="QRIS ASSA Swimming" class="w-48 h-48 object-contain">
-                
+                <img src="images/Qrispembayaran.jpeg" alt="QRIS ASSA Swimming" class="w-48 h-48 object-contain">
+
                 <!-- Overlay for aesthetic -->
                 <div class="absolute inset-0 border-4 border-cyan-500/20 rounded-2xl pointer-events-none"></div>
             </div>
-            
+
             <div class="flex items-center gap-2 text-slate-600 text-sm font-medium">
                 <i class="fa-solid fa-shield-check text-emerald-500"></i> Pembayaran Aman
             </div>

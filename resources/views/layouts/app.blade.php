@@ -33,22 +33,7 @@
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('students.*') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-graduation-cap w-5"></i> Siswa
                 </a>
-                <a href="{{ route('acara.index') }}"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('acara.*') ? 'bg-cyan-600' : '' }}">
-                    <i class="fa-solid fa-calendar-days w-5"></i> Acara
-                </a>
-                <a href="{{ route('seri.index') }}"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('seri.*') ? 'bg-cyan-600' : '' }}">
-                    <i class="fa-solid fa-layer-group w-5"></i> Seri
-                </a>
-                <a href="{{ route('lomba.index') }}"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('lomba.*') ? 'bg-cyan-600' : '' }}">
-                    <i class="fa-solid fa-person-swimming w-5"></i> Lomba
-                </a>
-                <a href="{{ route('club.index') }}"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('club.*') ? 'bg-cyan-600' : '' }}">
-                    <i class="fa-solid fa-people-group w-5"></i> Club
-                </a>
+
                 
                 <div class="pt-4 mt-2 border-t border-slate-700"></div>
                 

@@ -3,6 +3,13 @@
 
 @section('content')
 
+<!-- Background Image Watermark -->
+<div class="fixed inset-0 z-0 pointer-events-none flex items-center justify-center opacity-[0.03]">
+    <img src="{{ asset('images/ASSAswim.png') }}" alt="Background" class="max-w-md md:max-w-xl lg:max-w-2xl w-full object-contain grayscale">
+</div>
+
+<div class="relative z-10">
+
 @if(isset($isParent) && $isParent)
     <!-- PARENT DASHBOARD -->
     <div class="mb-6">
@@ -210,7 +217,7 @@
         <!-- Widget 4: Total Coach -->
         <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
             <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
-                <i class="fa-solid fa-whistle"></i>
+                <i class="fa-solid fa-person-swimming"></i>
             </div>
             <div>
                 <p class="text-sm text-gray-500 font-medium mb-0.5">Total Coach</p>
@@ -251,5 +258,7 @@
     </div>
     @endif
 @endif
+
+</div>
 
 @endsection

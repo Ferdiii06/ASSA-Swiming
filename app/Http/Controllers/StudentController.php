@@ -192,7 +192,73 @@ class StudentController extends Controller
 
         return view('students.show', compact('student', 'completedSkills', 'attendance', 'paymentStatus'));
     }
+    public function edit($id)
+    {
+        $jsonPath = database_path('students_spreadsheet.json');
+        
+        if (!file_exists($jsonPath)) {
+            return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
+        }
 
+        $raw = file_get_contents($jsonPath);
+        $studentsData = collect(json_decode($raw));
+        
+        $student = $studentsData->firstWhere('id', (int) $id);
+        
+        if (!$student) {
+            return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
+        }
+
+        return view('students.edit', compact('student'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'parent_name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'age' => 'nullable|string|max:10',
+            'location' => 'nullable|string|max:255',
+            'program' => 'nullable|string|max:255',
+            'schedule' => 'nullable|string|max:255',
+            'level' => 'nullable|string|max:255',
+            'nominal' => 'nullable|string|max:255',
+        ]);
+
+        $jsonPath = database_path('students_spreadsheet.json');
+        
+        if (!file_exists($jsonPath)) {
+            return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        $raw = file_get_contents($jsonPath);
+        $studentsData = json_decode($raw, true); // decode as associative array
+        
+        $updated = false;
+        foreach ($studentsData as $key => $student) {
+            if ($student['id'] == $id) {
+                $studentsData[$key]['name'] = $request->name;
+                $studentsData[$key]['parent_name'] = $request->parent_name;
+                $studentsData[$key]['phone'] = $request->phone;
+                $studentsData[$key]['age'] = $request->age;
+                $studentsData[$key]['location'] = $request->location;
+                $studentsData[$key]['program'] = $request->program;
+                $studentsData[$key]['schedule'] = $request->schedule;
+                $studentsData[$key]['level'] = $request->level;
+                $studentsData[$key]['nominal'] = $request->nominal;
+                $updated = true;
+                break;
+            }
+        }
+
+        if ($updated) {
+            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+            return redirect()->route('students.show', $id)->with('success', 'Data siswa berhasil diperbarui!');
+        }
+
+        return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
+    }
     public function destroy($id)
     {
         return redirect()->route('students.index')->with('success', 'Siswa berhasil dihapus!');

@@ -2,20 +2,20 @@
 @section('title', 'Detail Siswa - ' . $student->name)
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6" id="content-area">
 
     <!-- Header Actions -->
     <div class="flex items-center justify-between">
-        <a href="{{ route('students.index') }}" class="text-sm font-medium text-slate-500 hover:text-slate-800 transition">
+        <a href="{{ route('students.index') }}" class="text-sm font-medium text-slate-500 hover:text-slate-800 transition print:hidden">
             <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar Siswa
         </a>
-        <div class="flex gap-2">
-            <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition shadow-sm">
+        <div class="flex gap-2 print:hidden">
+            <button onclick="window.print()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition shadow-sm">
                 <i class="fa-solid fa-print mr-1"></i> Cetak Raport
             </button>
-            <button class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-lg transition shadow-sm">
+            <a href="{{ route('students.edit', $student->id) }}" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-lg transition shadow-sm inline-flex items-center">
                 <i class="fa-regular fa-pen-to-square mr-1"></i> Edit Data
-            </button>
+            </a>
         </div>
     </div>
 
@@ -227,4 +227,23 @@
         </div>
     </div>
 </div>
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #content-area, #content-area * {
+            visibility: visible;
+        }
+        #content-area {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        .print\:hidden {
+            display: none !important;
+        }
+    }
+</style>
 @endsection

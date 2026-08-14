@@ -130,14 +130,30 @@
                 </div>
             </div>
 
+            @if(Auth::check())
+            <form action="{{ route('students.updateEvaluation', $student->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+            @endif
+            
             <!-- Skills Checklist -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
                 <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-list-check text-slate-400"></i> Skill yang Dilampaui ({{ $student->level ?? 'Level 1' }})
                 </h3>
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @foreach($completedSkills as $skillName => $isCompleted)
+                    
+                    @if(Auth::check())
+                    <label class="flex items-start p-3 rounded-xl border cursor-pointer {{ $isCompleted ? 'bg-emerald-50/50 border-emerald-100' : 'bg-slate-50 border-slate-200' }} hover:bg-slate-100 transition">
+                        <div class="flex-shrink-0 mt-0.5">
+                            <input type="checkbox" name="skills[]" value="{{ $skillName }}" {{ $isCompleted ? 'checked' : '' }} class="w-5 h-5 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500">
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium {{ $isCompleted ? 'text-slate-800' : 'text-slate-700' }}">{{ $skillName }}</p>
+                        </div>
+                    </label>
+                    @else
                     <div class="flex items-start p-3 rounded-xl border {{ $isCompleted ? 'bg-emerald-50/50 border-emerald-100' : 'bg-slate-50 border-slate-200' }}">
                         <div class="flex-shrink-0 mt-0.5">
                             @if($isCompleted)
@@ -157,8 +173,11 @@
                             @endif
                         </div>
                     </div>
+                    @endif
+                    
                     @endforeach
                 </div>
+                <!-- Form will be closed after attendance -->
 
                 <!-- Catatan Coach -->
                 <div class="mt-6 border-t border-slate-100 pt-5">
@@ -195,19 +214,37 @@
                         <tbody>
                             <tr>
                                 @foreach($attendance as $att)
-                                <td class="pt-4 pb-2">
-                                    @if($att['status'] === 'Hadir')
-                                        <div class="mx-auto w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-sm border border-emerald-200" title="Hadir">
-                                            <i class="fa-solid fa-check text-lg"></i>
-                                        </div>
-                                    @elseif($att['status'] === 'Belum')
-                                        <div class="mx-auto w-10 h-10 rounded-xl bg-slate-50 text-slate-300 flex items-center justify-center border border-slate-200 border-dashed" title="Belum dilaksanakan">
-                                            <i class="fa-solid fa-minus text-sm"></i>
-                                        </div>
+                                <td class="pt-4 pb-2 px-1">
+                                    @if(Auth::check())
+                                        <select name="attendance[]" class="text-xs rounded border-slate-300 w-full py-1 px-1 focus:ring-emerald-500 focus:border-emerald-500">
+                                            <option value="Belum" {{ $att['status'] == 'Belum' ? 'selected' : '' }}>Belum</option>
+                                            <option value="Hadir" {{ $att['status'] == 'Hadir' ? 'selected' : '' }}>Hadir</option>
+                                            <option value="Tidak Hadir" {{ $att['status'] == 'Tidak Hadir' ? 'selected' : '' }}>Tidak Hadir</option>
+                                            <option value="Izin" {{ $att['status'] == 'Izin' ? 'selected' : '' }}>Izin</option>
+                                            <option value="Sakit" {{ $att['status'] == 'Sakit' ? 'selected' : '' }}>Sakit</option>
+                                        </select>
                                     @else
-                                        <div class="mx-auto w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shadow-sm border border-rose-200" title="Absen">
-                                            <i class="fa-solid fa-xmark text-lg"></i>
-                                        </div>
+                                        @if($att['status'] === 'Hadir')
+                                            <div class="mx-auto w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-sm border border-emerald-200" title="Hadir">
+                                                <i class="fa-solid fa-check text-lg"></i>
+                                            </div>
+                                        @elseif($att['status'] === 'Belum')
+                                            <div class="mx-auto w-10 h-10 rounded-xl bg-slate-50 text-slate-300 flex items-center justify-center border border-slate-200 border-dashed" title="Belum dilaksanakan">
+                                                <i class="fa-solid fa-minus text-sm"></i>
+                                            </div>
+                                        @elseif($att['status'] === 'Izin')
+                                            <div class="mx-auto w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-sm border border-amber-200" title="Izin">
+                                                <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                                            </div>
+                                        @elseif($att['status'] === 'Sakit')
+                                            <div class="mx-auto w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center shadow-sm border border-indigo-200" title="Sakit">
+                                                <i class="fa-solid fa-notes-medical text-lg"></i>
+                                            </div>
+                                        @else
+                                            <div class="mx-auto w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shadow-sm border border-rose-200" title="Tidak Hadir">
+                                                <i class="fa-solid fa-xmark text-lg"></i>
+                                            </div>
+                                        @endif
                                     @endif
                                 </td>
                                 @endforeach
@@ -223,6 +260,15 @@
                     </table>
                 </div>
             </div>
+
+            @if(Auth::check())
+                <div class="mt-6 flex justify-end">
+                    <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-sm transition">
+                        <i class="fa-solid fa-save mr-1"></i> Simpan Evaluasi (Skill & Kehadiran)
+                    </button>
+                </div>
+            </form>
+            @endif
             
         </div>
     </div>

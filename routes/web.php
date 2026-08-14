@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
 // Students Routes - Restricted
 Route::resource('students', StudentController::class)->except(['index', 'show'])->middleware('auth');
+Route::put('students/{id}/evaluation', [StudentController::class, 'updateEvaluation'])->name('students.updateEvaluation')->middleware('auth');
 Route::resource('students', StudentController::class)->only(['index', 'show']);
 
 // Payments Routes

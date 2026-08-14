@@ -58,7 +58,7 @@
 
         <!-- Main content -->
         <div class="flex-1 flex flex-col min-w-0">
-            <header class="bg-white shadow-sm px-4 sm:px-6 py-3.5 flex justify-between items-center sticky top-0 z-10 border-b border-slate-100">
+            <header class="bg-white shadow-sm px-4 sm:px-6 py-3.5 flex justify-between items-center sticky top-0 z-40 border-b border-slate-100">
                 <div class="flex items-center gap-3">
                     <!-- Hamburger Button Mobile -->
                     <button id="open-sidebar-btn" class="md:hidden text-slate-600 hover:text-slate-900 p-1.5 rounded-lg focus:outline-none hover:bg-slate-100">

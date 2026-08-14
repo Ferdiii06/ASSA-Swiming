@@ -141,19 +141,19 @@ class StudentController extends Controller
         // Mock data for Skills based on level
         $skills = [
             'LEVEL 1' => [
-                'Adaptasi Air', 'Bubble', 'Floating', 'Streamline',
-                'Kick', 'Meluncur', 'Freestyle', 'Backstroke',
-                'Breaststroke', 'Butterfly', 'Diving', 'Survival', 'Water Safety'
+                'Renang gaya bebas (front crawl atau freestyle)', 'Renang gaya dada (breaststroke)', 'Renang gaya punggung (backstroke)', 'Renang gaya kupu-kupu (butterfly stroke)',
+                'Gaya renang samping (sidestroke)', 'Gaya combat', 'Gaya renang bawah air', 'Gaya renang trudgen',
+                'Gaya renang anjing (dog paddle style)', 'Gaya renang penyelamatan'
             ],
             'LEVEL 2' => [
-                'Adaptasi Air', 'Bubble', 'Floating', 'Streamline',
-                'Kick', 'Meluncur', 'Freestyle', 'Backstroke',
-                'Breaststroke', 'Butterfly', 'Diving', 'Survival', 'Water Safety'
+                'Renang gaya bebas (front crawl atau freestyle)', 'Renang gaya dada (breaststroke)', 'Renang gaya punggung (backstroke)', 'Renang gaya kupu-kupu (butterfly stroke)',
+                'Gaya renang samping (sidestroke)', 'Gaya combat', 'Gaya renang bawah air', 'Gaya renang trudgen',
+                'Gaya renang anjing (dog paddle style)', 'Gaya renang penyelamatan'
             ],
             'LEVEL 3' => [
-                'Adaptasi Air', 'Bubble', 'Floating', 'Streamline',
-                'Kick', 'Meluncur', 'Freestyle', 'Backstroke',
-                'Breaststroke', 'Butterfly', 'Diving', 'Survival', 'Water Safety'
+                'Renang gaya bebas (front crawl atau freestyle)', 'Renang gaya dada (breaststroke)', 'Renang gaya punggung (backstroke)', 'Renang gaya kupu-kupu (butterfly stroke)',
+                'Gaya renang samping (sidestroke)', 'Gaya combat', 'Gaya renang bawah air', 'Gaya renang trudgen',
+                'Gaya renang anjing (dog paddle style)', 'Gaya renang penyelamatan'
             ]
         ];
 
@@ -161,29 +161,18 @@ class StudentController extends Controller
         $studentLevel = strtoupper(trim($student->level ?? 'LEVEL 1'));
         $studentSkills = $skills[$studentLevel] ?? $skills['LEVEL 1'];
         
-        // Mock Progress for skills (randomly check some based on progress percentage)
+        $savedSkills = isset($student->completed_skills) ? (array) $student->completed_skills : [];
         $completedSkills = [];
-        $totalSkills = count($studentSkills);
-        $skillsToComplete = max(1, round(($student->progress ?? 0) / 100 * $totalSkills));
-        for ($i = 0; $i < $totalSkills; $i++) {
-            $completedSkills[$studentSkills[$i]] = $i < $skillsToComplete;
+        foreach ($studentSkills as $skillName) {
+            $completedSkills[$skillName] = in_array($skillName, $savedSkills);
         }
 
-        // Mock Attendance (8x pertemuan)
-        // Let's generate a mockup attendance based on their progress
+        $savedAttendance = isset($student->attendance) ? (array) $student->attendance : array_fill(0, 8, 'Belum');
         $attendance = [];
-        $totalMeetings = 8;
-        $meetingsAttended = max(1, round(($student->progress ?? 0) / 100 * $totalMeetings));
-        for ($i = 1; $i <= $totalMeetings; $i++) {
-            if ($i <= $meetingsAttended) {
-                $status = 'Hadir'; // Most likely hadir
-                // Maybe 10% chance of alpha/izin if they haven't finished all
-            } else {
-                $status = 'Belum';
-            }
+        for ($i = 0; $i < 8; $i++) {
             $attendance[] = [
-                'meeting' => $i,
-                'status' => $status
+                'meeting' => $i + 1,
+                'status' => $savedAttendance[$i] ?? 'Belum'
             ];
         }
 
@@ -262,5 +251,61 @@ class StudentController extends Controller
     public function destroy($id)
     {
         return redirect()->route('students.index')->with('success', 'Siswa berhasil dihapus!');
+    }
+
+    public function updateEvaluation(Request $request, $id)
+    {
+        $jsonPath = database_path('students_spreadsheet.json');
+        
+        if (!file_exists($jsonPath)) {
+            return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        $raw = file_get_contents($jsonPath);
+        $studentsData = json_decode($raw, true);
+        
+        $updated = false;
+        $skillsCompleted = $request->input('skills', []);
+        $attendanceInput = $request->input('attendance', array_fill(0, 8, 'Belum'));
+        
+        foreach ($studentsData as $key => $student) {
+            if ($student['id'] == $id) {
+                $studentsData[$key]['completed_skills'] = $skillsCompleted;
+                $studentsData[$key]['attendance'] = $attendanceInput;
+                
+                // Kalkulasi ulang progress berdasarkan bobot kesulitan per gaya renang
+                $skillWeights = [
+                    'Renang gaya bebas (front crawl atau freestyle)' => 15,
+                    'Renang gaya dada (breaststroke)' => 15,
+                    'Renang gaya punggung (backstroke)' => 15,
+                    'Renang gaya kupu-kupu (butterfly stroke)' => 20,
+                    'Gaya renang samping (sidestroke)' => 5,
+                    'Gaya combat' => 5,
+                    'Gaya renang bawah air' => 5,
+                    'Gaya renang trudgen' => 5,
+                    'Gaya renang anjing (dog paddle style)' => 5,
+                    'Gaya renang penyelamatan' => 10,
+                ];
+                
+                $newProgress = 0;
+                foreach ($skillsCompleted as $skill) {
+                    $newProgress += $skillWeights[$skill] ?? 0;
+                }
+                
+                // Pastikan tidak lebih dari 100%
+                $newProgress = min(100, $newProgress);
+                $studentsData[$key]['progress'] = $newProgress;
+                
+                $updated = true;
+                break;
+            }
+        }
+
+        if ($updated) {
+            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+            return redirect()->route('students.show', $id)->with('success', 'Penilaian skill berhasil disimpan!');
+        }
+
+        return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
     }
 }

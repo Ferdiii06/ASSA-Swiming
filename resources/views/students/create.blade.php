@@ -37,9 +37,24 @@
                     <option value="LEVEL 1">LEVEL 1</option>
                     <option value="LEVEL 2">LEVEL 2</option>
                     <option value="LEVEL 3">LEVEL 3</option>
+                    <option value="LEVEL 4">LEVEL 4</option>
+                    <option value="LEVEL 5">LEVEL 5</option>
+                    <option value="LEVEL 6">LEVEL 6</option>
+                    <option value="LEVEL 7">LEVEL 7</option>
+                    <option value="LEVEL 8">LEVEL 8</option>
+                    <option value="LEVEL 9">LEVEL 9</option>
+                    <option value="LEVEL 10">LEVEL 10</option>
                     <option value="ADVANCED">ADVANCED</option>
                 </select>
             </div>
+        </div>
+
+        <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Paket Pertemuan</label>
+            <select name="package_meetings" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+                <option value="8">8 Kali Pertemuan</option>
+                <option value="4">4 Kali Pertemuan</option>
+            </select>
         </div>
 
         <div class="pt-4 flex justify-end gap-3">

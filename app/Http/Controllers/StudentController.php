@@ -138,22 +138,36 @@ class StudentController extends Controller
             return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
         }
 
-        // Mock data for Skills based on level
         $skills = [
             'LEVEL 1' => [
-                'Renang gaya bebas (front crawl atau freestyle)', 'Renang gaya dada (breaststroke)', 'Renang gaya punggung (backstroke)', 'Renang gaya kupu-kupu (butterfly stroke)',
-                'Gaya renang samping (sidestroke)', 'Gaya combat', 'Gaya renang bawah air', 'Gaya renang trudgen',
-                'Gaya renang anjing (dog paddle style)', 'Gaya renang penyelamatan'
+                'Adaptasi air', 'Pernafasan dasar', 'Berani masuk kolam'
             ],
             'LEVEL 2' => [
-                'Renang gaya bebas (front crawl atau freestyle)', 'Renang gaya dada (breaststroke)', 'Renang gaya punggung (backstroke)', 'Renang gaya kupu-kupu (butterfly stroke)',
-                'Gaya renang samping (sidestroke)', 'Gaya combat', 'Gaya renang bawah air', 'Gaya renang trudgen',
-                'Gaya renang anjing (dog paddle style)', 'Gaya renang penyelamatan'
+                'Mengapung telentang & tengkurap', 'Streamline', 'Meluncur'
             ],
             'LEVEL 3' => [
-                'Renang gaya bebas (front crawl atau freestyle)', 'Renang gaya dada (breaststroke)', 'Renang gaya punggung (backstroke)', 'Renang gaya kupu-kupu (butterfly stroke)',
-                'Gaya renang samping (sidestroke)', 'Gaya combat', 'Gaya renang bawah air', 'Gaya renang trudgen',
-                'Gaya renang anjing (dog paddle style)', 'Gaya renang penyelamatan'
+                'Freestyle Kick', 'Backstroke Kick', 'Breaststroke Kick', 'Dolphin Kick'
+            ],
+            'LEVEL 4' => [
+                'Gerakan tangan', 'Side breathing', 'Koordinasi gaya bebas'
+            ],
+            'LEVEL 5' => [
+                'Teknik gaya punggung', 'Koordinasi penuh'
+            ],
+            'LEVEL 6' => [
+                'Breaststroke Kick', 'Pull & Glide', 'Koordinasi penuh'
+            ],
+            'LEVEL 7' => [
+                'Dolphin Body Motion', 'Butterfly Arm Recovery', 'Koordinasi gaya kupu-kupu'
+            ],
+            'LEVEL 8' => [
+                'Penyempurnaan 4 gaya', 'Endurance', 'Speed Training'
+            ],
+            'LEVEL 9' => [
+                'Start', 'Turn', 'Finish', 'Race Technique'
+            ],
+            'LEVEL 10' => [
+                'Program atlet', 'Target lomba', 'Performance training'
             ]
         ];
 
@@ -167,19 +181,22 @@ class StudentController extends Controller
             $completedSkills[$skillName] = in_array($skillName, $savedSkills);
         }
 
-        $savedAttendance = isset($student->attendance) ? (array) $student->attendance : array_fill(0, 8, 'Belum');
+        $package_meetings = isset($student->package_meetings) ? (int) $student->package_meetings : 8;
+        $savedAttendance = isset($student->attendance) ? (array) $student->attendance : array_fill(0, $package_meetings, 'Belum');
         $attendance = [];
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < $package_meetings; $i++) {
             $attendance[] = [
                 'meeting' => $i + 1,
                 'status' => $savedAttendance[$i] ?? 'Belum'
             ];
         }
+        
+        $holidays = isset($student->holidays) ? (array) $student->holidays : [];
 
         // Payment status based on nominal
         $paymentStatus = !empty($student->nominal) && $student->nominal !== '-' ? 'Lunas' : 'Belum Bayar';
 
-        return view('students.show', compact('student', 'completedSkills', 'attendance', 'paymentStatus'));
+        return view('students.show', compact('student', 'completedSkills', 'attendance', 'paymentStatus', 'holidays', 'package_meetings'));
     }
     public function edit($id)
     {
@@ -212,6 +229,7 @@ class StudentController extends Controller
             'program' => 'nullable|string|max:255',
             'schedule' => 'nullable|string|max:255',
             'level' => 'nullable|string|max:255',
+            'package_meetings' => 'nullable|integer',
             'nominal' => 'nullable|string|max:255',
         ]);
 
@@ -235,6 +253,7 @@ class StudentController extends Controller
                 $studentsData[$key]['program'] = $request->program;
                 $studentsData[$key]['schedule'] = $request->schedule;
                 $studentsData[$key]['level'] = $request->level;
+                $studentsData[$key]['package_meetings'] = (int) $request->package_meetings;
                 $studentsData[$key]['nominal'] = $request->nominal;
                 $updated = true;
                 break;
@@ -266,30 +285,37 @@ class StudentController extends Controller
         
         $updated = false;
         $skillsCompleted = $request->input('skills', []);
-        $attendanceInput = $request->input('attendance', array_fill(0, 8, 'Belum'));
         
         foreach ($studentsData as $key => $student) {
             if ($student['id'] == $id) {
+                $package_meetings = isset($student['package_meetings']) ? (int) $student['package_meetings'] : 8;
+                $attendanceInput = $request->input('attendance', array_fill(0, $package_meetings, 'Belum'));
+                $holidaysInput = $request->input('holidays', []);
+                
                 $studentsData[$key]['completed_skills'] = $skillsCompleted;
                 $studentsData[$key]['attendance'] = $attendanceInput;
+                $studentsData[$key]['holidays'] = array_filter($holidaysInput);
                 
-                // Kalkulasi ulang progress berdasarkan bobot kesulitan per gaya renang
-                $skillWeights = [
-                    'Renang gaya bebas (front crawl atau freestyle)' => 15,
-                    'Renang gaya dada (breaststroke)' => 15,
-                    'Renang gaya punggung (backstroke)' => 15,
-                    'Renang gaya kupu-kupu (butterfly stroke)' => 20,
-                    'Gaya renang samping (sidestroke)' => 5,
-                    'Gaya combat' => 5,
-                    'Gaya renang bawah air' => 5,
-                    'Gaya renang trudgen' => 5,
-                    'Gaya renang anjing (dog paddle style)' => 5,
-                    'Gaya renang penyelamatan' => 10,
+                // Kalkulasi ulang progress berdasarkan jumlah skill yang dikuasai
+                $skillsMap = [
+                    'LEVEL 1' => ['Adaptasi air', 'Pernafasan dasar', 'Berani masuk kolam'],
+                    'LEVEL 2' => ['Mengapung telentang & tengkurap', 'Streamline', 'Meluncur'],
+                    'LEVEL 3' => ['Freestyle Kick', 'Backstroke Kick', 'Breaststroke Kick', 'Dolphin Kick'],
+                    'LEVEL 4' => ['Gerakan tangan', 'Side breathing', 'Koordinasi gaya bebas'],
+                    'LEVEL 5' => ['Teknik gaya punggung', 'Koordinasi penuh'],
+                    'LEVEL 6' => ['Breaststroke Kick', 'Pull & Glide', 'Koordinasi penuh'],
+                    'LEVEL 7' => ['Dolphin Body Motion', 'Butterfly Arm Recovery', 'Koordinasi gaya kupu-kupu'],
+                    'LEVEL 8' => ['Penyempurnaan 4 gaya', 'Endurance', 'Speed Training'],
+                    'LEVEL 9' => ['Start', 'Turn', 'Finish', 'Race Technique'],
+                    'LEVEL 10' => ['Program atlet', 'Target lomba', 'Performance training']
                 ];
                 
+                $studentLevel = strtoupper(trim($student['level'] ?? 'LEVEL 1'));
+                $totalSkillsForLevel = count($skillsMap[$studentLevel] ?? $skillsMap['LEVEL 1']);
+                
                 $newProgress = 0;
-                foreach ($skillsCompleted as $skill) {
-                    $newProgress += $skillWeights[$skill] ?? 0;
+                if ($totalSkillsForLevel > 0) {
+                    $newProgress = round((count($skillsCompleted) / $totalSkillsForLevel) * 100);
                 }
                 
                 // Pastikan tidak lebih dari 100%

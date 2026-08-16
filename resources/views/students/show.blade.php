@@ -110,7 +110,9 @@
                 </div>
                 
                 @if($paymentStatus === 'Lunas')
+                @auth
                 <p class="text-xs text-slate-500 mt-4 text-center">Telah dibayar: <span class="font-bold text-slate-700">{{ $student->nominal }}</span></p>
+                @endauth
                 @endif
             </div>
         </div>
@@ -196,23 +198,34 @@
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 overflow-hidden">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-regular fa-calendar-check text-slate-400"></i> Kehadiran (8x Pertemuan)
+                        <i class="fa-regular fa-calendar-check text-slate-400"></i> Kehadiran ({{ $package_meetings ?? 8 }}x Pertemuan)
                     </h3>
+                    @if(Auth::check())
+                        <button type="button" onclick="addHoliday()" class="text-xs px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold rounded-lg transition shadow-sm border border-rose-100">
+                            <i class="fa-solid fa-plus mr-1"></i> Tambah Libur
+                        </button>
+                    @endif
                 </div>
                 
                 <div class="overflow-x-auto">
                     <table class="w-full text-center border-collapse">
                         <thead>
-                            <tr>
+                            <tr id="attendance-head-row">
                                 @foreach($attendance as $att)
-                                <th class="pb-3 text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 w-1/8">
+                                <th class="pb-3 text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 min-w-[60px]">
                                     Prt {{ $att['meeting'] }}
+                                </th>
+                                @endforeach
+
+                                @foreach($holidays as $index => $holiday)
+                                <th class="pb-3 text-xs font-bold text-rose-400 uppercase tracking-wider border-b border-rose-100 min-w-[90px] holiday-col" data-index="{{ $index }}">
+                                    Libur <br> <span class="text-[10px] text-rose-500 font-medium">{{ $holiday }}</span>
                                 </th>
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr id="attendance-body-row">
                                 @foreach($attendance as $att)
                                 <td class="pt-4 pb-2 px-1">
                                     @if(Auth::check())
@@ -248,11 +261,32 @@
                                     @endif
                                 </td>
                                 @endforeach
+
+                                @foreach($holidays as $index => $holiday)
+                                <td class="pt-4 pb-2 px-1 holiday-col" data-index="{{ $index }}">
+                                    @if(Auth::check())
+                                        <div class="flex flex-col items-center gap-1.5">
+                                            <input type="text" name="holidays[]" value="{{ $holiday }}" class="text-[10px] rounded border-rose-300 w-full py-1 px-1 text-center text-rose-700 bg-rose-50 focus:ring-rose-500" placeholder="Tgl">
+                                            <button type="button" onclick="removeHoliday({{ $index }})" class="text-[10px] font-semibold text-rose-500 hover:text-rose-700 hover:underline">Hapus</button>
+                                        </div>
+                                    @else
+                                        <div class="mx-auto w-10 h-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center shadow-sm border border-rose-100" title="Libur">
+                                            <i class="fa-solid fa-calendar-xmark text-lg"></i>
+                                        </div>
+                                    @endif
+                                </td>
+                                @endforeach
                             </tr>
-                            <tr>
+                            <tr id="attendance-label-row">
                                 @foreach($attendance as $att)
                                 <td class="pt-1 text-[10px] font-semibold text-slate-500">
                                     {{ $att['status'] }}
+                                </td>
+                                @endforeach
+
+                                @foreach($holidays as $index => $holiday)
+                                <td class="pt-1 text-[10px] font-semibold text-rose-500 holiday-col" data-index="{{ $index }}">
+                                    Libur Merah
                                 </td>
                                 @endforeach
                             </tr>
@@ -292,4 +326,44 @@
         }
     }
 </style>
+
+<script>
+    let holidayCount = {{ count($holidays) }};
+    function addHoliday() {
+        let index = holidayCount++;
+        
+        // Add Header
+        let headRow = document.getElementById('attendance-head-row');
+        let th = document.createElement('th');
+        th.className = "pb-3 text-xs font-bold text-rose-400 uppercase tracking-wider border-b border-rose-100 min-w-[90px] holiday-col";
+        th.setAttribute('data-index', index);
+        th.innerHTML = `Libur <br> <span class="text-[10px] text-rose-500 font-medium">Baru</span>`;
+        headRow.appendChild(th);
+        
+        // Add Body Input
+        let bodyRow = document.getElementById('attendance-body-row');
+        let td = document.createElement('td');
+        td.className = "pt-4 pb-2 px-1 holiday-col";
+        td.setAttribute('data-index', index);
+        td.innerHTML = `
+            <div class="flex flex-col items-center gap-1.5">
+                <input type="text" name="holidays[]" value="" class="text-[10px] rounded border-rose-300 w-full py-1 px-1 text-center text-rose-700 bg-rose-50 focus:ring-rose-500" placeholder="Tgl (Cth: 17 Ags)" required>
+                <button type="button" onclick="removeHoliday(${index})" class="text-[10px] font-semibold text-rose-500 hover:text-rose-700 hover:underline">Hapus</button>
+            </div>
+        `;
+        bodyRow.appendChild(td);
+        
+        // Add Label
+        let labelRow = document.getElementById('attendance-label-row');
+        let tdLabel = document.createElement('td');
+        tdLabel.className = "pt-1 text-[10px] font-semibold text-rose-500 holiday-col";
+        tdLabel.setAttribute('data-index', index);
+        tdLabel.innerText = "Libur Merah";
+        labelRow.appendChild(tdLabel);
+    }
+    
+    function removeHoliday(index) {
+        document.querySelectorAll(`.holiday-col[data-index='${index}']`).forEach(el => el.remove());
+    }
+</script>
 @endsection

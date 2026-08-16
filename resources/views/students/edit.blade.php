@@ -65,6 +65,13 @@
                         <option value="LEVEL 1" {{ (old('level', $student->level ?? '') == 'LEVEL 1') ? 'selected' : '' }}>Level 1</option>
                         <option value="LEVEL 2" {{ (old('level', $student->level ?? '') == 'LEVEL 2') ? 'selected' : '' }}>Level 2</option>
                         <option value="LEVEL 3" {{ (old('level', $student->level ?? '') == 'LEVEL 3') ? 'selected' : '' }}>Level 3</option>
+                        <option value="LEVEL 4" {{ (old('level', $student->level ?? '') == 'LEVEL 4') ? 'selected' : '' }}>Level 4</option>
+                        <option value="LEVEL 5" {{ (old('level', $student->level ?? '') == 'LEVEL 5') ? 'selected' : '' }}>Level 5</option>
+                        <option value="LEVEL 6" {{ (old('level', $student->level ?? '') == 'LEVEL 6') ? 'selected' : '' }}>Level 6</option>
+                        <option value="LEVEL 7" {{ (old('level', $student->level ?? '') == 'LEVEL 7') ? 'selected' : '' }}>Level 7</option>
+                        <option value="LEVEL 8" {{ (old('level', $student->level ?? '') == 'LEVEL 8') ? 'selected' : '' }}>Level 8</option>
+                        <option value="LEVEL 9" {{ (old('level', $student->level ?? '') == 'LEVEL 9') ? 'selected' : '' }}>Level 9</option>
+                        <option value="LEVEL 10" {{ (old('level', $student->level ?? '') == 'LEVEL 10') ? 'selected' : '' }}>Level 10</option>
                         <option value="TIDAK ADA" {{ (old('level', $student->level ?? '') == 'TIDAK ADA') ? 'selected' : '' }}>Tidak Ada Level</option>
                     </select>
                 </div>
@@ -73,6 +80,15 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Jadwal (Hari & Jam)</label>
                     <input type="text" name="schedule" value="{{ old('schedule', $student->schedule ?? '') }}" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                </div>
+
+                <!-- Paket Pertemuan -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Paket Pertemuan</label>
+                    <select name="package_meetings" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        <option value="8" {{ (old('package_meetings', $student->package_meetings ?? 8) == 8) ? 'selected' : '' }}>8 Kali Pertemuan</option>
+                        <option value="4" {{ (old('package_meetings', $student->package_meetings ?? 8) == 4) ? 'selected' : '' }}>4 Kali Pertemuan</option>
+                    </select>
                 </div>
                 
                 <!-- Pembayaran / Nominal -->

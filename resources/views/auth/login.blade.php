@@ -1,8 +1,8 @@
-@extends('layouts.app')
-@section('title', 'Login Coach')
+  @extends('layouts.guest')
+@section('title', 'Login Coach - ASSA Swimming')
 
 @section('content')
-<div class="max-w-md mx-auto mt-10 bg-white p-8 rounded-xl shadow-sm border border-slate-100">
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
     <div class="text-center mb-8">
         <h2 class="text-2xl font-bold text-slate-800">Login Coach</h2>
         <p class="text-slate-500 mt-1 text-sm">Masuk untuk mengelola data siswa dan nilai raport.</p>
@@ -72,7 +72,7 @@
                 // Toggle the type attribute
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
-                
+
                 // Toggle the eye / eye slash icon
                 eyeIcon.classList.toggle('hidden');
                 eyeSlashIcon.classList.toggle('hidden');

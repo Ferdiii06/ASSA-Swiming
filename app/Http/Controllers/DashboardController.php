@@ -35,11 +35,11 @@ class DashboardController extends Controller
         $totalStudents = 0;
         $activeStudents = 0;
         $programs = [];
-        
+
         if (file_exists($jsonPath)) {
             $json = file_get_contents($jsonPath);
             $students = json_decode($json, true);
-            
+
             if (is_array($students)) {
                 $totalStudents = count($students);
                 foreach ($students as $student) {
@@ -48,14 +48,14 @@ class DashboardController extends Controller
                     } elseif (isset($student['nominal']) && !empty($student['nominal'])) {
                         $activeStudents++;
                     }
-                    
+
                     if (isset($student['program']) && !empty($student['program'])) {
                         $programs[$student['program']] = true;
                     }
                 }
             }
         }
-        
+
         $totalPrograms = count(array_keys($programs));
 
         return view('dashboard', [
@@ -72,7 +72,7 @@ class DashboardController extends Controller
         if (in_array($role, ['admin', 'coach', 'parent'])) {
             session(['role' => $role]);
         }
-        
+
         // Redirect to dashboard if parent tries to access restricted pages
         if ($role === 'parent' && request()->headers->get('referer') && str_contains(request()->headers->get('referer'), '/students')) {
             return redirect()->route('dashboard')->with('info', 'Akses dibatasi untuk role Parent.');

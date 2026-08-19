@@ -20,7 +20,7 @@ class StudentController extends Controller
         $page = (int) $request->get('page', 1);
 
         $jsonPath = database_path('students_spreadsheet.json');
-        
+
         if (file_exists($jsonPath)) {
             $raw = file_get_contents($jsonPath);
             $studentsData = collect(json_decode($raw));
@@ -31,7 +31,7 @@ class StudentController extends Controller
         // Apply Search Filter
         if ($search) {
             $studentsData = $studentsData->filter(function ($item) use ($search) {
-                return stripos($item->name, $search) !== false 
+                return stripos($item->name, $search) !== false
                     || stripos($item->code, $search) !== false
                     || stripos($item->parent_name ?? '', $search) !== false
                     || stripos($item->address ?? '', $search) !== false;
@@ -53,7 +53,7 @@ class StudentController extends Controller
         }
 
         $allStudents = file_exists($jsonPath) ? collect(json_decode(file_get_contents($jsonPath))) : collect([]);
-        
+
         $totalStudents = $allStudents->count();
         $activeStudents = $allStudents->where('status', 'Active')->count();
         $avgProgress = $totalStudents > 0 ? round($allStudents->avg('progress')) : 0;
@@ -124,16 +124,16 @@ class StudentController extends Controller
     public function show($id)
     {
         $jsonPath = database_path('students_spreadsheet.json');
-        
+
         if (!file_exists($jsonPath)) {
             return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
         }
 
         $raw = file_get_contents($jsonPath);
         $studentsData = collect(json_decode($raw));
-        
+
         $student = $studentsData->firstWhere('id', (int) $id);
-        
+
         if (!$student) {
             return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
         }
@@ -174,7 +174,7 @@ class StudentController extends Controller
         // Determine student skills based on level
         $studentLevel = strtoupper(trim($student->level ?? 'LEVEL 1'));
         $studentSkills = $skills[$studentLevel] ?? $skills['LEVEL 1'];
-        
+
         $savedSkills = isset($student->completed_skills) ? (array) $student->completed_skills : [];
         $completedSkills = [];
         foreach ($studentSkills as $skillName) {
@@ -190,7 +190,7 @@ class StudentController extends Controller
                 'status' => $savedAttendance[$i] ?? 'Belum'
             ];
         }
-        
+
         $holidays = isset($student->holidays) ? (array) $student->holidays : [];
 
         // Payment status based on nominal
@@ -201,16 +201,16 @@ class StudentController extends Controller
     public function edit($id)
     {
         $jsonPath = database_path('students_spreadsheet.json');
-        
+
         if (!file_exists($jsonPath)) {
             return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
         }
 
         $raw = file_get_contents($jsonPath);
         $studentsData = collect(json_decode($raw));
-        
+
         $student = $studentsData->firstWhere('id', (int) $id);
-        
+
         if (!$student) {
             return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
         }
@@ -234,14 +234,14 @@ class StudentController extends Controller
         ]);
 
         $jsonPath = database_path('students_spreadsheet.json');
-        
+
         if (!file_exists($jsonPath)) {
             return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
         }
 
         $raw = file_get_contents($jsonPath);
         $studentsData = json_decode($raw, true); // decode as associative array
-        
+
         $updated = false;
         foreach ($studentsData as $key => $student) {
             if ($student['id'] == $id) {
@@ -275,27 +275,27 @@ class StudentController extends Controller
     public function updateEvaluation(Request $request, $id)
     {
         $jsonPath = database_path('students_spreadsheet.json');
-        
+
         if (!file_exists($jsonPath)) {
             return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
         }
 
         $raw = file_get_contents($jsonPath);
         $studentsData = json_decode($raw, true);
-        
+
         $updated = false;
         $skillsCompleted = $request->input('skills', []);
-        
+
         foreach ($studentsData as $key => $student) {
             if ($student['id'] == $id) {
                 $package_meetings = isset($student['package_meetings']) ? (int) $student['package_meetings'] : 8;
                 $attendanceInput = $request->input('attendance', array_fill(0, $package_meetings, 'Belum'));
                 $holidaysInput = $request->input('holidays', []);
-                
+
                 $studentsData[$key]['completed_skills'] = $skillsCompleted;
                 $studentsData[$key]['attendance'] = $attendanceInput;
                 $studentsData[$key]['holidays'] = array_filter($holidaysInput);
-                
+
                 // Kalkulasi ulang progress berdasarkan jumlah skill yang dikuasai
                 $skillsMap = [
                     'LEVEL 1' => ['Adaptasi air', 'Pernafasan dasar', 'Berani masuk kolam'],
@@ -309,19 +309,19 @@ class StudentController extends Controller
                     'LEVEL 9' => ['Start', 'Turn', 'Finish', 'Race Technique'],
                     'LEVEL 10' => ['Program atlet', 'Target lomba', 'Performance training']
                 ];
-                
+
                 $studentLevel = strtoupper(trim($student['level'] ?? 'LEVEL 1'));
                 $totalSkillsForLevel = count($skillsMap[$studentLevel] ?? $skillsMap['LEVEL 1']);
-                
+
                 $newProgress = 0;
                 if ($totalSkillsForLevel > 0) {
                     $newProgress = round((count($skillsCompleted) / $totalSkillsForLevel) * 100);
                 }
-                
+
                 // Pastikan tidak lebih dari 100%
                 $newProgress = min(100, $newProgress);
                 $studentsData[$key]['progress'] = $newProgress;
-                
+
                 $updated = true;
                 break;
             }

@@ -43,6 +43,14 @@
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('payments.index') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-file-invoice-dollar w-5 text-emerald-400"></i> Kelola Pembayaran
                 </a>
+
+                <div class="pt-4 mt-2 border-t border-slate-700"></div>
+                <form method="POST" action="{{ route('logout') }}" class="block w-full">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-rose-900/50 text-rose-400 transition text-left">
+                        <i class="fa-solid fa-arrow-right-from-bracket w-5"></i> Logout
+                    </button>
+                </form>
                 @else
                 <!-- Menu Publik -->
                 <a href="{{ route('payments.create') }}"

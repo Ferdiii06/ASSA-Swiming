@@ -20,7 +20,7 @@
     @if($students->count() > 0)
         @foreach($students as $student)
             <div class="mb-8 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-                
+
                 <!-- Student Header -->
                 <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
                     <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xl border border-blue-100">
@@ -45,7 +45,7 @@
                             <i class="fa-solid fa-chart-line text-blue-500"></i>
                             <h3 class="font-semibold text-gray-800">Progres & Evaluasi</h3>
                         </div>
-                        
+
                         @if($latestReport)
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                                 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -58,12 +58,12 @@
                                         <p class="font-medium text-gray-800 truncate" title="{{ $latestReport->skills_achieved }}">{{ $latestReport->skills_achieved ?? '-' }}</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-4">
                                     <p class="text-xs text-gray-500 mb-1">Catatan Coach</p>
                                     <p class="text-sm text-gray-700 italic bg-white p-3 rounded border border-gray-100">"{{ $latestReport->instructor_notes ?? 'Belum ada catatan.' }}"</p>
                                 </div>
-                                
+
                                 <div>
                                     <div class="flex justify-between text-xs mb-1">
                                         <span class="text-gray-600">Persentase Progres</span>
@@ -88,7 +88,7 @@
                             <i class="fa-solid fa-calendar-check text-emerald-500"></i>
                             <h3 class="font-semibold text-gray-800">Jadwal Latihan & Kehadiran</h3>
                         </div>
-                        
+
                         @if($activeEnrollment && $activeEnrollment->schedule)
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 space-y-4">
                                 <div>
@@ -96,7 +96,7 @@
                                     <p class="font-medium text-gray-800">{{ $activeEnrollment->schedule->day_name }}, {{ $activeEnrollment->schedule->start_time->format('H:i') }} - {{ $activeEnrollment->schedule->end_time->format('H:i') }}</p>
                                     <p class="text-sm text-gray-600 mt-0.5">Coach: {{ $activeEnrollment->schedule->coach->name ?? '-' }}</p>
                                 </div>
-                                
+
                                 <div>
                                     <div class="flex justify-between text-xs mb-1">
                                         <span class="text-gray-600">Kehadiran (Berdasarkan Raport)</span>
@@ -130,7 +130,7 @@
                         <i class="fa-solid fa-file-invoice-dollar text-amber-500"></i>
                         <h3 class="font-semibold text-gray-800">Status Pembayaran</h3>
                     </div>
-                    
+
                     @if($latestPayment)
                         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -180,7 +180,7 @@
 
     <!-- Main Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-        
+
         <!-- Widget 1: Total Siswa -->
         <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
             <div class="w-12 h-12 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl">

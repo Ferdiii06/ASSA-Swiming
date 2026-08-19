@@ -20,7 +20,7 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
+
         <!-- Left Column: Student Profile & Payment -->
         <div class="lg:col-span-1 space-y-6">
             <!-- Profile Card -->
@@ -31,7 +31,7 @@
                     </div>
                     <h2 class="text-xl font-bold text-slate-800 uppercase">{{ $student->name }}</h2>
                     <p class="text-slate-500 font-medium text-sm mt-1">{{ $student->code }}</p>
-                    
+
                     <span class="mt-4 px-4 py-1.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-full text-sm font-bold uppercase tracking-wider">
                         {{ $student->level ?? 'BELUM ADA LEVEL' }}
                     </span>
@@ -96,7 +96,7 @@
                 <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-wallet text-slate-400"></i> Status Pembayaran
                 </h3>
-                
+
                 <div class="flex items-center justify-between p-4 rounded-xl {{ $paymentStatus === 'Lunas' ? 'bg-emerald-50 border border-emerald-100' : 'bg-rose-50 border border-rose-100' }}">
                     <div>
                         <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Status Bulan Ini</p>
@@ -108,7 +108,7 @@
                         <i class="fa-solid {{ $paymentStatus === 'Lunas' ? 'fa-check' : 'fa-xmark' }} text-xl"></i>
                     </div>
                 </div>
-                
+
                 @if($paymentStatus === 'Lunas')
                 @auth
                 <p class="text-xs text-slate-500 mt-4 text-center">Telah dibayar: <span class="font-bold text-slate-700">{{ $student->nominal }}</span></p>
@@ -119,7 +119,7 @@
 
         <!-- Right Column: Skills & Attendance -->
         <div class="lg:col-span-2 space-y-6">
-            
+
             <!-- Overall Progress -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
                 <h3 class="text-lg font-bold text-slate-800 mb-2">Progress Belajar Keseluruhan</h3>
@@ -137,7 +137,7 @@
                 @csrf
                 @method('PUT')
             @endif
-            
+
             <!-- Skills Checklist -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
                 <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
@@ -145,7 +145,7 @@
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @foreach($completedSkills as $skillName => $isCompleted)
-                    
+
                     @if(Auth::check())
                     <label class="flex items-start p-3 rounded-xl border cursor-pointer {{ $isCompleted ? 'bg-emerald-50/50 border-emerald-100' : 'bg-slate-50 border-slate-200' }} hover:bg-slate-100 transition">
                         <div class="flex-shrink-0 mt-0.5">
@@ -176,7 +176,7 @@
                         </div>
                     </div>
                     @endif
-                    
+
                     @endforeach
                 </div>
                 <!-- Form will be closed after attendance -->
@@ -206,7 +206,7 @@
                         </button>
                     @endif
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-center border-collapse">
                         <thead>
@@ -303,7 +303,7 @@
                 </div>
             </form>
             @endif
-            
+
         </div>
     </div>
 </div>
@@ -331,7 +331,7 @@
     let holidayCount = {{ count($holidays) }};
     function addHoliday() {
         let index = holidayCount++;
-        
+
         // Add Header
         let headRow = document.getElementById('attendance-head-row');
         let th = document.createElement('th');
@@ -339,7 +339,7 @@
         th.setAttribute('data-index', index);
         th.innerHTML = `Libur <br> <span class="text-[10px] text-rose-500 font-medium">Baru</span>`;
         headRow.appendChild(th);
-        
+
         // Add Body Input
         let bodyRow = document.getElementById('attendance-body-row');
         let td = document.createElement('td');
@@ -352,7 +352,7 @@
             </div>
         `;
         bodyRow.appendChild(td);
-        
+
         // Add Label
         let labelRow = document.getElementById('attendance-label-row');
         let tdLabel = document.createElement('td');
@@ -361,7 +361,7 @@
         tdLabel.innerText = "Libur Merah";
         labelRow.appendChild(tdLabel);
     }
-    
+
     function removeHoliday(index) {
         document.querySelectorAll(`.holiday-col[data-index='${index}']`).forEach(el => el.remove());
     }

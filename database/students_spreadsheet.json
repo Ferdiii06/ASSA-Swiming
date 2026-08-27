@@ -12,8 +12,24 @@
         "location": "LONG STORAGE KWATU WATERPARK",
         "schedule": "Bebas",
         "level": "LEVEL 2",
-        "progress": 27,
-        "status": "Active"
+        "progress": 100,
+        "status": "Active",
+        "completed_skills": [
+            "Mengapung telentang & tengkurap",
+            "Streamline",
+            "Meluncur"
+        ],
+        "attendance": [
+            "Belum",
+            "Belum",
+            "Belum",
+            "Belum",
+            "Belum",
+            "Belum",
+            "Belum",
+            "Belum"
+        ],
+        "holidays": []
     },
     {
         "id": 2,
@@ -2266,7 +2282,7 @@
         "program": "PRIVATE",
         "nominal": "350.000 + 45.000",
         "location": "KETEGAN JUNGLE WATERPARK",
-        "schedule": "Jum’at",
+        "schedule": "Jum\u2019at",
         "level": "LEVEL 2",
         "progress": 39,
         "status": "Active"
@@ -2302,5 +2318,21 @@
         "level": "LEVEL 1",
         "progress": 53,
         "status": "Active"
+    },
+    {
+        "id": 145,
+        "code": "ASSA-9145",
+        "name": "FERDI",
+        "age": "-",
+        "parent_name": "Ferry Ferdiansyah",
+        "phone": "08113555838",
+        "address": "perum puri indah DD 12 A\r\nrumah",
+        "program": "-",
+        "nominal": "-",
+        "location": "-",
+        "schedule": "-",
+        "level": "LEVEL 1",
+        "progress": 0,
+        "status": "Pending"
     }
 ]

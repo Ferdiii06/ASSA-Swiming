@@ -11,21 +11,54 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         if ($user && $user->isParent()) {
-            $students = $user->students()->with([
-                'enrollments' => function($q) {
-                    $q->active()->with('schedule.coach', 'program');
-                },
-                'progressReports' => function($q) {
-                    $q->latest('created_at');
-                },
-                'payments' => function($q) {
-                    $q->latest('created_at');
-                }
-            ])->get();
+            $jsonPath = database_path('students_spreadsheet.json');
+            $parentStudents = collect();
+            
+            if (file_exists($jsonPath)) {
+                $allStudents = collect(json_decode(file_get_contents($jsonPath), true));
+                // Find students matching this parent's phone or name
+                $parentStudents = $allStudents->filter(function ($student) use ($user) {
+                    return strcasecmp($student['phone'] ?? '', $user->phone) === 0 || 
+                           strcasecmp($student['parent_name'] ?? '', $user->name) === 0;
+                })->map(function ($student) {
+                    // Cast to object and provide dummy relations to prevent view crash
+                    $obj = (object) $student;
+                    $obj->is_active = (isset($student['status']) && $student['status'] === 'Active');
+                    $obj->progressReports = collect();
+                    $obj->enrollments = collect();
+                    $obj->payments = collect();
+                    
+                    // Add dummy enrollment based on JSON
+                    if (isset($student['schedule']) && $student['schedule'] !== '-') {
+                        $obj->enrollments->push((object)[
+                            'schedule' => (object)[
+                                'day_name' => explode(' ', $student['schedule'])[0],
+                                'start_time' => \Carbon\Carbon::parse('00:00'),
+                                'end_time' => \Carbon\Carbon::parse('00:00'),
+                                'coach' => (object)['name' => '-']
+                            ]
+                        ]);
+                    }
+                    
+                    // Add dummy progress report based on JSON
+                    if (isset($student['progress'])) {
+                        $obj->progressReports->push((object)[
+                            'level' => $student['level'] ?? '-',
+                            'skills_achieved' => '-',
+                            'instructor_notes' => 'Lihat detail di laporan.',
+                            'progress_percentage' => $student['progress'],
+                            'attendance' => 0,
+                            'total_sessions' => 8
+                        ]);
+                    }
+                    
+                    return $obj;
+                })->values();
+            }
 
             return view('dashboard', [
                 'isParent' => true,
-                'students' => $students
+                'students' => $parentStudents
             ]);
         }
 

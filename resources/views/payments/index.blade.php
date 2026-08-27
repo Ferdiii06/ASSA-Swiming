@@ -14,7 +14,65 @@
     </div>
     @endif
 
-    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+    <!-- Mobile Cards View (Hidden on md and up) -->
+    <div class="md:hidden space-y-4">
+        @forelse($payments as $payment)
+        <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+            <div class="flex justify-between items-start mb-3 border-b border-slate-50 pb-3">
+                <div>
+                    <h3 class="font-bold text-slate-800">{{ $payment->student_name }}</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">{{ $payment->created_at->format('d M Y, H:i') }}</p>
+                </div>
+                @if($payment->status === 'success')
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-100 text-emerald-800">Approved</span>
+                @elseif($payment->status === 'rejected')
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-rose-100 text-rose-800">Rejected</span>
+                @else
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 text-amber-800">Pending</span>
+                @endif
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                <div class="bg-slate-50 p-2 rounded-lg">
+                    <span class="block text-slate-400 mb-0.5">Paket</span>
+                    <span class="font-semibold text-slate-700">{{ $payment->package->name ?? 'Terhapus' }}</span>
+                </div>
+                <div class="bg-slate-50 p-2 rounded-lg">
+                    <span class="block text-slate-400 mb-0.5">Nominal</span>
+                    <span class="font-semibold text-cyan-700">Rp {{ number_format($payment->amount, 0, ',', '.') }}</span>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+                @if($payment->proof_image)
+                    <a href="{{ asset('storage/' . $payment->proof_image) }}" target="_blank" class="text-cyan-600 hover:text-cyan-800 flex items-center gap-1 text-[11px] font-semibold bg-cyan-50 px-2 py-1 rounded">
+                        <i class="fa-solid fa-image"></i> Bukti Trf
+                    </a>
+                @else
+                    <span class="text-slate-400 italic text-[11px]">Tanpa bukti</span>
+                @endif
+
+                @if($payment->status === 'pending')
+                    <form method="POST" action="{{ route('payments.approve', $payment->id) }}" class="inline">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" onclick="return confirm('Setujui pembayaran ini?')" class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition shadow-sm">
+                            <i class="fa-solid fa-check mr-1"></i> Approve
+                        </button>
+                    </form>
+                @endif
+            </div>
+        </div>
+        @empty
+        <div class="bg-white rounded-xl p-6 text-center text-slate-400 border border-slate-100">
+            <i class="fa-solid fa-receipt text-3xl text-slate-200 mb-2"></i>
+            <p class="text-sm">Belum ada data pembayaran.</p>
+        </div>
+        @endforelse
+    </div>
+
+    <!-- Desktop Table View (Hidden on small screens) -->
+    <div class="hidden md:block bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>

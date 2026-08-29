@@ -9,7 +9,7 @@ class StudentController extends Controller
 {
     public function index(Request $request)
     {
-        if (session('role', 'admin') === 'parent') {
+        if (auth()->check() && auth()->user()->isParent()) {
             return redirect()->route('dashboard')->with('error', 'Akses Ditolak: Orang Tua (Parent) tidak diizinkan mengakses data manajemen siswa.');
         }
 
@@ -138,36 +138,67 @@ class StudentController extends Controller
             return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
         }
 
+        $user = auth()->user();
+        if ($user && $user->isParent()) {
+            $isOwner = strcasecmp($student->phone ?? '', $user->phone) === 0 || 
+                       strcasecmp($student->parent_name ?? '', $user->name) === 0;
+            
+            if (!$isOwner) {
+                return redirect()->route('dashboard')->with('error', 'Akses Ditolak: Anda tidak memiliki akses ke data siswa ini.');
+            }
+        }
+
         $skills = [
             'LEVEL 1' => [
-                'Adaptasi air', 'Pernafasan dasar', 'Berani masuk kolam'
+                'Adaptasi air' => 'Siswa mampu beradaptasi dengan suhu dan lingkungan air tanpa rasa panik.',
+                'Pernafasan dasar' => 'Siswa dapat menahan napas dan membuang napas di dalam air (bubbling).',
+                'Berani masuk kolam' => 'Siswa dapat turun ke dalam kolam secara mandiri dan percaya diri.'
             ],
             'LEVEL 2' => [
-                'Mengapung telentang & tengkurap', 'Streamline', 'Meluncur'
+                'Mengapung telentang & tengkurap' => 'Kemampuan menjaga keseimbangan tubuh di permukaan air tanpa bantuan.',
+                'Streamline' => 'Mampu meluncur dengan posisi tubuh lurus membelah air (tangan di depan).',
+                'Meluncur' => 'Daya dorong awal dari dinding kolam dengan postur tubuh yang benar.'
             ],
             'LEVEL 3' => [
-                'Freestyle Kick', 'Backstroke Kick', 'Breaststroke Kick', 'Dolphin Kick'
+                'Freestyle Kick' => 'Gerakan tendangan kaki gaya bebas yang konstan dan propulsif dari pangkal paha.',
+                'Backstroke Kick' => 'Gerakan tendangan kaki gaya punggung secara stabil di permukaan air.',
+                'Breaststroke Kick' => 'Tendangan katak (gaya dada) dengan bukaan dan dorongan kaki yang tepat.',
+                'Dolphin Kick' => 'Gerakan meliuk layaknya lumba-lumba untuk awalan dan gaya kupu-kupu.'
             ],
             'LEVEL 4' => [
-                'Gerakan tangan', 'Side breathing', 'Koordinasi gaya bebas'
+                'Gerakan tangan' => 'Ayunan tangan (pull & recovery) pada gaya bebas secara benar.',
+                'Side breathing' => 'Pengambilan napas dari arah samping (kiri/kanan) seirama dengan ayunan tangan.',
+                'Koordinasi gaya bebas' => 'Penyatuan gerakan kaki, tangan, dan pernapasan untuk berenang gaya bebas secara utuh.'
             ],
             'LEVEL 5' => [
-                'Teknik gaya punggung', 'Koordinasi penuh'
+                'Teknik gaya punggung' => 'Posisi wajah di atas air dengan ayunan tangan berputar ke belakang secara bergantian.',
+                'Koordinasi penuh' => 'Integrasi antara tendangan kaki dan ayunan tangan pada gaya punggung tanpa tenggelam.'
             ],
             'LEVEL 6' => [
-                'Breaststroke Kick', 'Pull & Glide', 'Koordinasi penuh'
+                'Breaststroke Kick' => 'Penyempurnaan kekuatan dorongan kaki katak agar laju lebih cepat.',
+                'Pull & Glide' => 'Sinkronisasi tarikan tangan di bawah air dan momen meluncur (glide) pada gaya dada.',
+                'Koordinasi penuh' => 'Menyelaraskan tarikan tangan, tendangan, dan pernapasan secara ritmis.'
             ],
             'LEVEL 7' => [
-                'Dolphin Body Motion', 'Butterfly Arm Recovery', 'Koordinasi gaya kupu-kupu'
+                'Dolphin Body Motion' => 'Meliukkan seluruh tubuh dari dada hingga ujung kaki secara ritmis.',
+                'Butterfly Arm Recovery' => 'Lemparan kedua belah lengan secara bersamaan ke depan.',
+                'Koordinasi gaya kupu-kupu' => 'Integrasi gerakan tubuh lumba-lumba, lemparan lengan, dan pernapasan secara simultan.'
             ],
             'LEVEL 8' => [
-                'Penyempurnaan 4 gaya', 'Endurance', 'Speed Training'
+                'Penyempurnaan 4 gaya' => 'Koreksi akhir teknik Gaya Bebas, Dada, Punggung, dan Kupu-Kupu.',
+                'Endurance' => 'Latihan daya tahan berenang dalam jarak menengah tanpa kelelahan berlebih.',
+                'Speed Training' => 'Latihan interval untuk meningkatkan kecepatan berenang.'
             ],
             'LEVEL 9' => [
-                'Start', 'Turn', 'Finish', 'Race Technique'
+                'Start' => 'Teknik lompatan awal (diving) dari pinggir kolam / starting block.',
+                'Turn' => 'Teknik berbalik (flip turn / open turn) di ujung kolam tanpa kehilangan momentum.',
+                'Finish' => 'Teknik menyentuh dinding kolam dengan benar di akhir lintasan.',
+                'Race Technique' => 'Pemahaman strategi balapan dan pacing (pengaturan kecepatan).'
             ],
             'LEVEL 10' => [
-                'Program atlet', 'Target lomba', 'Performance training'
+                'Program atlet' => 'Latihan terstruktur layaknya atlet profesional (volume & intensitas tinggi).',
+                'Target lomba' => 'Persiapan mental dan fisik menuju kompetisi nyata.',
+                'Performance training' => 'Optimalisasi teknik mikrosekon dan analisis performa secara detail.'
             ]
         ];
 
@@ -177,8 +208,11 @@ class StudentController extends Controller
 
         $savedSkills = isset($student->completed_skills) ? (array) $student->completed_skills : [];
         $completedSkills = [];
-        foreach ($studentSkills as $skillName) {
-            $completedSkills[$skillName] = in_array($skillName, $savedSkills);
+        foreach ($studentSkills as $skillName => $skillDesc) {
+            $completedSkills[$skillName] = [
+                'is_completed' => in_array($skillName, $savedSkills),
+                'description'  => $skillDesc
+            ];
         }
 
         $package_meetings = isset($student->package_meetings) ? (int) $student->package_meetings : 8;

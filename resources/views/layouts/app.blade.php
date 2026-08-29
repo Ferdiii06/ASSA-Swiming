@@ -29,20 +29,17 @@
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('dashboard') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-gauge w-5"></i> Dashboard
                 </a>
+                @if(!auth()->check() || !auth()->user()->isParent())
                 <a href="{{ route('students.index') }}"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('students.*') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-graduation-cap w-5"></i> Siswa
                 </a>
-
                 
                 <div class="pt-4 mt-2 border-t border-slate-700"></div>
+                @endif
                 
                 @auth
-                <!-- Menu Admin/Coach -->
-                <a href="{{ route('payments.index') }}"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('payments.index') ? 'bg-cyan-600' : '' }}">
-                    <i class="fa-solid fa-file-invoice-dollar w-5 text-emerald-400"></i> Kelola Pembayaran
-                </a>
+
 
                 <div class="pt-4 mt-2 border-t border-slate-700"></div>
                 <form method="POST" action="{{ route('logout') }}" class="block w-full">
@@ -51,12 +48,7 @@
                         <i class="fa-solid fa-arrow-right-from-bracket w-5"></i> Logout
                     </button>
                 </form>
-                @else
-                <!-- Menu Publik -->
-                <a href="{{ route('payments.create') }}"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('payments.create') ? 'bg-cyan-600' : '' }}">
-                    <i class="fa-solid fa-qrcode w-5 text-emerald-400"></i> Perpanjang Paket
-                </a>
+
                 @endauth
             </nav>
             <div class="p-4 border-t border-slate-700 text-xs text-slate-400">

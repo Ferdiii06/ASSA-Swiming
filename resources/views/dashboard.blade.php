@@ -22,18 +22,25 @@
             <div class="mb-8 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
 
                 <!-- Student Header -->
-                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
-                    <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xl border border-blue-100">
-                        {{ substr($student->name, 0, 1) }}
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xl border border-blue-100">
+                            {{ substr($student->name, 0, 1) }}
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800">{{ $student->name }}</h2>
+                            <div class="flex items-center gap-1.5 mt-1">
+                                <span class="w-2 h-2 rounded-full {{ $student->is_active ? 'bg-green-500' : 'bg-red-500' }}"></span>
+                                <span class="text-sm text-gray-600">
+                                    {{ $student->is_active ? 'Siswa Aktif' : 'Tidak Aktif' }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-gray-800">{{ $student->name }}</h2>
-                        <div class="flex items-center gap-1.5 mt-1">
-                            <span class="w-2 h-2 rounded-full {{ $student->is_active ? 'bg-green-500' : 'bg-red-500' }}"></span>
-                            <span class="text-sm text-gray-600">
-                                {{ $student->is_active ? 'Siswa Aktif' : 'Tidak Aktif' }}
-                            </span>
-                        </div>
+                        <a href="{{ route('students.show', $student->id) }}" class="inline-block px-4 py-2 bg-cyan-50 text-cyan-700 hover:bg-cyan-100 rounded-lg text-sm font-semibold transition-colors">
+                            Lihat Detail
+                        </a>
                     </div>
                 </div>
 
@@ -123,44 +130,7 @@
                     </div>
                 </div>
 
-                <!-- Pembayaran -->
-                @php $latestPayment = $student->payments->first(); @endphp
-                <div class="mt-6 pt-6 border-t border-gray-100">
-                    <div class="flex items-center gap-2 mb-4">
-                        <i class="fa-solid fa-file-invoice-dollar text-amber-500"></i>
-                        <h3 class="font-semibold text-gray-800">Status Pembayaran</h3>
-                    </div>
 
-                    @if($latestPayment)
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">Tagihan Terakhir</p>
-                                    <p class="font-medium text-gray-800">Rp {{ number_format($latestPayment->amount, 0, ',', '.') }}</p>
-                                    <p class="text-xs text-gray-500">{{ $latestPayment->payment_date ? $latestPayment->payment_date->format('d M Y') : '-' }}</p>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">Status</p>
-                                    <span class="inline-block px-2 py-1 text-xs font-medium rounded {{ in_array(strtolower($latestPayment->status), ['verified', 'paid', 'lunas']) ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
-                                        {{ in_array(strtolower($latestPayment->status), ['verified', 'paid', 'lunas']) ? 'LUNAS' : strtoupper($latestPayment->status) }}
-                                    </span>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">Sisa Pertemuan</p>
-                                    @if($latestReport)
-                                        <p class="font-medium text-gray-800">{{ max(0, $latestReport->total_sessions - $latestReport->attendance) }} Sesi</p>
-                                    @else
-                                        <p class="text-sm text-gray-500">-</p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
-                            <p class="text-sm text-gray-500">Belum ada riwayat pembayaran.</p>
-                        </div>
-                    @endif
-                </div>
 
             </div>
         @endforeach

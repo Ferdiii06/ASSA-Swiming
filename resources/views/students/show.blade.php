@@ -13,9 +13,11 @@
             <button onclick="window.print()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition shadow-sm">
                 <i class="fa-solid fa-print mr-1"></i> Cetak Raport
             </button>
+            @if(Auth::check() && !Auth::user()->isParent())
             <a href="{{ route('students.edit', $student->id) }}" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-lg transition shadow-sm inline-flex items-center">
                 <i class="fa-regular fa-pen-to-square mr-1"></i> Edit Data
             </a>
+            @endif
         </div>
     </div>
 
@@ -91,30 +93,7 @@
                 </div>
             </div>
 
-            <!-- Payment Card -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-wallet text-slate-400"></i> Status Pembayaran
-                </h3>
 
-                <div class="flex items-center justify-between p-4 rounded-xl {{ $paymentStatus === 'Lunas' ? 'bg-emerald-50 border border-emerald-100' : 'bg-rose-50 border border-rose-100' }}">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Status Bulan Ini</p>
-                        <p class="text-lg font-bold {{ $paymentStatus === 'Lunas' ? 'text-emerald-700' : 'text-rose-700' }}">
-                            {{ $paymentStatus }}
-                        </p>
-                    </div>
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center {{ $paymentStatus === 'Lunas' ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600' }}">
-                        <i class="fa-solid {{ $paymentStatus === 'Lunas' ? 'fa-check' : 'fa-xmark' }} text-xl"></i>
-                    </div>
-                </div>
-
-                @if($paymentStatus === 'Lunas')
-                @auth
-                <p class="text-xs text-slate-500 mt-4 text-center">Telah dibayar: <span class="font-bold text-slate-700">{{ $student->nominal }}</span></p>
-                @endauth
-                @endif
-            </div>
         </div>
 
         <!-- Right Column: Skills & Attendance -->
@@ -132,7 +111,7 @@
                 </div>
             </div>
 
-            @if(Auth::check())
+            @if(Auth::check() && !Auth::user()->isParent())
             <form action="{{ route('students.updateEvaluation', $student->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -144,15 +123,22 @@
                     <i class="fa-solid fa-list-check text-slate-400"></i> Skill yang Dilampaui ({{ $student->level ?? 'Level 1' }})
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    @foreach($completedSkills as $skillName => $isCompleted)
+                    @foreach($completedSkills as $skillName => $skillData)
+                        @php 
+                            $isCompleted = is_array($skillData) ? $skillData['is_completed'] : $skillData; 
+                            $desc = is_array($skillData) ? $skillData['description'] : '';
+                        @endphp
 
-                    @if(Auth::check())
+                    @if(Auth::check() && !Auth::user()->isParent())
                     <label class="flex items-start p-3 rounded-xl border cursor-pointer {{ $isCompleted ? 'bg-emerald-50/50 border-emerald-100' : 'bg-slate-50 border-slate-200' }} hover:bg-slate-100 transition">
                         <div class="flex-shrink-0 mt-0.5">
                             <input type="checkbox" name="skills[]" value="{{ $skillName }}" {{ $isCompleted ? 'checked' : '' }} class="w-5 h-5 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500">
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium {{ $isCompleted ? 'text-slate-800' : 'text-slate-700' }}">{{ $skillName }}</p>
+                            @if($desc)
+                                <p class="text-[10px] text-slate-500 mt-1 leading-snug pr-2">{{ $desc }}</p>
+                            @endif
                         </div>
                     </label>
                     @else
@@ -168,10 +154,13 @@
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium {{ $isCompleted ? 'text-slate-800' : 'text-slate-500' }}">{{ $skillName }}</p>
+                            @if($desc)
+                                <p class="text-[10px] {{ $isCompleted ? 'text-slate-600' : 'text-slate-400' }} mt-1 leading-snug mb-1 pr-2">{{ $desc }}</p>
+                            @endif
                             @if($isCompleted)
-                            <p class="text-[10px] text-emerald-600 mt-0.5 font-semibold">Telah Dikuasai</p>
+                            <p class="text-[10px] text-emerald-600 font-semibold">Telah Dikuasai</p>
                             @else
-                            <p class="text-[10px] text-slate-400 mt-0.5">Belum Dikuasai</p>
+                            <p class="text-[10px] text-slate-400">Belum Dikuasai</p>
                             @endif
                         </div>
                     </div>
@@ -200,7 +189,7 @@
                     <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
                         <i class="fa-regular fa-calendar-check text-slate-400"></i> Kehadiran ({{ $package_meetings ?? 8 }}x Pertemuan)
                     </h3>
-                    @if(Auth::check())
+                    @if(Auth::check() && !Auth::user()->isParent())
                         <button type="button" onclick="addHoliday()" class="text-xs px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold rounded-lg transition shadow-sm border border-rose-100">
                             <i class="fa-solid fa-plus mr-1"></i> Tambah Libur
                         </button>
@@ -228,7 +217,7 @@
                             <tr id="attendance-body-row">
                                 @foreach($attendance as $att)
                                 <td class="pt-4 pb-2 px-1">
-                                    @if(Auth::check())
+                                    @if(Auth::check() && !Auth::user()->isParent())
                                         <select name="attendance[]" class="text-xs rounded border-slate-300 w-full py-1 px-1 focus:ring-emerald-500 focus:border-emerald-500">
                                             <option value="Belum" {{ $att['status'] == 'Belum' ? 'selected' : '' }}>Belum</option>
                                             <option value="Hadir" {{ $att['status'] == 'Hadir' ? 'selected' : '' }}>Hadir</option>
@@ -264,7 +253,7 @@
 
                                 @foreach($holidays as $index => $holiday)
                                 <td class="pt-4 pb-2 px-1 holiday-col" data-index="{{ $index }}">
-                                    @if(Auth::check())
+                                    @if(Auth::check() && !Auth::user()->isParent())
                                         <div class="flex flex-col items-center gap-1.5">
                                             <input type="text" name="holidays[]" value="{{ $holiday }}" class="text-[10px] rounded border-rose-300 w-full py-1 px-1 text-center text-rose-700 bg-rose-50 focus:ring-rose-500" placeholder="Tgl">
                                             <button type="button" onclick="removeHoliday({{ $index }})" class="text-[10px] font-semibold text-rose-500 hover:text-rose-700 hover:underline">Hapus</button>
@@ -295,7 +284,7 @@
                 </div>
             </div>
 
-            @if(Auth::check())
+            @if(Auth::check() && !Auth::user()->isParent())
                 <div class="mt-6 flex justify-end">
                     <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-sm transition">
                         <i class="fa-solid fa-save mr-1"></i> Simpan Evaluasi (Skill & Kehadiran)

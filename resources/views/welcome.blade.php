@@ -368,7 +368,7 @@
                 <p class="text-slate-600 text-lg">Semua pelatih kami telah bersertifikat dan berpengalaman menangani berbagai kelompok usia dan karakter siswa.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Coach 1 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
@@ -379,7 +379,7 @@
                         <div class="absolute -top-6 right-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md text-brand-500 text-xl border-4 border-white z-10">
                             <i class="fa-solid fa-certificate"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Budi</h4>
+                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Vicky</h4>
                         <p class="text-brand-600 font-medium text-sm mb-4">Head Coach / Atlet Nasional</p>
                         <p class="text-slate-600 text-sm">Spesialisasi gaya bebas dan kupu-kupu. Sabar dalam mengajar anak usia dini.</p>
                     </div>
@@ -395,7 +395,7 @@
                         <div class="absolute -top-6 right-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md text-cyan-500 text-xl border-4 border-white z-10">
                             <i class="fa-solid fa-certificate"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Sarah</h4>
+                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Arin</h4>
                         <p class="text-brand-600 font-medium text-sm mb-4">Pakar Terapi Air</p>
                         <p class="text-slate-600 text-sm">Berpengalaman 5 tahun mengajar anak berkebutuhan khusus dan water safety.</p>
                     </div>
@@ -404,16 +404,32 @@
                 <!-- Coach 3 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=600&auto=format&fit=crop" alt="Coach Anton" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" alt="Coach Tasya" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
                         <div class="absolute -top-6 right-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md text-blue-500 text-xl border-4 border-white z-10">
                             <i class="fa-solid fa-certificate"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Anton</h4>
+                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Tasya</h4>
                         <p class="text-brand-600 font-medium text-sm mb-4">Spesialis Dewasa</p>
                         <p class="text-slate-600 text-sm">Teknik pengajaran mudah dipahami untuk orang dewasa yang baru mulai belajar.</p>
+                    </div>
+                </div>
+
+                 <!-- Coach 4 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
+                    <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop" alt="Coach Tiwi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                    </div>
+                    <div class="p-6 text-center relative">
+                        <div class="absolute -top-6 right-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md text-cyan-500 text-xl border-4 border-white z-10">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Tiwi</h4>
+                        <p class="text-brand-600 font-medium text-sm mb-4">Pakar Terapi Air</p>
+                        <p class="text-slate-600 text-sm">Berpengalaman 5 tahun mengajar anak berkebutuhan khusus dan water safety.</p>
                     </div>
                 </div>
             </div>
@@ -429,120 +445,47 @@
                 <p class="text-slate-600 text-lg">Intip suasana belajar yang menyenangkan, aman, dan bersih bersama pelatih-pelatih ASSA Swimming.</p>
             </div>
 
-            <div class="relative w-full overflow-hidden flex marquee-container py-4">
-                <div class="flex gap-6 animate-marquee-infinite pr-6">
-                    <!-- Gallery Item 1 -->
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-brand-500/20 group-hover:bg-brand-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                            <img src="images/pictures1.png" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
+            <div class="flex flex-col gap-12 md:gap-20 gallery-parallax-container py-10 max-w-5xl mx-auto w-full">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item group sticky top-24 md:top-32 aspect-video rounded-3xl overflow-hidden bg-slate-200 shadow-2xl">
+                    <div class="absolute inset-0 bg-brand-500/20 group-hover:bg-brand-900/60 transition-colors duration-300 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
-
-                    <!-- Gallery Item 2 -->
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-cyan-500/20 group-hover:bg-cyan-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700 relative overflow-hidden">
-                            <img src="images/pictures2.png" alt="Gallery" class="w-full h-full object-cover">
-                            <span class="absolute bottom-6 left-6 text-white font-bold text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 drop-shadow-lg">Kelas Balita</span>
-                        </div>
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700">
+                        <img src="images/galeri1.png" alt="Gallery" class="w-full h-[120%] object-cover parallax-img -translate-y-[10%]">
                     </div>
-
-                    <!-- Gallery Item 3 -->
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-blue-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                            <img src="images/pictures3.png" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <!-- Gallery Item 4 -->
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-brand-500/20 group-hover:bg-brand-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                            <img src="images/pictures4.jpeg" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <!-- Gallery Item 5 -->
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-cyan-500/20 group-hover:bg-cyan-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100 group-hover:scale-110 transition-transform duration-500">
-                            <i class="fa-solid fa-image text-5xl"></i>
-                        </div>
-                    </div>
+                    <!-- Overlay for dimming effect when scrolling -->
+                    <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
 
-                <!-- Duplicated for infinite scroll -->
-                <div class="flex gap-6 animate-marquee-infinite pr-6" aria-hidden="true">
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-brand-500/20 group-hover:bg-brand-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                            <img src="images/pictures1.png" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item group sticky top-28 md:top-40 aspect-video rounded-3xl overflow-hidden bg-slate-200 shadow-2xl">
+                    <div class="absolute inset-0 bg-cyan-500/20 group-hover:bg-cyan-900/60 transition-colors duration-300 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-cyan-500/20 group-hover:bg-cyan-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700 relative overflow-hidden">
-                            <img src="images/pictures2.png" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 relative overflow-hidden">
+                        <img src="images/galeri3.png" alt="Gallery" class="w-full h-[120%] object-cover parallax-img -translate-y-[10%]">
+                        <span class="absolute bottom-8 left-8 text-white font-bold text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 drop-shadow-lg">Kelas Balita</span>
                     </div>
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-blue-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                            <img src="images/pictures3.png" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
+                    <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item group sticky top-32 md:top-48 aspect-video rounded-3xl overflow-hidden bg-slate-200 shadow-2xl">
+                    <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-blue-900/60 transition-colors duration-300 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-brand-500/20 group-hover:bg-brand-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                            <img src="images/pictures4.jpeg" alt="Gallery" class="w-full h-full object-cover">
-                        </div>
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700">
+                        <img src="images/galeri2.jpeg" alt="Gallery" class="w-full h-[120%] object-cover parallax-img -translate-y-[10%]">
                     </div>
-                    <div class="gallery-item group relative aspect-video rounded-2xl overflow-hidden bg-slate-200 w-[280px] md:w-[400px] shrink-0 shadow-sm">
-                        <div class="absolute inset-0 bg-cyan-500/20 group-hover:bg-cyan-900/60 transition-colors duration-300 z-10"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white text-3xl"></i>
-                        </div>
-                        <div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100 group-hover:scale-110 transition-transform duration-500">
-                            <i class="fa-solid fa-image text-5xl"></i>
-                        </div>
-                    </div>
+                    <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
             </div>
 
-            <div class="text-center mt-12">
-                <a href="#" class="inline-flex items-center gap-2 text-brand-600 font-semibold hover:text-brand-800 transition-colors">
-                    Lihat lebih banyak foto <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
+
         </div>
     </section>
 
@@ -650,27 +593,109 @@
     </section>
 
     <!-- Footer -->
-    <footer id="footer-ripple-area" class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800 relative overflow-hidden cursor-pointer">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="md:flex justify-between items-center">
-                <div class="mb-6 md:mb-0 pointer-events-auto">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="{{ asset('images/ASSAswim.png') }}" alt="ASSA Swim Logo" class="h-10 w-auto object-contain">
-                        <span class="font-bold text-xl text-white">ASSA<span class="text-brand-400">Swim</span></span>
+    <footer id="footer-ripple-area" class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 relative overflow-hidden cursor-pointer">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pointer-events-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Column 1: Brand -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-white p-1.5 rounded-xl shadow-sm">
+                            <img src="{{ asset('images/ASSAswim.png') }}" alt="ASSA Swim Logo" class="h-9 w-auto object-contain">
+                        </div>
+                        <span class="font-bold text-2xl text-white tracking-tight">ASSA<span class="text-brand-400">Swim</span></span>
                     </div>
-                    <p class="text-sm text-slate-400 max-w-sm">Membentuk generasi perenang tangguh, disiplin, dan berprestasi.</p>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Klub renang terkemuka dengan kurikulum terstruktur dan pelatih profesional untuk membentuk generasi perenang tangguh, disiplin, dan berprestasi.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/assaswimmingcourse?igsi=MWppOWdjYzVrMG1jYw%3D%3D#" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-brand-500/25">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@assaswimmingcourse?_r=1&_t=ZS-99DnQuzP8n2" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-brand-500/25">
+                            <i class="fa-brands fa-tiktok text-lg"></i>
+                        </a>
+                        <a href="https://wa.me/6285126220060" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-emerald-500/25">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="flex space-x-6 pointer-events-auto">
-                    <a href="https://www.instagram.com/assaswimmingcourse?igsi=MWppOWdjYzVrMG1jYw%3D%3D#" target="_blank" class="social-icon text-slate-400 hover:text-brand-400 transition inline-block"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                    <a href="https://www.tiktok.com/@assaswimmingcourse?_r=1&_t=ZS-99DnQuzP8n2" target="_blank" class="social-icon text-slate-400 hover:text-brand-400 transition inline-block"><i class="fa-brands fa-tiktok text-2xl"></i></a>
-                    <a href="https://wa.me/6285126220060" target="_blank" class="social-icon text-slate-400 hover:text-brand-400 transition inline-block"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-400"></span> Navigasi
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-slate-400 hover:text-brand-400 hover:pl-2 transition-all duration-300 text-sm flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Tentang Kami</a></li>
+                        <li><a href="#levels" class="text-slate-400 hover:text-brand-400 hover:pl-2 transition-all duration-300 text-sm flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Kurikulum & Level</a></li>
+                        <li><a href="#facilities" class="text-slate-400 hover:text-brand-400 hover:pl-2 transition-all duration-300 text-sm flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Fasilitas Kolam</a></li>
+                        <li><a href="#coaches" class="text-slate-400 hover:text-brand-400 hover:pl-2 transition-all duration-300 text-sm flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Profil Coach</a></li>
+                        <li><a href="#gallery" class="text-slate-400 hover:text-brand-400 hover:pl-2 transition-all duration-300 text-sm flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Galeri Kegiatan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact Info -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Kontak Kami
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 text-slate-400 text-sm">
+                            <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 text-cyan-400">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <span class="pt-1.5">Gelanggang Olahraga Renang, Kota Anda, 12345</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-slate-400 text-sm">
+                            <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 text-cyan-400">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <span class="pt-1.5">+62 851-2622-0060</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-slate-400 text-sm">
+                            <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 text-cyan-400">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span class="pt-1.5">hello@assaswim.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Operational Hours -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-rose-400"></span> Jam Operasional
+                    </h3>
+                    <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
+                        <ul class="space-y-3 text-sm text-slate-400">
+                            <li class="flex justify-between items-center pb-2 border-b border-slate-700/50">
+                                <span>Senin - Jumat</span>
+                                <span class="font-medium text-white">08:00 - 18:00</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-slate-700/50">
+                                <span>Sabtu</span>
+                                <span class="font-medium text-white">07:00 - 17:00</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span>Minggu</span>
+                                <span class="font-medium text-rose-400">Tutup</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="border-t border-slate-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm pointer-events-auto">
-                <p>&copy; <span id="copyright-year">1990</span> ASSA Swimming Course. All rights reserved.</p>
-                <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+
+            <!-- Bottom Footer -->
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p class="text-slate-500 mb-4 md:mb-0">&copy; <span id="copyright-year">1990</span> ASSA Swimming Course. All rights reserved.</p>
+                <div class="flex space-x-6 text-slate-500">
+                    <a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-brand-400 transition-colors">Sitemap</a>
                 </div>
             </div>
         </div>
@@ -705,7 +730,7 @@
             if (counter) {
                 let obj = { val: 0 };
                 gsap.to(obj, {
-                    val: 500,
+                    val: 200,
                     duration: 3,
                     ease: "power2.out",
                     delay: 1.2,
@@ -769,80 +794,126 @@
                 });
             });
 
-            // 8. Gallery Scroll Reveal
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            if (galleryItems.length > 0) {
-                gsap.from(galleryItems, {
+            // 8. Gallery Scroll Reveal & Parallax
+            const galleryContainer = document.querySelector('.gallery-parallax-container');
+            if (galleryContainer) {
+                // Reveal animation
+                gsap.from('.gallery-item', {
                     scrollTrigger: {
                         trigger: "#gallery",
-                        start: "top 75%",
+                        start: "top 80%",
                     },
-                    y: 80,
+                    y: 60,
                     opacity: 0,
-                    scale: 0.9,
-                    rotationX: 15,
-                    transformOrigin: "center bottom",
+                    scale: 0.95,
                     duration: 0.8,
                     stagger: 0.15,
-                    ease: "back.out(1.2)"
+                    ease: "power2.out"
                 });
+
+                // Vertical Parallax effect based on scroll for inner images
+                if (window.innerWidth > 768) {
+                    gsap.utils.toArray('.parallax-img').forEach(img => {
+                        gsap.to(img, {
+                            y: "10%",
+                            ease: "power1.out",
+                            scrollTrigger: {
+                                trigger: img.closest('.gallery-item'),
+                                start: "top bottom",
+                                end: "bottom top",
+                                scrub: 1.5
+                            }
+                        });
+                    });
+
+                    // Smooth Stacking Cards scale-down effect
+                    const cards = gsap.utils.toArray('.gallery-item');
+                    cards.forEach((card, index) => {
+                        if (index !== cards.length - 1) { // Skip the last card
+                            // Scale down the card
+                            gsap.to(card, {
+                                scale: 0.93, // Subtler scale down
+                                ease: "none",
+                                scrollTrigger: {
+                                    trigger: card,
+                                    start: "top 128px",
+                                    end: "+=120%",
+                                    scrub: true
+                                }
+                            });
+
+                            // Fade in the dark overlay
+                            const overlay = card.querySelector('.dim-overlay');
+                            if (overlay) {
+                                gsap.to(overlay, {
+                                    opacity: 0.25, // Only 25% black (very light dimming)
+                                    ease: "none",
+                                    scrollTrigger: {
+                                        trigger: card,
+                                        start: "top 128px",
+                                        end: "+=120%",
+                                        scrub: true
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
             }
 
 
-            // 10. Horizontal Carousel (Pin & Wipe) Testimonials
+            // 10. Infinite Carousel Testimonials & Simplified Text Reveal
             const testiSection = document.getElementById("testimonials");
             const testiCarousel = document.querySelector(".testimonial-carousel");
 
             if (testiSection && testiCarousel) {
-                let getScrollAmount = () => -(testiCarousel.scrollWidth - window.innerWidth + 40); // 40px buffer
+                // Remove scroll pinning and create an infinite moving loop (marquee)
+                // First, calculate the original width and gap
+                const originalWidth = testiCarousel.scrollWidth;
+                const gap = 24; // gap-6 in Tailwind is 24px
 
-                const tween = gsap.to(testiCarousel, {
-                    x: getScrollAmount,
-                    ease: "none"
+                // Duplicate the content to create a seamless loop
+                testiCarousel.innerHTML += testiCarousel.innerHTML;
+
+                // Animate continuously to the left
+                gsap.to(testiCarousel, {
+                    x: -(originalWidth + gap),
+                    duration: 30, // Speed of the marquee
+                    ease: "none",
+                    repeat: -1
                 });
 
-                ScrollTrigger.create({
-                    trigger: testiSection,
-                    start: "top top",
-                    end: () => `+=${getScrollAmount() * -1}`,
-                    pin: true,
-                    animation: tween,
-                    scrub: 1,
-                    invalidateOnRefresh: true
-                });
-
-                // Set up for interior animations
-                gsap.utils.toArray('.testi-card').forEach(card => {
+                // Set up for interior animations (triggered when section comes into view)
+                // We use the new children list since we just duplicated them
+                gsap.utils.toArray(testiCarousel.children).forEach((card, i) => {
                     // 11. Stars Pop
                     gsap.from(card.querySelectorAll('.testi-star'), {
                         scale: 0,
                         opacity: 0,
-                        duration: 0.8,
-                        stagger: 0.1,
-                        ease: "elastic.out(1, 0.3)",
+                        duration: 0.6,
+                        stagger: 0.05,
+                        ease: "back.out(1.5)",
                         scrollTrigger: {
-                            trigger: card,
-                            containerAnimation: tween,
-                            start: "left 80%",
-                        }
+                            trigger: testiSection,
+                            start: "top 75%",
+                        },
+                        delay: (i % 5) * 0.1 // Use modulo 5 since we duplicated 5 cards
                     });
 
-                    // 12. Text Read Out Effect
+                    // 12. Text Reveal (No more word-splitting to prevent cut-off fonts!)
                     const textP = card.querySelector('.testi-text');
-                    const text = textP.innerText;
-                    textP.innerHTML = text.split(' ').map(word => `<span class="inline-block opacity-0 translate-y-2 read-word">${word}</span>`).join(' ');
-
-                    gsap.to(textP.querySelectorAll('.read-word'), {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.4,
-                        stagger: 0.03,
-                        scrollTrigger: {
-                            trigger: card,
-                            containerAnimation: tween,
-                            start: "left 70%",
-                        }
-                    });
+                    if(textP) {
+                        gsap.from(textP, {
+                            opacity: 0,
+                            y: 20,
+                            duration: 0.8,
+                            scrollTrigger: {
+                                trigger: testiSection,
+                                start: "top 75%",
+                            },
+                            delay: ((i % 5) * 0.1) + 0.2
+                        });
+                    }
                 });
 
                 // 13. Avatar Spin

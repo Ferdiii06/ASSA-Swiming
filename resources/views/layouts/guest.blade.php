@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'ASSA Swimming')</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/ASSAswim.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,8 +19,7 @@
     <div class="hidden lg:flex lg:w-1/2 relative bg-cyan-900">
         <div class="absolute inset-0 bg-cyan-900/40 z-10 mix-blend-multiply"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-cyan-900/80 to-transparent z-10"></div>
-        <img src="https://images.unsplash.com/photo-1576610616656-d3aa5d1f4534?auto=format&fit=crop&q=80" alt="Swimming Pool" class="absolute inset-0 w-full h-full object-cover">
-        
+        <img src="{{ asset('images/background pendaftaran.jpeg') }}" alt="Swimming Pool" class="absolute inset-0 w-full h-full object-cover">        
         <div class="relative z-20 flex flex-col justify-end p-12 text-white h-full">
             <h2 class="text-4xl font-bold mb-4">ASSA Swimming</h2>
             <p class="text-lg text-cyan-100 max-w-md">Kembangkan potensi renangmu bersama pelatih profesional dan jadwal yang terstruktur dengan baik.</p>

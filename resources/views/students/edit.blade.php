@@ -49,13 +49,23 @@
                 <!-- Kolam / Lokasi -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Lokasi Kolam</label>
-                    <input type="text" name="location" value="{{ old('location', $student->location ?? '') }}" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                    <select name="location" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        <option value="">-- Pilih Lokasi --</option>
+                        @foreach($dbPrograms->pluck('pool_name')->unique() as $pool)
+                            <option value="{{ $pool }}" {{ (old('location', $student->location ?? '') == $pool) ? 'selected' : '' }}>{{ $pool }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- Program -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Program</label>
-                    <input type="text" name="program" value="{{ old('program', $student->program ?? '') }}" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                    <select name="program" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        <option value="">-- Pilih Program --</option>
+                        @foreach($dbPrograms->pluck('name')->unique() as $prog)
+                            <option value="{{ $prog }}" {{ (old('program', $student->program ?? '') == $prog) ? 'selected' : '' }}>{{ $prog }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- Level -->

@@ -23,11 +23,22 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Lokasi Kolam</label>
+                <select name="location" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+                    <option value="">-- Pilih Lokasi --</option>
+                    @foreach($dbPrograms->pluck('pool_name')->unique() as $pool)
+                        <option value="{{ $pool }}">{{ $pool }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Program</label>
                 <select name="program" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
-                    <option value="SEMI PRIVATE">SEMI PRIVATE</option>
-                    <option value="GRUP">GRUP</option>
-                    <option value="PRIVATE">PRIVATE</option>
+                    <option value="">-- Pilih Program --</option>
+                    @foreach($dbPrograms->pluck('name')->unique() as $prog)
+                        <option value="{{ $prog }}">{{ $prog }}</option>
+                    @endforeach
                 </select>
             </div>
 

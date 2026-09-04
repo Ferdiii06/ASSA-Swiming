@@ -12,6 +12,8 @@ class Program extends Model
     protected $fillable = [
         'name',
         'description',
+        'pool_name',
+        'location',
         'price_per_session',
         'price_monthly',
         'duration_months',

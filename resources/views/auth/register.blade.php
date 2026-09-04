@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
                 <label for="program" class="block text-sm font-medium text-slate-700 mb-1">Program</label>
                 <div class="relative">
@@ -120,10 +120,9 @@
                     <select id="program" name="program" required
                             class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all bg-slate-50 focus:bg-white appearance-none">
                         <option value="" disabled selected>Pilih Program</option>
-                        <option value="Private" {{ old('program') == 'Private' ? 'selected' : '' }}>Private</option>
-                        <option value="Semi Private" {{ old('program') == 'Semi Private' ? 'selected' : '' }}>Semi Private</option>
-                        <option value="Reguler / Kelompok" {{ old('program') == 'Reguler / Kelompok' ? 'selected' : '' }}>Reguler / Kelompok</option>
-                        <option value="Trial" {{ old('program') == 'Trial' ? 'selected' : '' }}>Trial</option>
+                        @foreach($programs as $prog)
+                            <option value="{{ $prog }}" {{ old('program') == $prog ? 'selected' : '' }}>{{ $prog }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -146,8 +145,13 @@
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <i class="fa-solid fa-water text-slate-400"></i>
                 </div>
-                <input type="text" id="location" name="location" value="{{ old('location') }}" required
-                       class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all bg-slate-50 focus:bg-white">
+                <select id="location" name="location" required
+                       class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all bg-slate-50 focus:bg-white appearance-none">
+                    <option value="" disabled selected>Pilih Tempat Renang</option>
+                    @foreach($locations as $loc)
+                        <option value="{{ $loc }}" {{ old('location') == $loc ? 'selected' : '' }}>{{ $loc }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 

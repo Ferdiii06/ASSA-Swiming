@@ -189,11 +189,18 @@
                     <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
                         <i class="fa-regular fa-calendar-check text-slate-400"></i> Kehadiran ({{ $package_meetings ?? 8 }}x Pertemuan)
                     </h3>
-                    @if(Auth::check() && !Auth::user()->isParent())
-                        <button type="button" onclick="addHoliday()" class="text-xs px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold rounded-lg transition shadow-sm border border-rose-100">
-                            <i class="fa-solid fa-plus mr-1"></i> Tambah Libur
-                        </button>
-                    @endif
+                    <div class="flex items-center gap-3">
+                        <input type="month" id="month-selector" value="{{ $selectedMonth }}" 
+                            onchange="window.location.href='?month=' + this.value"
+                            class="text-sm rounded-lg border-slate-300 py-1.5 px-3 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm">
+                        
+                        @if(Auth::check() && !Auth::user()->isParent())
+                            <input type="hidden" name="month" value="{{ $selectedMonth }}">
+                            <button type="button" onclick="addHoliday()" class="text-xs px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold rounded-lg transition shadow-sm border border-rose-100">
+                                <i class="fa-solid fa-plus mr-1"></i> Tambah Libur
+                            </button>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto">

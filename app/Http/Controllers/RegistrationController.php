@@ -9,7 +9,11 @@ class RegistrationController extends Controller
 {
     public function create()
     {
-        return view('auth.register');
+        $dbPrograms = \App\Models\Program::all();
+        $programs = $dbPrograms->pluck('name')->filter()->unique()->values();
+        $locations = $dbPrograms->pluck('pool_name')->filter()->unique()->values();
+
+        return view('auth.register', compact('programs', 'locations'));
     }
 
     public function store(Request $request)

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Program;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class StudentController extends Controller
 {
     public function index(Request $request)
     {
+        // ... (rest of index method is unchanged)
         if (auth()->check() && auth()->user()->isParent()) {
             return redirect()->route('dashboard')->with('error', 'Akses Ditolak: Orang Tua (Parent) tidak diizinkan mengakses data manajemen siswa.');
         }
@@ -60,8 +62,9 @@ class StudentController extends Controller
         $paidCount = $allStudents->filter(fn($s) => !empty($s->nominal))->count();
 
         // Get unique locations & programs for dropdown filters
-        $locations = $allStudents->pluck('location')->filter()->unique()->values();
-        $programs = $allStudents->pluck('program')->filter()->unique()->values();
+        $dbPrograms = Program::all();
+        $locations = $allStudents->pluck('location')->merge($dbPrograms->pluck('pool_name'))->filter()->unique()->values();
+        $programs = $allStudents->pluck('program')->merge($dbPrograms->pluck('name'))->filter()->unique()->values();
 
         $stats = [
             'total_students' => $totalStudents,
@@ -107,7 +110,8 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        $dbPrograms = Program::all();
+        return view('students.create', compact('dbPrograms'));
     }
 
     public function store(Request $request)
@@ -121,8 +125,9 @@ class StudentController extends Controller
         return redirect()->route('students.index')->with('success', 'Siswa baru berhasil ditambahkan!');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $selectedMonth = $request->get('month', date('Y-m'));
         $jsonPath = database_path('students_spreadsheet.json');
 
         if (!file_exists($jsonPath)) {
@@ -216,7 +221,16 @@ class StudentController extends Controller
         }
 
         $package_meetings = isset($student->package_meetings) ? (int) $student->package_meetings : 8;
-        $savedAttendance = isset($student->attendance) ? (array) $student->attendance : array_fill(0, $package_meetings, 'Belum');
+        
+        // Fetch attendance for selected month
+        $attendanceHistory = isset($student->attendance_history) ? (array) $student->attendance_history : [];
+        if (isset($attendanceHistory[$selectedMonth])) {
+            $savedAttendance = (array) $attendanceHistory[$selectedMonth];
+        } else {
+            // Fallback for old data or new month
+            $savedAttendance = isset($student->attendance) && count($attendanceHistory) === 0 ? (array) $student->attendance : array_fill(0, $package_meetings, 'Belum');
+        }
+        
         $attendance = [];
         for ($i = 0; $i < $package_meetings; $i++) {
             $attendance[] = [
@@ -225,12 +239,18 @@ class StudentController extends Controller
             ];
         }
 
-        $holidays = isset($student->holidays) ? (array) $student->holidays : [];
+        $holidaysHistory = isset($student->holidays_history) ? (array) $student->holidays_history : [];
+        if (isset($holidaysHistory[$selectedMonth])) {
+            $holidays = (array) $holidaysHistory[$selectedMonth];
+        } else {
+            // Fallback for old data or new month
+            $holidays = isset($student->holidays) && count($holidaysHistory) === 0 ? (array) $student->holidays : [];
+        }
 
         // Payment status based on nominal
         $paymentStatus = !empty($student->nominal) && $student->nominal !== '-' ? 'Lunas' : 'Belum Bayar';
 
-        return view('students.show', compact('student', 'completedSkills', 'attendance', 'paymentStatus', 'holidays', 'package_meetings'));
+        return view('students.show', compact('student', 'completedSkills', 'attendance', 'paymentStatus', 'holidays', 'package_meetings', 'selectedMonth'));
     }
     public function edit($id)
     {
@@ -249,7 +269,8 @@ class StudentController extends Controller
             return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
         }
 
-        return view('students.edit', compact('student'));
+        $dbPrograms = Program::all();
+        return view('students.edit', compact('student', 'dbPrograms'));
     }
 
     public function update(Request $request, $id)
@@ -325,8 +346,22 @@ class StudentController extends Controller
                 $package_meetings = isset($student['package_meetings']) ? (int) $student['package_meetings'] : 8;
                 $attendanceInput = $request->input('attendance', array_fill(0, $package_meetings, 'Belum'));
                 $holidaysInput = $request->input('holidays', []);
+                $monthInput = $request->input('month', date('Y-m'));
 
                 $studentsData[$key]['completed_skills'] = $skillsCompleted;
+
+                // Save to history
+                if (!isset($studentsData[$key]['attendance_history'])) {
+                    $studentsData[$key]['attendance_history'] = [];
+                }
+                if (!isset($studentsData[$key]['holidays_history'])) {
+                    $studentsData[$key]['holidays_history'] = [];
+                }
+
+                $studentsData[$key]['attendance_history'][$monthInput] = $attendanceInput;
+                $studentsData[$key]['holidays_history'][$monthInput] = array_filter($holidaysInput);
+                
+                // Keep the root updated as fallback
                 $studentsData[$key]['attendance'] = $attendanceInput;
                 $studentsData[$key]['holidays'] = array_filter($holidaysInput);
 

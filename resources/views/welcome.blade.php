@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASSA Swimming | Les Renang Profesional</title>
+    <title>ASSA Swimming</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/ASSAswim.png') }}">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,7 +95,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
                     <img id="navbar-logo" src="{{ asset('images/ASSAswimremovebg.png') }}" alt="ASSA Swim Logo" class="h-16 w-auto object-contain" style="height: 64px;">
-                    <span id="navbar-text" class="font-bold text-2xl tracking-tight text-slate-900">ASSA<span class="text-brand-600">Swim</span></span>
+                    <span id="navbar-text" class="font-bold text-2xl tracking-tight text-slate-900">ASSA<span class="text-brand-600">Swimming</span></span>
                 </div>
 
                 <!-- Desktop Menu -->
@@ -329,31 +331,31 @@
     <!-- Awards Section -->
     <section class="py-12 bg-slate-900 border-t border-slate-800 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Dipercaya dan Tersertifikasi Oleh</p>
+            <p class="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Prestasi & Kebanggaan Kami</p>
             <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                 <!-- Award 1 -->
                 <div class="flex flex-col items-center justify-center text-white text-center w-32 relative">
                     <i class="fa-solid fa-sparkles text-amber-300 text-xl absolute -top-4 -right-2 sparkle-icon"></i>
                     <i class="fa-solid fa-award text-4xl mb-2 text-amber-400 relative z-10"></i>
-                    <span class="text-xs font-bold leading-tight">Top Swimming School 2024</span>
+                    <span class="text-xs font-bold leading-tight">Sekolah Renang Terbaik</span>
                 </div>
                 <!-- Award 2 -->
                 <div class="flex flex-col items-center justify-center text-white text-center w-32 relative">
                     <i class="fa-solid fa-sparkles text-cyan-300 text-xl absolute -top-4 -left-2 sparkle-icon"></i>
                     <i class="fa-solid fa-medal text-4xl mb-2 text-brand-400 relative z-10"></i>
-                    <span class="text-xs font-bold leading-tight">Sertifikasi Water Safety Nasional</span>
+                    <span class="text-xs font-bold leading-tight">Standar Keamanan Terjamin</span>
                 </div>
                 <!-- Award 3 -->
                 <div class="flex flex-col items-center justify-center text-white text-center w-32 relative">
                     <i class="fa-solid fa-sparkles text-emerald-300 text-xl absolute top-0 -right-4 sparkle-icon"></i>
                     <i class="fa-solid fa-shield-halved text-4xl mb-2 text-emerald-400 relative z-10"></i>
-                    <span class="text-xs font-bold leading-tight">Standard Kualitas Pelatih Bintang 5</span>
+                    <span class="text-xs font-bold leading-tight">Instruktur Bersertifikat</span>
                 </div>
                 <!-- Award 4 -->
                 <div class="flex flex-col items-center justify-center text-white text-center w-32 relative">
                     <i class="fa-solid fa-sparkles text-rose-300 text-xl absolute -top-4 right-0 sparkle-icon"></i>
                     <i class="fa-solid fa-trophy text-4xl mb-2 text-rose-400 relative z-10"></i>
-                    <span class="text-xs font-bold leading-tight">Juara 1 Lomba Antar Klub Renang</span>
+                    <span class="text-xs font-bold leading-tight">Langganan Juara Lomba</span>
                 </div>
             </div>
         </div>
@@ -372,7 +374,7 @@
                 <!-- Coach 1 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=600&auto=format&fit=crop" alt="Coach Budi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coachvicky.png" alt="Coach Budi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-brand-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -380,15 +382,15 @@
                             <i class="fa-solid fa-certificate"></i>
                         </div>
                         <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Vicky</h4>
-                        <p class="text-brand-600 font-medium text-sm mb-4">Head Coach / Atlet Nasional</p>
-                        <p class="text-slate-600 text-sm">Spesialisasi gaya bebas dan kupu-kupu. Sabar dalam mengajar anak usia dini.</p>
+                        <p class="text-brand-600 font-medium text-sm mb-4">spesialis anak & dewasa</p>
+                        <p class="text-slate-600 text-sm">Spesialis anak advance dan special needs dengan pendekatan latihan yang sesuai.</p>
                     </div>
                 </div>
 
                 <!-- Coach 2 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" alt="Coach Sarah" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coacharin.png" alt="Coach Sarah" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -396,15 +398,15 @@
                             <i class="fa-solid fa-certificate"></i>
                         </div>
                         <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Arin</h4>
-                        <p class="text-brand-600 font-medium text-sm mb-4">Pakar Terapi Air</p>
-                        <p class="text-slate-600 text-sm">Berpengalaman 5 tahun mengajar anak berkebutuhan khusus dan water safety.</p>
+                        <p class="text-brand-600 font-medium text-sm mb-4">spesialis anak & dewasa</p>
+                        <p class="text-slate-600 text-sm">Berpengalaman mengajar anak-anak dan dewasa dengan metode yang menyenangkan.</p>
                     </div>
                 </div>
 
                 <!-- Coach 3 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" alt="Coach Tasya" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coachtasya.png" alt="Coach Tasya" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -412,15 +414,15 @@
                             <i class="fa-solid fa-certificate"></i>
                         </div>
                         <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Tasya</h4>
-                        <p class="text-brand-600 font-medium text-sm mb-4">Spesialis Dewasa</p>
-                        <p class="text-slate-600 text-sm">Teknik pengajaran mudah dipahami untuk orang dewasa yang baru mulai belajar.</p>
+                        <p class="text-brand-600 font-medium text-sm mb-4">spesialis anak & dewasa</p>
+                        <p class="text-slate-600 text-sm">Mendampingi pemula membangun kepercayaan diri dan kemampuan dasar berenang.</p>
                     </div>
                 </div>
 
                  <!-- Coach 4 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop" alt="Coach Tiwi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coachtiwi.png" alt="Coach Tiwi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -428,8 +430,8 @@
                             <i class="fa-solid fa-certificate"></i>
                         </div>
                         <h4 class="text-xl font-bold text-slate-800 mb-1 split-name">Coach Tiwi</h4>
-                        <p class="text-brand-600 font-medium text-sm mb-4">Pakar Terapi Air</p>
-                        <p class="text-slate-600 text-sm">Berpengalaman 5 tahun mengajar anak berkebutuhan khusus dan water safety.</p>
+                        <p class="text-brand-600 font-medium text-sm mb-4">spesialis anak & dewasa</p>
+                        <p class="text-slate-600 text-sm">Membantu siswa meningkatkan teknik dan kemampuan renang yang sudah dimiliki.</p>
                     </div>
                 </div>
             </div>
@@ -447,39 +449,39 @@
 
             <div class="flex flex-col gap-12 md:gap-20 gallery-parallax-container py-10 max-w-5xl mx-auto w-full">
                 <!-- Gallery Item 1 -->
-                <div class="gallery-item group sticky top-24 md:top-32 aspect-video rounded-3xl overflow-hidden bg-slate-200 shadow-2xl">
-                    <div class="absolute inset-0 bg-brand-500/20 group-hover:bg-brand-900/60 transition-colors duration-300 z-10"></div>
+                <div class="gallery-item group sticky top-24 md:top-32 aspect-video rounded-3xl overflow-hidden bg-slate-900 shadow-2xl">
+                    <div class="absolute inset-0 bg-brand-500/10 group-hover:bg-brand-900/40 transition-colors duration-300 z-10"></div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
-                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700">
-                        <img src="images/galeri1.png" alt="Gallery" class="w-full h-[120%] object-cover parallax-img -translate-y-[10%]">
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
+                        <img src="images/galeri1.png" alt="Gallery" class="w-full h-full object-contain">
                     </div>
                     <!-- Overlay for dimming effect when scrolling -->
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
 
                 <!-- Gallery Item 2 -->
-                <div class="gallery-item group sticky top-28 md:top-40 aspect-video rounded-3xl overflow-hidden bg-slate-200 shadow-2xl">
-                    <div class="absolute inset-0 bg-cyan-500/20 group-hover:bg-cyan-900/60 transition-colors duration-300 z-10"></div>
+                <div class="gallery-item group sticky top-28 md:top-40 aspect-video rounded-3xl overflow-hidden bg-slate-900 shadow-2xl">
+                    <div class="absolute inset-0 bg-cyan-500/10 group-hover:bg-cyan-900/40 transition-colors duration-300 z-10"></div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
-                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 relative overflow-hidden">
-                        <img src="images/galeri3.png" alt="Gallery" class="w-full h-[120%] object-cover parallax-img -translate-y-[10%]">
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 relative overflow-hidden flex items-center justify-center">
+                        <img src="images/galeri3.png" alt="Gallery" class="w-full h-full object-contain">
                         <span class="absolute bottom-8 left-8 text-white font-bold text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 drop-shadow-lg">Kelas Balita</span>
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
 
                 <!-- Gallery Item 3 -->
-                <div class="gallery-item group sticky top-32 md:top-48 aspect-video rounded-3xl overflow-hidden bg-slate-200 shadow-2xl">
-                    <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-blue-900/60 transition-colors duration-300 z-10"></div>
+                <div class="gallery-item group sticky top-32 md:top-48 aspect-video rounded-3xl overflow-hidden bg-slate-900 shadow-2xl">
+                    <div class="absolute inset-0 bg-blue-500/10 group-hover:bg-blue-900/40 transition-colors duration-300 z-10"></div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
-                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700">
-                        <img src="images/galeri2.jpeg" alt="Gallery" class="w-full h-[120%] object-cover parallax-img -translate-y-[10%]">
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
+                        <img src="images/galeri2.jpeg" alt="Gallery" class="w-full h-full object-contain">
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
@@ -612,7 +614,7 @@
                         Klub renang terkemuka dengan kurikulum terstruktur dan pelatih profesional untuk membentuk generasi perenang tangguh, disiplin, dan berprestasi.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="https://www.instagram.com/assaswimmingcourse?igsi=MWppOWdjYzVrMG1jYw%3D%3D#" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-brand-500/25">
+                        <a href="https://www.instagram.com/assaswimmingschoolacademy" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-brand-500/25">
                             <i class="fa-brands fa-instagram text-lg"></i>
                         </a>
                         <a href="https://www.tiktok.com/@assaswimmingcourse?_r=1&_t=ZS-99DnQuzP8n2" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-brand-500/25">
@@ -648,7 +650,7 @@
                             <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 text-cyan-400">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
-                            <span class="pt-1.5">Gelanggang Olahraga Renang, Kota Anda, 12345</span>
+                            <span class="pt-1.5">Griya persada asri MA/08 Rt 16 Rw 06 sidodadi candi sidoarjo</span>
                         </li>
                         <li class="flex items-start gap-3 text-slate-400 text-sm">
                             <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 text-cyan-400">
@@ -660,7 +662,7 @@
                             <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 text-cyan-400">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
-                            <span class="pt-1.5">hello@assaswim.com</span>
+                            <span class="pt-1.5">hello@assaswiming.com</span>
                         </li>
                     </ul>
                 </div>
@@ -673,16 +675,8 @@
                     <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
                         <ul class="space-y-3 text-sm text-slate-400">
                             <li class="flex justify-between items-center pb-2 border-b border-slate-700/50">
-                                <span>Senin - Jumat</span>
-                                <span class="font-medium text-white">08:00 - 18:00</span>
-                            </li>
-                            <li class="flex justify-between items-center pb-2 border-b border-slate-700/50">
-                                <span>Sabtu</span>
-                                <span class="font-medium text-white">07:00 - 17:00</span>
-                            </li>
-                            <li class="flex justify-between items-center">
-                                <span>Minggu</span>
-                                <span class="font-medium text-rose-400">Tutup</span>
+                                <span>Senin - Minggu</span>
+                                <span class="font-medium text-white">06.00 - 21.00</span>
                             </li>
                         </ul>
                     </div>

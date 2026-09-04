@@ -58,4 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/pembayaran/{id}/approve', [App\Http\Controllers\PaymentController::class, 'approve'])->name('payments.approve');
 });
 
+// Programs Routes
+use App\Http\Controllers\ProgramController;
+Route::resource('programs', ProgramController::class)->middleware('auth');
+
 // Other Resources

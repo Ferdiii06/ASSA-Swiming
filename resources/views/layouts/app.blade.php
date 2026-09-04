@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'ASSA Swimming')</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/ASSAswim.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -33,6 +35,11 @@
                 <a href="{{ route('students.index') }}"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('students.*') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-graduation-cap w-5"></i> Siswa
+                </a>
+                
+                <a href="{{ route('programs.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('programs.*') ? 'bg-cyan-600' : '' }}">
+                    <i class="fa-solid fa-layer-group w-5"></i> Program
                 </a>
                 
                 <div class="pt-4 mt-2 border-t border-slate-700"></div>

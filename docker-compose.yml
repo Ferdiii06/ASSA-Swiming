@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  app:
+    image: php:8.3-fpm
+    container_name: swiming_app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - swiming_network
+
+  web:
+    image: nginx:alpine
+    container_name: swiming_web
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx:/etc/nginx/conf.d/
+    depends_on:
+      - app
+    networks:
+      - swiming_network
+
+  db:
+    image: mysql:8.0
+    container_name: swiming_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: swiming_schedule
+      MYSQL_USER: swiming_user
+      MYSQL_PASSWORD: swiming_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - swiming_network
+
+networks:
+  swiming_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

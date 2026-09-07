@@ -94,7 +94,7 @@
                 <option value="15" {{ request('per_page', 15) == 15 ? 'selected' : '' }}>15 / Halaman</option>
                 <option value="30" {{ request('per_page') == 30 ? 'selected' : '' }}>30 / Halaman</option>
                 <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 / Halaman</option>
-                <option value="-1" {{ request('per_page') == -1 ? 'selected' : '' }}>Semua (144)</option>
+                <option value="-1" {{ request('per_page') == -1 ? 'selected' : '' }}>Semua ({{ $stats['total_students'] ?? 0 }})</option>
             </select>
 
             @if(request('search') || request('location') || request('program') || request('per_page'))

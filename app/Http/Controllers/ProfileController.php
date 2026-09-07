@@ -41,4 +41,19 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
     }
+    public function complete(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20'],
+        ]);
+
+        $user->name = $validated['name'];
+        $user->phone = $validated['phone'];
+        $user->save();
+
+        return redirect()->route('dashboard')->with('success', 'Profil berhasil dilengkapi! Data anak Anda sekarang terhubung.');
+    }
 }

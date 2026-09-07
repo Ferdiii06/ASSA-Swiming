@@ -608,7 +608,7 @@
                         <div class="bg-white p-1.5 rounded-xl shadow-sm">
                             <img src="{{ asset('images/ASSAswim.png') }}" alt="ASSA Swim Logo" class="h-9 w-auto object-contain">
                         </div>
-                        <span class="font-bold text-2xl text-white tracking-tight">ASSA<span class="text-brand-400">Swim</span></span>
+                        <span class="font-bold text-2xl text-white tracking-tight">ASSA<span class="text-brand-400">Swimming</span></span>
                     </div>
                     <p class="text-sm text-slate-400 leading-relaxed">
                         Klub renang terkemuka dengan kurikulum terstruktur dan pelatih profesional untuk membentuk generasi perenang tangguh, disiplin, dan berprestasi.

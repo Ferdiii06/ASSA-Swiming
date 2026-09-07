@@ -21,25 +21,35 @@
                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Umur Siswa</label>
+                <input type="text" name="age" placeholder="Contoh: 8" required
+                       class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nama Orang Tua</label>
+                <input type="text" name="parent_name" placeholder="Penting untuk Dashboard" required
+                       class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">No WhatsApp Ortu</label>
+                <input type="text" name="phone" placeholder="Contoh: 08123456789" required
+                       class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Lokasi Kolam</label>
-                <select name="location" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
-                    <option value="">-- Pilih Lokasi --</option>
-                    @foreach($dbPrograms->pluck('pool_name')->unique() as $pool)
-                        <option value="{{ $pool }}">{{ $pool }}</option>
-                    @endforeach
-                </select>
+                <input type="text" name="location" required placeholder="Contoh: Kolam Delta"
+                       class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
             </div>
 
             <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Program</label>
-                <select name="program" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
-                    <option value="">-- Pilih Program --</option>
-                    @foreach($dbPrograms->pluck('name')->unique() as $prog)
-                        <option value="{{ $prog }}">{{ $prog }}</option>
-                    @endforeach
-                </select>
+                <input type="text" name="program" required placeholder="Contoh: PRIVATE"
+                       class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
             </div>
 
             <div>
@@ -56,6 +66,27 @@
                     <option value="LEVEL 9">LEVEL 9</option>
                     <option value="LEVEL 10">LEVEL 10</option>
                     <option value="ADVANCED">ADVANCED</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Gender (Jenis Kelamin)</label>
+                <select name="gender" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+                    <option value="">-- Pilih Gender --</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Pilih Coach (Pelatih)</label>
+                <select name="coach_name" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
+                    <option value="">-- Pilih Coach --</option>
+                    @foreach($coaches as $coach)
+                        <option value="{{ $coach->name }}">{{ $coach->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

@@ -36,15 +36,15 @@
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('students.*') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-graduation-cap w-5"></i> Siswa
                 </a>
-                
+
                 <a href="{{ route('programs.index') }}"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-800 {{ request()->routeIs('programs.*') ? 'bg-cyan-600' : '' }}">
                     <i class="fa-solid fa-layer-group w-5"></i> Program
                 </a>
-                
+
                 <div class="pt-4 mt-2 border-t border-slate-700"></div>
                 @endif
-                
+
                 @auth
 
 
@@ -59,7 +59,7 @@
                 @endauth
             </nav>
             <div class="p-4 border-t border-slate-700 text-xs text-slate-400">
-                &copy; {{ date('Y') }} Swim les
+                &copy; {{ date('Y') }} ASSA Swimming
             </div>
         </aside>
 

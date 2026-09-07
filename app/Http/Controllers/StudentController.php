@@ -111,16 +111,59 @@ class StudentController extends Controller
     public function create()
     {
         $dbPrograms = Program::all();
-        return view('students.create', compact('dbPrograms'));
+        $coaches = \App\Models\User::where('role', 'coach')->get();
+        return view('students.create', compact('dbPrograms', 'coaches'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'age' => 'required|string',
+            'gender' => 'required|string|in:Laki-laki,Perempuan',
+            'parent_name' => 'required|string',
+            'phone' => 'required|string',
+            'location' => 'required|string',
             'program' => 'required|string',
             'level' => 'required|string',
+            'package_meetings' => 'required|integer',
+            'coach_name' => 'nullable|string',
         ]);
+
+        $jsonPath = database_path('students_spreadsheet.json');
+        $studentsData = [];
+        if (file_exists($jsonPath)) {
+            $studentsData = json_decode(file_get_contents($jsonPath), true) ?? [];
+        }
+
+        $newId = count($studentsData) > 0 ? max(array_column($studentsData, 'id')) + 1 : 1;
+        $newCode = 'ASSA-' . (6000 + $newId);
+
+        $newStudent = [
+            'id' => $newId,
+            'code' => $newCode,
+            'name' => $validated['name'],
+            'age' => $validated['age'],
+            'gender' => $validated['gender'],
+            'parent_name' => $validated['parent_name'],
+            'phone' => $validated['phone'],
+            'address' => '-',
+            'program' => $validated['program'],
+            'nominal' => '-',
+            'location' => $validated['location'],
+            'coach_name' => $validated['coach_name'] ?? '-',
+            'schedule' => '-',
+            'level' => $validated['level'],
+            'progress' => 0,
+            'status' => 'Active',
+            'package_meetings' => $validated['package_meetings'],
+            'completed_skills' => [],
+            'attendance' => array_fill(0, $validated['package_meetings'], 'Belum'),
+            'holidays' => []
+        ];
+
+        $studentsData[] = $newStudent;
+        file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
 
         return redirect()->route('students.index')->with('success', 'Siswa baru berhasil ditambahkan!');
     }
@@ -270,7 +313,8 @@ class StudentController extends Controller
         }
 
         $dbPrograms = Program::all();
-        return view('students.edit', compact('student', 'dbPrograms'));
+        $coaches = \App\Models\User::where('role', 'coach')->get();
+        return view('students.edit', compact('student', 'dbPrograms', 'coaches'));
     }
 
     public function update(Request $request, $id)
@@ -280,12 +324,14 @@ class StudentController extends Controller
             'parent_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:255',
             'age' => 'nullable|string|max:10',
+            'gender' => 'nullable|string|in:Laki-laki,Perempuan',
             'location' => 'nullable|string|max:255',
             'program' => 'nullable|string|max:255',
             'schedule' => 'nullable|string|max:255',
             'level' => 'nullable|string|max:255',
             'package_meetings' => 'nullable|integer',
             'nominal' => 'nullable|string|max:255',
+            'coach_name' => 'nullable|string',
         ]);
 
         $jsonPath = database_path('students_spreadsheet.json');
@@ -304,11 +350,13 @@ class StudentController extends Controller
                 $studentsData[$key]['parent_name'] = $request->parent_name;
                 $studentsData[$key]['phone'] = $request->phone;
                 $studentsData[$key]['age'] = $request->age;
+                $studentsData[$key]['gender'] = $request->gender;
                 $studentsData[$key]['location'] = $request->location;
                 $studentsData[$key]['program'] = $request->program;
                 $studentsData[$key]['schedule'] = $request->schedule;
                 $studentsData[$key]['level'] = $request->level;
                 $studentsData[$key]['package_meetings'] = (int) $request->package_meetings;
+                $studentsData[$key]['coach_name'] = $request->coach_name ?? '-';
                 $studentsData[$key]['nominal'] = $request->nominal;
                 $updated = true;
                 break;
@@ -349,6 +397,7 @@ class StudentController extends Controller
                 $monthInput = $request->input('month', date('Y-m'));
 
                 $studentsData[$key]['completed_skills'] = $skillsCompleted;
+                $studentsData[$key]['coach_notes'] = $request->input('coach_notes');
 
                 // Save to history
                 if (!isset($studentsData[$key]['attendance_history'])) {

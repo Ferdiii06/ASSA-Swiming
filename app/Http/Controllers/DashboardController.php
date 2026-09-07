@@ -13,13 +13,16 @@ class DashboardController extends Controller
         if ($user && $user->isParent()) {
             $jsonPath = database_path('students_spreadsheet.json');
             $parentStudents = collect();
+            $otherStudents = collect();
             
             if (file_exists($jsonPath)) {
                 $allStudents = collect(json_decode(file_get_contents($jsonPath), true));
-                // Find students matching this parent's phone or name
+                
+                // Find students matching this parent's phone or name (Strict match to prevent data leak)
                 $parentStudents = $allStudents->filter(function ($student) use ($user) {
-                    return strcasecmp($student['phone'] ?? '', $user->phone) === 0 || 
-                           strcasecmp($student['parent_name'] ?? '', $user->name) === 0;
+                    $matchPhone = !empty($user->phone) && !empty($student['phone']) && strcasecmp($student['phone'], $user->phone) === 0;
+                    $matchName = !empty($user->name) && !empty($student['parent_name']) && strcasecmp($student['parent_name'], $user->name) === 0;
+                    return $matchPhone || $matchName;
                 })->map(function ($student) {
                     // Cast to object and provide dummy relations to prevent view crash
                     $obj = (object) $student;
@@ -54,11 +57,31 @@ class DashboardController extends Controller
                     
                     return $obj;
                 })->values();
+
+                // Prepare other active students for Leaderboard (Sanitized)
+                $otherStudents = $allStudents->filter(function ($student) use ($user) {
+                    $matchPhone = !empty($user->phone) && !empty($student['phone']) && strcasecmp($student['phone'], $user->phone) === 0;
+                    $matchName = !empty($user->name) && !empty($student['parent_name']) && strcasecmp($student['parent_name'], $user->name) === 0;
+                    
+                    // Exclude parent's own students and only show Active
+                    return !($matchPhone || $matchName) && (isset($student['status']) && $student['status'] === 'Active');
+                })->map(function ($student) {
+                    return (object)[
+                        'name' => strtoupper($student['name'] ?? 'Anonim'),
+                        'level' => $student['level'] ?? '-',
+                        'program' => $student['program'] ?? '-',
+                        'progress_percentage' => $student['progress'] ?? 0,
+                        'coach_notes' => $student['coach_notes'] ?? '',
+                        'schedule' => $student['schedule'] ?? '-',
+                        'package_meetings' => $student['package_meetings'] ?? 8,
+                    ];
+                })->sortByDesc('progress_percentage')->values();
             }
 
             return view('dashboard', [
                 'isParent' => true,
-                'students' => $parentStudents
+                'students' => $parentStudents,
+                'otherStudents' => $otherStudents
             ]);
         }
 
@@ -91,12 +114,18 @@ class DashboardController extends Controller
 
         $totalPrograms = count(array_keys($programs));
 
+        $coachesList = [];
+        if ($user && (stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false)) {
+            $coachesList = \App\Models\User::where('role', 'coach')->get();
+        }
+
         return view('dashboard', [
             'isParent' => false,
             'totalStudents' => $totalStudents,
             'activeStudents' => $activeStudents,
             'totalPrograms' => $totalPrograms,
-            'totalCoaches' => 4, // Vicky, Arin, Tiwi, Tasya
+            'totalCoaches' => \App\Models\User::where('role', 'coach')->count(),
+            'coachesList' => $coachesList,
         ]);
     }
 
@@ -112,5 +141,79 @@ class DashboardController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function storeCoach(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menambah Coach.');
+        }
+
+        \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'role' => 'coach',
+            'email_verified_at' => now(), // Auto verify for coaches
+        ]);
+
+        return back()->with('success', 'Akun Coach berhasil ditambahkan!');
+    }
+
+    public function updateCoach(Request $request, $id)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk mengedit Coach.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'nullable|min:6',
+        ]);
+
+        $coach = \App\Models\User::where('role', 'coach')->findOrFail($id);
+        
+        $coach->name = $request->name;
+        $coach->email = $request->email;
+        if ($request->filled('password')) {
+            $coach->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        }
+        $coach->save();
+
+        return back()->with('success', 'Akun Coach berhasil diperbarui!');
+    }
+
+    public function destroyCoach($id)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menghapus Coach.');
+        }
+
+        $coach = \App\Models\User::where('role', 'coach')->findOrFail($id);
+        
+        // Prevent deleting themselves
+        if ($coach->id === $user->id) {
+            return back()->with('error', 'Anda tidak bisa menghapus akun Anda sendiri.');
+        }
+
+        $coach->delete();
+
+        return back()->with('success', 'Akun Coach berhasil dihapus!');
     }
 }

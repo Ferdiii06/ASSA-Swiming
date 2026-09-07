@@ -74,20 +74,7 @@
             Login
         </button>
 
-        <div class="relative flex items-center justify-center mt-6">
-            <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-slate-200"></div>
-            </div>
-            <div class="relative bg-white px-4 text-sm text-slate-500">
-                Atau lanjutkan dengan
-            </div>
-        </div>
 
-        <a href="{{ route('sso.google') }}" class="mt-6 w-full flex items-center justify-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold py-3 px-4 rounded-xl transition-all shadow-sm">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo" class="w-5 h-5">
-            Login dengan Google
-        </a>
-        
         <div class="text-center mt-6 text-sm text-slate-600">
             Calon siswa baru? <a href="{{ route('register') }}" class="text-cyan-600 hover:text-cyan-700 font-semibold hover:underline">Daftar di sini</a>
         </div>

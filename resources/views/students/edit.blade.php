@@ -34,6 +34,27 @@
                     <input type="number" name="age" value="{{ old('age', $student->age ?? '') }}" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
                 </div>
 
+                <!-- Gender -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Gender (Jenis Kelamin)</label>
+                    <select name="gender" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        <option value="">-- Pilih Gender --</option>
+                        <option value="Laki-laki" {{ (old('gender', $student->gender ?? '') == 'Laki-laki') ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="Perempuan" {{ (old('gender', $student->gender ?? '') == 'Perempuan') ? 'selected' : '' }}>Perempuan</option>
+                    </select>
+                </div>
+
+                <!-- Coach -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Coach (Pelatih)</label>
+                    <select name="coach_name" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        <option value="">-- Pilih Coach --</option>
+                        @foreach($coaches as $coach)
+                            <option value="{{ $coach->name }}" {{ (old('coach_name', $student->coach_name ?? '') == $coach->name) ? 'selected' : '' }}>{{ $coach->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <!-- Nama Orang Tua -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Orang Tua</label>
@@ -49,23 +70,13 @@
                 <!-- Kolam / Lokasi -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Lokasi Kolam</label>
-                    <select name="location" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
-                        <option value="">-- Pilih Lokasi --</option>
-                        @foreach($dbPrograms->pluck('pool_name')->unique() as $pool)
-                            <option value="{{ $pool }}" {{ (old('location', $student->location ?? '') == $pool) ? 'selected' : '' }}>{{ $pool }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="location" value="{{ old('location', $student->location ?? '') }}" required placeholder="Contoh: Kolam Delta" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
                 </div>
 
                 <!-- Program -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Program</label>
-                    <select name="program" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
-                        <option value="">-- Pilih Program --</option>
-                        @foreach($dbPrograms->pluck('name')->unique() as $prog)
-                            <option value="{{ $prog }}" {{ (old('program', $student->program ?? '') == $prog) ? 'selected' : '' }}>{{ $prog }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="program" value="{{ old('program', $student->program ?? '') }}" required placeholder="Contoh: PRIVATE" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
                 </div>
 
                 <!-- Level -->

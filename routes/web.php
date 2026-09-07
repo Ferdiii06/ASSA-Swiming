@@ -42,6 +42,7 @@ Route::post('/register', [RegistrationController::class, 'store'])->name('regist
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/complete', [App\Http\Controllers\ProfileController::class, 'complete'])->name('profile.complete');
 });
 
 // Students Routes - Restricted
@@ -63,3 +64,6 @@ use App\Http\Controllers\ProgramController;
 Route::resource('programs', ProgramController::class)->middleware('auth');
 
 // Other Resources
+Route::post('/coaches', [DashboardController::class, 'storeCoach'])->name('coaches.store')->middleware('auth');
+Route::put('/coaches/{id}', [DashboardController::class, 'updateCoach'])->name('coaches.update')->middleware('auth');
+Route::delete('/coaches/{id}', [DashboardController::class, 'destroyCoach'])->name('coaches.destroy')->middleware('auth');

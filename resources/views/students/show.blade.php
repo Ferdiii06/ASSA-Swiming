@@ -48,7 +48,7 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Gender</span>
-                        <span class="font-medium text-slate-700 text-right">-</span>
+                        <span class="font-medium text-slate-700 text-right">{{ $student->gender ?? '-' }}</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Birth Date</span>
@@ -57,6 +57,10 @@
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Parent</span>
                         <span class="font-medium text-slate-700 text-right">{{ $student->parent_name ?? '-' }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Coach</span>
+                        <span class="font-medium text-slate-700 text-right">{{ $student->coach_name ?? '-' }}</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Phone</span>
@@ -175,11 +179,16 @@
                     <h4 class="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                         <i class="fa-regular fa-comment-dots text-slate-400"></i> Catatan Coach
                     </h4>
-                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-100">
-                        <p class="text-sm text-amber-800 leading-relaxed italic">
-                            Belum ada catatan dari Coach untuk pertemuan ini.
-                        </p>
-                    </div>
+                    @if(Auth::check() && !Auth::user()->isParent())
+                        <textarea name="coach_notes" rows="3" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm p-4" placeholder="Tuliskan catatan perkembangan anak hari ini...">{{ $student->coach_notes ?? '' }}</textarea>
+                        <p class="text-[10px] text-slate-400 mt-1">*Catatan ini akan langsung terlihat di aplikasi Dashboard Orang Tua.</p>
+                    @else
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-100">
+                            <p class="text-sm text-amber-800 leading-relaxed italic">
+                                {{ $student->coach_notes ?? 'Belum ada catatan dari Coach.' }}
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
 

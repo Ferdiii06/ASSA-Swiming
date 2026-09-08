@@ -109,7 +109,7 @@
                     @auth
                         <a href="{{ route('dashboard') }}" class="text-brand-600 font-semibold hover:text-brand-700 transition">Dashboard</a>
                     @else
-                        <a href="{{ route('register') }}" class="text-slate-600 hover:text-slate-900 font-medium transition-colors">Daftar</a>
+                        <a href="#" onclick="openRegistrationModal(event)" class="text-slate-600 hover:text-slate-900 font-medium transition-colors">Daftar</a>
                         <a href="{{ route('login') }}" class="login-btn-pulse bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                             Login <i class="fa-solid fa-arrow-right ml-1 text-sm"></i>
                         </a>
@@ -136,7 +136,7 @@
                 @auth
                     <a href="{{ route('dashboard') }}" class="mobile-menu-item block px-3 py-3 rounded-md text-base font-bold text-brand-600 hover:bg-brand-50">Dashboard</a>
                 @else
-                    <a href="{{ route('register') }}" class="mobile-menu-item block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-brand-600 hover:bg-slate-50">Daftar Akun Baru</a>
+                    <a href="#" onclick="openRegistrationModal(event)" class="mobile-menu-item block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-brand-600 hover:bg-slate-50">Daftar Akun Baru</a>
                     <a href="{{ route('login') }}" class="mobile-menu-item block px-3 py-3 mt-2 text-center rounded-xl text-base font-medium bg-brand-600 text-white hover:bg-brand-700 shadow-md">Login</a>
                 @endauth
             </div>
@@ -190,7 +190,7 @@
                                 <i class="fa-solid fa-gauge-high"></i> Buka Dashboard
                             </a>
                         @else
-                            <a href="{{ route('register') }}" class="bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg shadow-brand-500/30 transform hover:-translate-y-1 flex items-center justify-center gap-2 animate-color-pulse">
+                            <a href="#" onclick="openRegistrationModal(event)" class="bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg shadow-brand-500/30 transform hover:-translate-y-1 flex items-center justify-center gap-2 animate-color-pulse">
                                 Daftar Sekarang <i class="fa-solid fa-arrow-right"></i>
                             </a>
                             <a href="{{ route('login') }}" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-sm flex items-center justify-center gap-2">
@@ -1040,6 +1040,128 @@
                 );
             }
         });
+    </script>
+
+    <!-- Dummy Registration Modal -->
+    <div id="registrationModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeRegistrationModal()"></div>
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-3xl w-full border border-slate-100">
+                <div class="bg-brand-600 px-6 py-4 flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-white">Formulir Pendaftaran Siswa Baru</h3>
+                    <button type="button" onclick="closeRegistrationModal()" class="text-white hover:text-slate-200 focus:outline-none">
+                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    </button>
+                </div>
+                
+                <form id="dummyRegistrationForm" class="px-6 py-6" onsubmit="submitDummyForm(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Nama Lengkap -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap Siswa</label>
+                            <input type="text" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <!-- Sebutan Namanya -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Sebutan Namanya / Panggilan</label>
+                            <input type="text" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <!-- Nama Orang Tua -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nama Orang Tua</label>
+                            <input type="text" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <!-- No HP -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">No. WhatsApp</label>
+                            <input type="text" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <!-- Alamat -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Alamat Lengkap</label>
+                            <textarea required rows="2" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"></textarea>
+                        </div>
+                        <!-- Program -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Program Les</label>
+                            <select required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                                <option value="">Pilih Program</option>
+                                <option value="private">Private</option>
+                                <option value="semiprivate">Semi Private</option>
+                                <option value="reguler">Reguler / Kelompok</option>
+                                <option value="trial">Trial</option>
+                            </select>
+                        </div>
+                        <!-- Nominal Pembayaran -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nominal Pembayaran</label>
+                            <input type="number" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500" placeholder="Rp.">
+                        </div>
+                        <!-- Kolam Renang -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Pilihan Kolam Renang</label>
+                            <select required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                                <option value="">Pilih Lokasi Kolam</option>
+                                <option value="grand_toserba">Grand Toserba</option>
+                                <option value="mutiara_regency">Mutiara Regency</option>
+                                <option value="ketegan">Ketegan Jungle Waterpark</option>
+                                <option value="long_storage">Long Storage Kwatu Waterpark</option>
+                                <option value="gor_sidoarjo">GOR Sidoarjo</option>
+                                <option value="tirta_agung">Tirta Agung</option>
+                                <option value="kemantren">Kemantren</option>
+                                <option value="tirta_agung_sukodono">Tirta Agung Sukodono</option>
+                            </select>
+                        </div>
+                        <!-- Hari Latihan Tetap -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Hari Latihan Tetap</label>
+                            <input type="text" placeholder="Contoh: Senin & Kamis" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <!-- Jam Latihan Tetap -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Jam Latihan Tetap</label>
+                            <input type="time" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <!-- Rekomendasi Dari -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Mengetahui ASSA Swimming dari mana?</label>
+                            <select required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                                <option value="">Pilih Sumber Referensi</option>
+                                <option value="teman">Teman</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="threads">Threads</option>
+                                <option value="poster">Poster / Brosur</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end gap-3 border-t border-slate-100 pt-4">
+                        <button type="button" onclick="closeRegistrationModal()" class="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 font-medium">Batal</button>
+                        <button type="submit" class="px-6 py-2.5 bg-brand-600 text-white rounded-lg hover:bg-brand-700 font-medium shadow-md">Kirim Pendaftaran</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openRegistrationModal(e) {
+            if(e) e.preventDefault();
+            document.getElementById('registrationModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeRegistrationModal() {
+            document.getElementById('registrationModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function submitDummyForm(e) {
+            e.preventDefault();
+            alert('Data Pendaftaran Berhasil Dikirim! Admin akan segera menghubungi Anda. (Ini adalah form demo)');
+            closeRegistrationModal();
+            e.target.reset();
+        }
     </script>
 </body>
 </html>

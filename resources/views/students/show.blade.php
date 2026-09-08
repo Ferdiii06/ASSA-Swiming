@@ -70,10 +70,7 @@
                         <span class="text-slate-400">Pool</span>
                         <span class="font-medium text-slate-700 text-right">{{ $student->location ?? '-' }}</span>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Coach</span>
-                        <span class="font-medium text-slate-700 text-right">-</span>
-                    </div>
+
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Program</span>
                         <span class="font-medium text-slate-700 text-right">{{ $student->program ?? '-' }}</span>

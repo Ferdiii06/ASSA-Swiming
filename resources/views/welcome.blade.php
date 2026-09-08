@@ -468,7 +468,7 @@
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
                     <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 relative overflow-hidden flex items-center justify-center">
-                        <img src="images/galeri3.png" alt="Gallery" class="w-full h-full object-contain">
+                        <img src="images/galeri2.png" alt="Gallery" class="w-full h-full object-contain">
                         <span class="absolute bottom-8 left-8 text-white font-bold text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 drop-shadow-lg">Kelas Balita</span>
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
@@ -481,7 +481,19 @@
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
                     <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
-                        <img src="images/galeri2.jpeg" alt="Gallery" class="w-full h-full object-contain">
+                        <img src="images/galeri3.png" alt="Gallery" class="w-full h-full object-contain">
+                    </div>
+                    <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item group sticky top-36 md:top-56 aspect-video rounded-3xl overflow-hidden bg-slate-900 shadow-2xl">
+                    <div class="absolute inset-0 bg-indigo-500/10 group-hover:bg-indigo-900/40 transition-colors duration-300 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
+                    </div>
+                    <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
+                        <img src="images/galeri4.png" alt="Gallery" class="w-full h-full object-contain">
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
@@ -510,7 +522,7 @@
                         <div class="text-amber-400 flex gap-1 mb-4 text-sm">
                             <i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i>
                         </div>
-                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Fitur raportnya juara! Saya sebagai orang tua jadi tahu persis perkembangan anak. Dan pelatihnya sangat sabar menghadapi anak saya yang tadinya takut air."</p>
+                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Pelatihnya sabar dan sabar banget ngajarin anak saya. Sekarang anak jadi berani nyebur dan bisa gaya bebas sedikit. Terima kasih ASSA Swimming!"</p>
                         <div class="flex items-center gap-4 mt-auto">
                             <div class="testi-avatar w-12 h-12 bg-white text-brand-600 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                                 M
@@ -527,7 +539,7 @@
                         <div class="text-amber-400 flex gap-1 mb-4 text-sm">
                             <i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i>
                         </div>
-                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Baru belajar renang di usia 25 tahun ternyata tidak memalukan. Coach Anton sangat profesional dan bikin percaya diri. Dalam 4x pertemuan sudah bisa gaya dada santai."</p>
+                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Mantap! Sistemnya modern dan mempermudah kami orang tua memantau jadwal anak."</p>
                         <div class="flex items-center gap-4 mt-auto">
                             <div class="testi-avatar w-12 h-12 bg-white text-brand-600 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                                 R
@@ -544,14 +556,14 @@
                         <div class="text-amber-400 flex gap-1 mb-4 text-sm">
                             <i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i>
                         </div>
-                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Sistem penjadwalannya sangat fleksibel. Kalau anak tiba-tiba sakit, admin dengan sigap membantu reschedule tanpa biaya tambahan. Pokoknya recommended!"</p>
+                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Coach Arin sabar banget ngajarin anak saya. Sekarang anak jadi berani nyebur dan bisa gaya bebas. Terima kasih ASSA Swimming!"</p>
                         <div class="flex items-center gap-4 mt-auto">
                             <div class="testi-avatar w-12 h-12 bg-white text-brand-600 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                                 D
                             </div>
                             <div>
                                 <h4 class="font-bold text-white">Papa Dimas</h4>
-                                <p class="text-brand-200 text-sm">Orang tua siswa (Kelas Balita)</p>
+                                <p class="text-brand-200 text-sm">Orang tua siswa (Kelas Anak)</p>
                             </div>
                         </div>
                     </div>
@@ -561,7 +573,7 @@
                         <div class="text-amber-400 flex gap-1 mb-4 text-sm">
                             <i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i>
                         </div>
-                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Kolam selalu bersih dan penjagaan sangat ketat. Saya bisa tenang meninggalkan anak latihan karena keamanannya terjamin."</p>
+                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Kolamnya bersih dan penjagaan selalu ketat. Saya bisa tenang meninggalkan anak latihan karena keamanannya terjamin."</p>
                         <div class="flex items-center gap-4 mt-auto">
                             <div class="testi-avatar w-12 h-12 bg-white text-brand-600 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                                 S
@@ -578,7 +590,7 @@
                         <div class="text-amber-400 flex gap-1 mb-4 text-sm">
                             <i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i><i class="fa-solid fa-star testi-star"></i>
                         </div>
-                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Fasilitas ruang bilas air hangat sangat membantu terutama untuk anak-anak sehabis latihan sore. Sistem ASSA sangat modern."</p>
+                        <p class="testi-text text-brand-50 italic mb-6 text-lg leading-relaxed">"Fasilitas ruang bilas air hangat sangat membantu terutama untuk anak-anak sehabis latihan sore."</p>
                         <div class="flex items-center gap-4 mt-auto">
                             <div class="testi-avatar w-12 h-12 bg-white text-brand-600 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                                 B

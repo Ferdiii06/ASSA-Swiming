@@ -374,7 +374,7 @@
                 <!-- Coach 1 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="images/coachvicky.png" alt="Coach Budi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coachvicky.webp" alt="Coach Budi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-brand-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -390,7 +390,7 @@
                 <!-- Coach 2 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="images/coacharin.png" alt="Coach Sarah" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coacharin.webp" alt="Coach Sarah" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -406,7 +406,7 @@
                 <!-- Coach 3 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="images/coachtasya.png" alt="Coach Tasya" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coachtasya.webp" alt="Coach Tasya" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -422,7 +422,7 @@
                  <!-- Coach 4 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
                     <div class="h-64 bg-slate-200 relative overflow-hidden coach-portrait-container">
-                        <img src="images/coachtiwi.png" alt="Coach Tiwi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
+                        <img src="images/coachtiwi.webp" alt="Coach Tiwi" class="absolute top-[-20px] left-0 w-full h-[calc(100%+40px)] object-cover coach-portrait">
                         <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
                     <div class="p-6 text-center relative">
@@ -455,7 +455,7 @@
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
                     <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
-                        <img src="images/galeri1.png" alt="Gallery" class="w-full h-full object-contain">
+                        <img src="images/galeri1.webp" alt="Gallery" class="w-full h-full object-contain">
                     </div>
                     <!-- Overlay for dimming effect when scrolling -->
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
@@ -468,7 +468,7 @@
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
                     <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 relative overflow-hidden flex items-center justify-center">
-                        <img src="images/galeri2.png" alt="Gallery" class="w-full h-full object-contain">
+                        <img src="images/galeri2.webp" alt="Gallery" class="w-full h-full object-contain">
                         <span class="absolute bottom-8 left-8 text-white font-bold text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 drop-shadow-lg">Kelas Balita</span>
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
@@ -481,7 +481,7 @@
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
                     <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
-                        <img src="images/galeri3.png" alt="Gallery" class="w-full h-full object-contain">
+                        <img src="images/galeri3.webp" alt="Gallery" class="w-full h-full object-contain">
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>
@@ -493,7 +493,7 @@
                         <i class="fa-solid fa-magnifying-glass-plus text-white text-5xl"></i>
                     </div>
                     <div class="w-full h-full group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
-                        <img src="images/galeri4.png" alt="Gallery" class="w-full h-full object-contain">
+                        <img src="images/galeri4.webp" alt="Gallery" class="w-full h-full object-contain">
                     </div>
                     <div class="dim-overlay absolute inset-0 bg-black opacity-0 z-30 pointer-events-none"></div>
                 </div>

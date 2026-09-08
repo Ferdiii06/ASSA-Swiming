@@ -301,48 +301,109 @@
 
     <!-- Coach List (Restricted to Vicky & Arin) -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
-        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-users-gear text-cyan-600"></i> Daftar Akun Coach
-        </h3>
-        
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr>
-                        <th class="pb-3 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Nama Coach</th>
-                        <th class="pb-3 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">Email</th>
-                        <th class="pb-3 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($coachesList as $coach)
-                    <tr class="hover:bg-slate-50 transition">
-                        <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">{{ $coach->name }}</td>
-                        <td class="py-3 px-2 border-b border-slate-100 text-sm text-slate-600">{{ $coach->email }}</td>
-                        <td class="py-3 px-2 border-b border-slate-100 text-center">
-                            <div class="flex items-center justify-center gap-3">
-                                <button type="button" onclick="openEditCoachModal('{{ $coach->id }}', '{{ addslashes($coach->name) }}', '{{ addslashes($coach->email) }}')" class="text-cyan-600 hover:text-cyan-800 text-sm font-semibold transition" title="Edit Akun">
-                                    <i class="fa-solid fa-pen-to-square"></i> Edit
-                                </button>
-
-                                @if($coach->id !== auth()->id())
-                                    <form action="{{ route('coaches.destroy', $coach->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun coach ini?');" class="inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-rose-500 hover:text-rose-700 text-sm font-semibold transition" title="Hapus Akun">
-                                            <i class="fa-solid fa-trash-can"></i> Hapus
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class="text-xs text-slate-400 italic">Akun Anda</span>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-users-gear text-cyan-600"></i> Daftar Akun Coach
+            </h3>
+            <button type="submit" form="bulkDeleteCoachForm" onclick="return confirm('Apakah Anda yakin ingin menghapus semua akun coach yang dipilih?');" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg text-sm font-semibold transition">
+                <i class="fa-solid fa-trash-can mr-1"></i> Hapus Terpilih
+            </button>
         </div>
+        
+        <form id="bulkDeleteCoachForm" action="{{ route('coaches.bulkDestroy') }}" method="POST">
+            @csrf
+            <div class="overflow-x-auto max-h-80 overflow-y-auto relative rounded-lg">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-white shadow-sm z-10">
+                        <tr>
+                            <th class="py-3 px-2 w-10 text-center border-b border-slate-200">
+                                <input type="checkbox" onchange="toggleAllCheckboxes(this, 'coach-checkbox')" class="rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
+                            </th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Nama Coach</th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Email</th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($coachesList as $coach)
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3 px-2 border-b border-slate-100 text-center">
+                                @if($coach->id !== auth()->id())
+                                    <input type="checkbox" name="ids[]" value="{{ $coach->id }}" class="coach-checkbox rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
+                                @endif
+                            </td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">{{ $coach->name }}</td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm text-slate-600">{{ $coach->email }}</td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-center">
+                                <div class="flex items-center justify-center gap-3">
+                                    <button type="button" onclick="openEditCoachModal('{{ $coach->id }}', '{{ addslashes($coach->name) }}', '{{ addslashes($coach->email) }}')" class="text-cyan-600 hover:text-cyan-800 text-sm font-semibold transition" title="Edit Akun">
+                                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <!-- Parent List (Restricted to Vicky & Arin) -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-users text-cyan-600"></i> Daftar Akun Orang Tua
+            </h3>
+            <button type="submit" form="bulkDeleteParentForm" onclick="return confirm('Apakah Anda yakin ingin menghapus semua akun orang tua yang dipilih?');" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg text-sm font-semibold transition">
+                <i class="fa-solid fa-trash-can mr-1"></i> Hapus Terpilih
+            </button>
+        </div>
+        
+        <form id="bulkDeleteParentForm" action="{{ route('parents.bulkDestroy') }}" method="POST">
+            @csrf
+            <div class="overflow-x-auto max-h-96 overflow-y-auto relative rounded-lg">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-white shadow-sm z-10">
+                        <tr>
+                            <th class="py-3 px-2 w-10 text-center border-b border-slate-200">
+                                <input type="checkbox" onchange="toggleAllCheckboxes(this, 'parent-checkbox')" class="rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
+                            </th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Nama Orang Tua</th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Email & Telepon</th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($parentsList as $parentAcc)
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3 px-2 border-b border-slate-100 text-center">
+                                <input type="checkbox" name="ids[]" value="{{ $parentAcc->id }}" class="parent-checkbox rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
+                            </td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">{{ $parentAcc->name }}</td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm text-slate-600">
+                                {{ $parentAcc->email }}
+                                @if(!empty($parentAcc->phone))
+                                    <br><span class="text-xs text-slate-400"><i class="fa-solid fa-phone mr-1"></i>{{ $parentAcc->phone }}</span>
+                                @endif
+                            </td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-center">
+                                <div class="flex items-center justify-center gap-3">
+                                    <button type="button" onclick="openEditParentModal('{{ $parentAcc->id }}', '{{ addslashes($parentAcc->name) }}', '{{ addslashes($parentAcc->email) }}', '{{ addslashes($parentAcc->phone ?? '') }}')" class="text-cyan-600 hover:text-cyan-800 text-sm font-semibold transition" title="Edit Akun">
+                                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4" class="py-6 text-center text-sm text-slate-500 border-b border-slate-100">Belum ada akun orang tua yang terdaftar.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </div>
 
     <!-- Edit Coach Modal -->
@@ -381,6 +442,47 @@
         </div>
     </div>
 
+    <!-- Edit Parent Modal -->
+    <div id="editParentModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden transform transition-transform scale-95" id="editParentModalContent">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 text-lg">Edit Akun Orang Tua</h3>
+                <button type="button" onclick="closeEditParentModal()" class="text-slate-400 hover:text-slate-600 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <form id="editParentForm" method="POST" action="">
+                    @csrf
+                    @method('PUT')
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Nama Orang Tua</label>
+                            <input type="text" id="edit-parent-name" name="name" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label>
+                            <input type="email" id="edit-parent-email" name="email" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Telepon/WhatsApp</label>
+                            <input type="text" id="edit-parent-phone" name="phone" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                        </div>
+                        <div class="pt-2 border-t border-slate-100">
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Password Baru (Reset)</label>
+                            <input type="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
+                            <p class="text-[10px] text-slate-400 mt-1">Jika orang tua lupa password, isi form ini untuk mereset passwordnya.</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end gap-3">
+                        <button type="button" onclick="closeEditParentModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold rounded-lg shadow-sm transition">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openEditCoachModal(id, name, email) {
             document.getElementById('edit-coach-name').value = name;
@@ -404,6 +506,40 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 200);
+        }
+
+        function openEditParentModal(id, name, email, phone) {
+            document.getElementById('edit-parent-name').value = name;
+            document.getElementById('edit-parent-email').value = email;
+            document.getElementById('edit-parent-phone').value = phone;
+            document.getElementById('editParentForm').action = '/parents/' + id;
+            
+            const modal = document.getElementById('editParentModal');
+            const content = document.getElementById('editParentModalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeEditParentModal() {
+            const modal = document.getElementById('editParentModal');
+            const content = document.getElementById('editParentModalContent');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function toggleAllCheckboxes(source, className) {
+            const checkboxes = document.querySelectorAll('.' + className);
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i] !== source) {
+                    checkboxes[i].checked = source.checked;
+                }
+            }
         }
     </script>
     @endif

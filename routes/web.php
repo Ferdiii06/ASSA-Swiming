@@ -65,5 +65,10 @@ Route::resource('programs', ProgramController::class)->middleware('auth');
 
 // Other Resources
 Route::post('/coaches', [DashboardController::class, 'storeCoach'])->name('coaches.store')->middleware('auth');
+Route::post('/coaches/bulk-destroy', [DashboardController::class, 'bulkDestroyCoaches'])->name('coaches.bulkDestroy')->middleware('auth');
 Route::put('/coaches/{id}', [DashboardController::class, 'updateCoach'])->name('coaches.update')->middleware('auth');
 Route::delete('/coaches/{id}', [DashboardController::class, 'destroyCoach'])->name('coaches.destroy')->middleware('auth');
+
+Route::post('/parents/bulk-destroy', [DashboardController::class, 'bulkDestroyParents'])->name('parents.bulkDestroy')->middleware('auth');
+Route::put('/parents/{id}', [DashboardController::class, 'updateParent'])->name('parents.update')->middleware('auth');
+Route::delete('/parents/{id}', [DashboardController::class, 'destroyParent'])->name('parents.destroy')->middleware('auth');

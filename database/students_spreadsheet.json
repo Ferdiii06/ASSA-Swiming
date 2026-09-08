@@ -30,55 +30,5 @@
             "Belum"
         ],
         "holidays": []
-    },
-    {
-        "id": 2,
-        "code": "ASSA-6002",
-        "name": "Ferry Ferdiansyah",
-        "age": "18",
-        "parent_name": "Ferry Ferdiansyah",
-        "phone": "081122222233232",
-        "address": "-",
-        "program": "private",
-        "nominal": "-",
-        "location": "kolam delta",
-        "schedule": "-",
-        "level": "LEVEL 2",
-        "progress": 67,
-        "status": "Active",
-        "package_meetings": 4,
-        "completed_skills": [
-            "Mengapung telentang & tengkurap",
-            "Streamline"
-        ],
-        "attendance": [
-            "Hadir",
-            "Belum",
-            "Belum",
-            "Belum",
-            "Belum",
-            "Belum",
-            "Belum",
-            "Belum"
-        ],
-        "holidays": [],
-        "coach_notes": "masih kurang",
-        "attendance_history": {
-            "2026-09": [
-                "Hadir",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum"
-            ]
-        },
-        "holidays_history": {
-            "2026-09": []
-        },
-        "gender": "Laki-laki",
-        "coach_name": "Coach Vicky"
     }
 ]

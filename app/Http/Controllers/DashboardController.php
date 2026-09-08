@@ -115,8 +115,10 @@ class DashboardController extends Controller
         $totalPrograms = count(array_keys($programs));
 
         $coachesList = [];
+        $parentsList = [];
         if ($user && (stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false)) {
             $coachesList = \App\Models\User::where('role', 'coach')->get();
+            $parentsList = \App\Models\User::where('role', 'parent')->get();
         }
 
         return view('dashboard', [
@@ -126,6 +128,7 @@ class DashboardController extends Controller
             'totalPrograms' => $totalPrograms,
             'totalCoaches' => \App\Models\User::where('role', 'coach')->count(),
             'coachesList' => $coachesList,
+            'parentsList' => $parentsList,
         ]);
     }
 
@@ -215,5 +218,96 @@ class DashboardController extends Controller
         $coach->delete();
 
         return back()->with('success', 'Akun Coach berhasil dihapus!');
+    }
+
+    public function updateParent(Request $request, $id)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk mengedit Akun Orang Tua.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'phone' => 'nullable|string',
+            'password' => 'nullable|min:6',
+        ]);
+
+        $parent = \App\Models\User::where('role', 'parent')->findOrFail($id);
+        
+        $parent->name = $request->name;
+        $parent->email = $request->email;
+        if ($request->filled('phone')) {
+            $parent->phone = $request->phone;
+        }
+        if ($request->filled('password')) {
+            $parent->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        }
+        $parent->save();
+
+        return back()->with('success', 'Akun Orang Tua berhasil diperbarui!');
+    }
+
+    public function destroyParent($id)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menghapus Akun Orang Tua.');
+        }
+
+        $parent = \App\Models\User::where('role', 'parent')->findOrFail($id);
+        $parent->delete();
+
+        return back()->with('success', 'Akun Orang Tua berhasil dihapus!');
+    }
+
+    public function bulkDestroyCoaches(Request $request)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menghapus Coach.');
+        }
+
+        $ids = $request->input('ids');
+        if (empty($ids) || !is_array($ids)) {
+            return back()->with('error', 'Tidak ada akun yang dipilih.');
+        }
+
+        // Filter out themselves
+        $ids = array_filter($ids, function($id) use ($user) {
+            return $id != $user->id;
+        });
+
+        if (count($ids) > 0) {
+            \App\Models\User::where('role', 'coach')->whereIn('id', $ids)->delete();
+        }
+
+        return back()->with('success', count($ids) . ' Akun Coach berhasil dihapus!');
+    }
+
+    public function bulkDestroyParents(Request $request)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menghapus Akun Orang Tua.');
+        }
+
+        $ids = $request->input('ids');
+        if (empty($ids) || !is_array($ids)) {
+            return back()->with('error', 'Tidak ada akun yang dipilih.');
+        }
+
+        \App\Models\User::where('role', 'parent')->whereIn('id', $ids)->delete();
+
+        return back()->with('success', count($ids) . ' Akun Orang Tua berhasil dihapus!');
     }
 }

@@ -372,7 +372,31 @@ class StudentController extends Controller
     }
     public function destroy($id)
     {
-        return redirect()->route('students.index')->with('success', 'Siswa berhasil dihapus!');
+        $jsonPath = database_path('students_spreadsheet.json');
+
+        if (!file_exists($jsonPath)) {
+            return redirect()->route('students.index')->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        $raw = file_get_contents($jsonPath);
+        $studentsData = json_decode($raw, true);
+
+        $updated = false;
+        foreach ($studentsData as $key => $student) {
+            if ($student['id'] == $id) {
+                unset($studentsData[$key]);
+                $updated = true;
+                break;
+            }
+        }
+
+        if ($updated) {
+            $studentsData = array_values($studentsData);
+            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+            return redirect()->route('students.index')->with('success', 'Siswa berhasil dihapus!');
+        }
+
+        return redirect()->route('students.index')->with('error', 'Siswa tidak ditemukan.');
     }
 
     public function updateEvaluation(Request $request, $id)

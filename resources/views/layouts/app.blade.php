@@ -45,21 +45,19 @@
                 <div class="pt-4 mt-2 border-t border-slate-700"></div>
                 @endif
 
+            </nav>
+            <div class="p-4 border-t border-slate-700">
                 @auth
-
-
-                <div class="pt-4 mt-2 border-t border-slate-700"></div>
-                <form method="POST" action="{{ route('logout') }}" class="block w-full">
+                <form method="POST" action="{{ route('logout') }}" class="block w-full mb-4">
                     @csrf
                     <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-rose-900/50 text-rose-400 transition text-left">
                         <i class="fa-solid fa-arrow-right-from-bracket w-5"></i> Logout
                     </button>
                 </form>
-
                 @endauth
-            </nav>
-            <div class="p-4 border-t border-slate-700 text-xs text-slate-400">
-                &copy; {{ date('Y') }} ASSA Swimming
+                <div class="text-xs text-slate-400">
+                    &copy; {{ date('Y') }} ASSA Swimming
+                </div>
             </div>
         </aside>
 
@@ -78,7 +76,6 @@
                     <!-- Auth Menu -->
                     @auth
                     <div class="flex items-center gap-3 relative">
-                        <i class="fa-regular fa-bell text-slate-500 cursor-pointer hover:text-slate-700 text-sm sm:text-base mr-2"></i>
                         <button id="profileDropdownBtn" class="flex items-center gap-2 focus:outline-none">
                             <span class="text-sm font-medium text-slate-700 hidden sm:block">{{ Auth::user()->name ?? '' }}</span>
                             <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm">

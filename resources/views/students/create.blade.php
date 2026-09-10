@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    <form action="{{ route('students.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('students.store') }}" method="POST" class="space-y-4" onsubmit="document.getElementById('submitBtn').disabled = true; document.getElementById('submitBtn').classList.add('opacity-75', 'cursor-not-allowed'); document.getElementById('submitBtn').innerHTML = 'Menyimpan...';">
         @csrf
         <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nama Lengkap Siswa</label>
@@ -99,7 +99,7 @@
             <a href="{{ route('students.index') }}" class="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
                 Batal
             </a>
-            <button type="submit" class="px-5 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-xl shadow-sm transition">
+            <button type="submit" id="submitBtn" class="px-5 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-xl shadow-sm transition">
                 Simpan Siswa
             </button>
         </div>

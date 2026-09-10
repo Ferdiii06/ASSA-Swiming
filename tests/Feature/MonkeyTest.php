@@ -9,7 +9,7 @@ use App\Models\User;
 
 class MonkeyTest extends TestCase
 {
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /**
      * Test accessing protected routes without login (Guest).

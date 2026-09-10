@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Program;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -163,7 +162,7 @@ class StudentController extends Controller
         ];
 
         $studentsData[] = $newStudent;
-        file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+        file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT), LOCK_EX);
 
         return redirect()->route('students.index')->with('success', 'Siswa baru berhasil ditambahkan!');
     }
@@ -188,9 +187,9 @@ class StudentController extends Controller
 
         $user = auth()->user();
         if ($user && $user->isParent()) {
-            $isOwner = strcasecmp($student->phone ?? '', $user->phone) === 0 || 
+            $isOwner = strcasecmp($student->phone ?? '', $user->phone) === 0 ||
                        strcasecmp($student->parent_name ?? '', $user->name) === 0;
-            
+
             if (!$isOwner) {
                 return redirect()->route('dashboard')->with('error', 'Akses Ditolak: Anda tidak memiliki akses ke data siswa ini.');
             }
@@ -250,7 +249,7 @@ class StudentController extends Controller
         }
 
         $package_meetings = isset($student->package_meetings) ? (int) $student->package_meetings : 8;
-        
+
         // Fetch attendance for selected month
         $attendanceHistory = isset($student->attendance_history) ? (array) $student->attendance_history : [];
         if (isset($attendanceHistory[$selectedMonth])) {
@@ -259,7 +258,7 @@ class StudentController extends Controller
             // Fallback for old data or new month
             $savedAttendance = isset($student->attendance) && count($attendanceHistory) === 0 ? (array) $student->attendance : array_fill(0, $package_meetings, 'Belum');
         }
-        
+
         $attendance = [];
         for ($i = 0; $i < $package_meetings; $i++) {
             $attendance[] = [
@@ -350,7 +349,7 @@ class StudentController extends Controller
         }
 
         if ($updated) {
-            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT), LOCK_EX);
             return redirect()->route('students.show', $id)->with('success', 'Data siswa berhasil diperbarui!');
         }
 
@@ -378,7 +377,7 @@ class StudentController extends Controller
 
         if ($updated) {
             $studentsData = array_values($studentsData);
-            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT), LOCK_EX);
             return redirect()->route('students.index')->with('success', 'Siswa berhasil dihapus!');
         }
 
@@ -419,7 +418,7 @@ class StudentController extends Controller
 
                 $studentsData[$key]['attendance_history'][$monthInput] = $attendanceInput;
                 $studentsData[$key]['holidays_history'][$monthInput] = array_filter($holidaysInput);
-                
+
                 // Keep the root updated as fallback
                 $studentsData[$key]['attendance'] = $attendanceInput;
                 $studentsData[$key]['holidays'] = array_filter($holidaysInput);
@@ -452,7 +451,7 @@ class StudentController extends Controller
         }
 
         if ($updated) {
-            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT));
+            file_put_contents($jsonPath, json_encode($studentsData, JSON_PRETTY_PRINT), LOCK_EX);
             return redirect()->route('students.show', $id)->with('success', 'Penilaian skill berhasil disimpan!');
         }
 

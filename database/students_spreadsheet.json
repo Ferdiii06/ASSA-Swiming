@@ -13,14 +13,57 @@
         "location": "Kolam Delta Sari",
         "coach_name": "Coach Vicky",
         "schedule": "-",
-        "level": "LEVEL 3",
+        "level": "LEVEL 2",
         "progress": 50,
         "status": "Active",
-        "package_meetings": 8,
+        "package_meetings": 4,
         "completed_skills": [
-            "Gaya dada",
-            "Start dasar"
+            "Gerakan kaki dasar",
+            "Koordinasi tangan dan kaki"
         ],
+        "attendance": [
+            "Belum",
+            "Belum",
+            "Belum",
+            "Belum"
+        ],
+        "holidays": [
+            "17"
+        ],
+        "coach_notes": "testing",
+        "attendance_history": {
+            "2026-09": [
+                "Belum",
+                "Belum",
+                "Belum",
+                "Belum"
+            ]
+        },
+        "holidays_history": {
+            "2026-09": [
+                "17"
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "code": "ASSA-6002",
+        "name": "Ferdiansyah",
+        "age": "10",
+        "gender": "Perempuan",
+        "parent_name": "Ferry Ferdiansyah",
+        "phone": "08113555838",
+        "address": "-",
+        "program": "Reguler \/ Kelompok",
+        "nominal": "-",
+        "location": "TIRTA AGUNG KEMANTREN",
+        "coach_name": "Coach Arin",
+        "schedule": "-",
+        "level": "LEVEL 2",
+        "progress": 0,
+        "status": "Active",
+        "package_meetings": "8",
+        "completed_skills": [],
         "attendance": [
             "Belum",
             "Belum",
@@ -31,22 +74,6 @@
             "Belum",
             "Belum"
         ],
-        "holidays": [],
-        "coach_notes": "testing",
-        "attendance_history": {
-            "2026-09": [
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum",
-                "Belum"
-            ]
-        },
-        "holidays_history": {
-            "2026-09": []
-        }
+        "holidays": []
     }
 ]

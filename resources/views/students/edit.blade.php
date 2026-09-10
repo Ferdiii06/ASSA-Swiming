@@ -17,7 +17,7 @@
             <i class="fa-regular fa-pen-to-square text-cyan-500 mr-2"></i> Edit Profil Siswa
         </h2>
         
-        <form action="{{ route('students.update', $student->id) }}" method="POST">
+        <form action="{{ route('students.update', $student->id) }}" method="POST" onsubmit="document.getElementById('editSubmitBtn').disabled = true; document.getElementById('editSubmitBtn').classList.add('opacity-75', 'cursor-not-allowed'); document.getElementById('editSubmitBtn').innerHTML = 'Menyimpan...';">
             @csrf
             @method('PUT')
             
@@ -122,7 +122,7 @@
                 <a href="{{ route('students.show', $student->id) }}" class="px-5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition">
                     Batal
                 </a>
-                <button type="submit" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl transition shadow-md">
+                <button type="submit" id="editSubmitBtn" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl transition shadow-md">
                     Simpan Perubahan
                 </button>
             </div>

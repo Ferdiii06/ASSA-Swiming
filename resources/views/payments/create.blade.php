@@ -17,7 +17,7 @@
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col md:flex-row">
         <!-- Form Section -->
         <div class="p-6 md:p-8 flex-1 border-b md:border-b-0 md:border-r border-slate-100">
-            <form method="POST" action="{{ route('payments.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('payments.store') }}" enctype="multipart/form-data" onsubmit="document.getElementById('paymentSubmitBtn').disabled = true; document.getElementById('paymentSubmitBtn').classList.add('opacity-75', 'cursor-not-allowed'); document.getElementById('paymentSubmitBtn').innerHTML = 'Mengirim...';">
                 @csrf
 
                 <div class="space-y-6">
@@ -73,7 +73,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-3 rounded-xl text-sm font-bold transition shadow-md shadow-cyan-600/20">
+                    <button type="submit" id="paymentSubmitBtn" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-3 rounded-xl text-sm font-bold transition shadow-md shadow-cyan-600/20">
                         Kirim Konfirmasi Pembayaran
                     </button>
                 </div>

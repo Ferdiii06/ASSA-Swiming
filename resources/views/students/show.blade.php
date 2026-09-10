@@ -135,7 +135,7 @@
             </div>
 
             @if(Auth::check() && !Auth::user()->isParent())
-            <form action="{{ route('students.updateEvaluation', $student->id) }}" method="POST">
+            <form action="{{ route('students.updateEvaluation', $student->id) }}" method="POST" onsubmit="document.getElementById('evalSubmitBtn').disabled = true; document.getElementById('evalSubmitBtn').classList.add('opacity-75', 'cursor-not-allowed'); document.getElementById('evalSubmitBtn').innerHTML = '<i class=\'fa-solid fa-spinner fa-spin mr-1\'></i> Menyimpan...';">
                 @csrf
                 @method('PUT')
             @endif
@@ -324,7 +324,7 @@
 
             @if(Auth::check() && !Auth::user()->isParent())
                 <div class="mt-6 flex justify-end">
-                    <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-sm transition">
+                    <button type="submit" id="evalSubmitBtn" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-sm transition">
                         <i class="fa-solid fa-save mr-1"></i> Simpan Evaluasi (Skill & Kehadiran)
                     </button>
                 </div>

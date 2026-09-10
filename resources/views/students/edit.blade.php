@@ -83,16 +83,12 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Level Kelas</label>
                     <select name="level" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
-                        <option value="LEVEL 1" {{ (old('level', $student->level ?? '') == 'LEVEL 1') ? 'selected' : '' }}>Level 1</option>
-                        <option value="LEVEL 2" {{ (old('level', $student->level ?? '') == 'LEVEL 2') ? 'selected' : '' }}>Level 2</option>
-                        <option value="LEVEL 3" {{ (old('level', $student->level ?? '') == 'LEVEL 3') ? 'selected' : '' }}>Level 3</option>
-                        <option value="LEVEL 4" {{ (old('level', $student->level ?? '') == 'LEVEL 4') ? 'selected' : '' }}>Level 4</option>
-                        <option value="LEVEL 5" {{ (old('level', $student->level ?? '') == 'LEVEL 5') ? 'selected' : '' }}>Level 5</option>
-                        <option value="LEVEL 6" {{ (old('level', $student->level ?? '') == 'LEVEL 6') ? 'selected' : '' }}>Level 6</option>
-                        <option value="LEVEL 7" {{ (old('level', $student->level ?? '') == 'LEVEL 7') ? 'selected' : '' }}>Level 7</option>
-                        <option value="LEVEL 8" {{ (old('level', $student->level ?? '') == 'LEVEL 8') ? 'selected' : '' }}>Level 8</option>
-                        <option value="LEVEL 9" {{ (old('level', $student->level ?? '') == 'LEVEL 9') ? 'selected' : '' }}>Level 9</option>
-                        <option value="LEVEL 10" {{ (old('level', $student->level ?? '') == 'LEVEL 10') ? 'selected' : '' }}>Level 10</option>
+                        <option value="LEVEL 1" {{ (old('level', $student->level ?? '') == 'LEVEL 1') ? 'selected' : '' }}>LEVEL 1 - Water Discovery</option>
+                        <option value="LEVEL 2" {{ (old('level', $student->level ?? '') == 'LEVEL 2') ? 'selected' : '' }}>LEVEL 2 - Water Confidence</option>
+                        <option value="LEVEL 3" {{ (old('level', $student->level ?? '') == 'LEVEL 3') ? 'selected' : '' }}>LEVEL 3 - Basic Swimming</option>
+                        <option value="LEVEL 4" {{ (old('level', $student->level ?? '') == 'LEVEL 4') ? 'selected' : '' }}>LEVEL 4 - Intermediate Swimming</option>
+                        <option value="LEVEL 5" {{ (old('level', $student->level ?? '') == 'LEVEL 5') ? 'selected' : '' }}>LEVEL 5 - Advanced Swimming</option>
+                        <option value="LEVEL 6" {{ (old('level', $student->level ?? '') == 'LEVEL 6') ? 'selected' : '' }}>LEVEL 6 - Swim Champion</option>
                         <option value="TIDAK ADA" {{ (old('level', $student->level ?? '') == 'TIDAK ADA') ? 'selected' : '' }}>Tidak Ada Level</option>
                     </select>
                 </div>

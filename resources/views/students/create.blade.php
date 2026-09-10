@@ -55,17 +55,13 @@
             <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Level</label>
                 <select name="level" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition">
-                    <option value="LEVEL 1">LEVEL 1</option>
-                    <option value="LEVEL 2">LEVEL 2</option>
-                    <option value="LEVEL 3">LEVEL 3</option>
-                    <option value="LEVEL 4">LEVEL 4</option>
-                    <option value="LEVEL 5">LEVEL 5</option>
-                    <option value="LEVEL 6">LEVEL 6</option>
-                    <option value="LEVEL 7">LEVEL 7</option>
-                    <option value="LEVEL 8">LEVEL 8</option>
-                    <option value="LEVEL 9">LEVEL 9</option>
-                    <option value="LEVEL 10">LEVEL 10</option>
-                    <option value="ADVANCED">ADVANCED</option>
+                    <option value="LEVEL 1">LEVEL 1 - Water Discovery</option>
+                    <option value="LEVEL 2">LEVEL 2 - Water Confidence</option>
+                    <option value="LEVEL 3">LEVEL 3 - Basic Swimming</option>
+                    <option value="LEVEL 4">LEVEL 4 - Intermediate Swimming</option>
+                    <option value="LEVEL 5">LEVEL 5 - Advanced Swimming</option>
+                    <option value="LEVEL 6">LEVEL 6 - Swim Champion</option>
+                    <option value="TIDAK ADA">Tidak Ada Level</option>
                 </select>
             </div>
         </div>

@@ -1053,7 +1053,7 @@
                         <i class="fa-solid fa-xmark text-2xl"></i>
                     </button>
                 </div>
-                
+
                 <form id="dummyRegistrationForm" class="px-6 py-6" onsubmit="submitDummyForm(event)">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Nama Lengkap -->
@@ -1150,12 +1150,12 @@
             document.getElementById('registrationModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
-        
+
         function closeRegistrationModal() {
             document.getElementById('registrationModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-        
+
         function submitDummyForm(e) {
             e.preventDefault();
             alert('Data Pendaftaran Berhasil Dikirim! Admin akan segera menghubungi Anda. (Ini adalah form demo)');

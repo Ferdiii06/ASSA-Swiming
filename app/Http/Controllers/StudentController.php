@@ -198,55 +198,41 @@ class StudentController extends Controller
 
         $skills = [
             'LEVEL 1' => [
-                'Adaptasi air' => 'Siswa mampu beradaptasi dengan suhu dan lingkungan air tanpa rasa panik.',
-                'Pernafasan dasar' => 'Siswa dapat menahan napas dan membuang napas di dalam air (bubbling).',
-                'Berani masuk kolam' => 'Siswa dapat turun ke dalam kolam secara mandiri dan percaya diri.'
+                'Water confidence' => 'Mengenal & Beradaptasi dengan Air',
+                'Blowing bubbles' => 'Mengenal & Beradaptasi dengan Air',
+                'Floating dasar' => 'Mengenal & Beradaptasi dengan Air',
+                'Safety dasar' => 'Mengenal & Beradaptasi dengan Air'
             ],
             'LEVEL 2' => [
-                'Mengapung telentang & tengkurap' => 'Kemampuan menjaga keseimbangan tubuh di permukaan air tanpa bantuan.',
-                'Streamline' => 'Mampu meluncur dengan posisi tubuh lurus membelah air (tangan di depan).',
-                'Meluncur' => 'Daya dorong awal dari dinding kolam dengan postur tubuh yang benar.'
+                'Floating & gliding' => 'Percaya Diri & Mandiri di Air',
+                'Gerakan kaki dasar' => 'Percaya Diri & Mandiri di Air',
+                'Koordinasi tangan dan kaki' => 'Percaya Diri & Mandiri di Air',
+                'Berenang jarak pendek' => 'Percaya Diri & Mandiri di Air'
             ],
             'LEVEL 3' => [
-                'Freestyle Kick' => 'Gerakan tendangan kaki gaya bebas yang konstan dan propulsif dari pangkal paha.',
-                'Backstroke Kick' => 'Gerakan tendangan kaki gaya punggung secara stabil di permukaan air.',
-                'Breaststroke Kick' => 'Tendangan katak (gaya dada) dengan bukaan dan dorongan kaki yang tepat.',
-                'Dolphin Kick' => 'Gerakan meliuk layaknya lumba-lumba untuk awalan dan gaya kupu-kupu.'
+                'Gaya bebas' => 'Menguasai Teknik Dasar Renang',
+                'Gaya dada' => 'Menguasai Teknik Dasar Renang',
+                'Start dasar' => 'Menguasai Teknik Dasar Renang',
+                'Renang 25–50 meter' => 'Menguasai Teknik Dasar Renang'
             ],
             'LEVEL 4' => [
-                'Gerakan tangan' => 'Ayunan tangan (pull & recovery) pada gaya bebas secara benar.',
-                'Side breathing' => 'Pengambilan napas dari arah samping (kiri/kanan) seirama dengan ayunan tangan.',
-                'Koordinasi gaya bebas' => 'Penyatuan gerakan kaki, tangan, dan pernapasan untuk berenang gaya bebas secara utuh.'
+                'Gaya punggung' => 'Pengembangan Teknik Renang',
+                'Flip turn' => 'Pengembangan Teknik Renang',
+                'Penyempurnaan gaya bebas & dada' => 'Pengembangan Teknik Renang',
+                'Menguasai 3 gaya' => 'Pengembangan Teknik Renang'
             ],
             'LEVEL 5' => [
-                'Teknik gaya punggung' => 'Posisi wajah di atas air dengan ayunan tangan berputar ke belakang secara bergantian.',
-                'Koordinasi penuh' => 'Integrasi antara tendangan kaki dan ayunan tangan pada gaya punggung tanpa tenggelam.'
+                'Gaya kupu-kupu' => 'Penguasaan Teknik Lanjutan',
+                'Menguasai 4 gaya' => 'Penguasaan Teknik Lanjutan',
+                'Individual Medley' => 'Penguasaan Teknik Lanjutan',
+                'Endurance & teknik lanjutan' => 'Penguasaan Teknik Lanjutan'
             ],
             'LEVEL 6' => [
-                'Breaststroke Kick' => 'Penyempurnaan kekuatan dorongan kaki katak agar laju lebih cepat.',
-                'Pull & Glide' => 'Sinkronisasi tarikan tangan di bawah air dan momen meluncur (glide) pada gaya dada.',
-                'Koordinasi penuh' => 'Menyelaraskan tarikan tangan, tendangan, dan pernapasan secara ritmis.'
-            ],
-            'LEVEL 7' => [
-                'Dolphin Body Motion' => 'Meliukkan seluruh tubuh dari dada hingga ujung kaki secara ritmis.',
-                'Butterfly Arm Recovery' => 'Lemparan kedua belah lengan secara bersamaan ke depan.',
-                'Koordinasi gaya kupu-kupu' => 'Integrasi gerakan tubuh lumba-lumba, lemparan lengan, dan pernapasan secara simultan.'
-            ],
-            'LEVEL 8' => [
-                'Penyempurnaan 4 gaya' => 'Koreksi akhir teknik Gaya Bebas, Dada, Punggung, dan Kupu-Kupu.',
-                'Endurance' => 'Latihan daya tahan berenang dalam jarak menengah tanpa kelelahan berlebih.',
-                'Speed Training' => 'Latihan interval untuk meningkatkan kecepatan berenang.'
-            ],
-            'LEVEL 9' => [
-                'Start' => 'Teknik lompatan awal (diving) dari pinggir kolam / starting block.',
-                'Turn' => 'Teknik berbalik (flip turn / open turn) di ujung kolam tanpa kehilangan momentum.',
-                'Finish' => 'Teknik menyentuh dinding kolam dengan benar di akhir lintasan.',
-                'Race Technique' => 'Pemahaman strategi balapan dan pacing (pengaturan kecepatan).'
-            ],
-            'LEVEL 10' => [
-                'Program atlet' => 'Latihan terstruktur layaknya atlet profesional (volume & intensitas tinggi).',
-                'Target lomba' => 'Persiapan mental dan fisik menuju kompetisi nyata.',
-                'Performance training' => 'Optimalisasi teknik mikrosekon dan analisis performa secara detail.'
+                'Speed training' => 'Persiapan Prestasi & Kompetisi',
+                'Race technique' => 'Persiapan Prestasi & Kompetisi',
+                'Start & turn' => 'Persiapan Prestasi & Kompetisi',
+                'Endurance' => 'Persiapan Prestasi & Kompetisi',
+                'Persiapan lomba' => 'Persiapan Prestasi & Kompetisi'
             ]
         ];
 
@@ -440,16 +426,12 @@ class StudentController extends Controller
 
                 // Kalkulasi ulang progress berdasarkan jumlah skill yang dikuasai
                 $skillsMap = [
-                    'LEVEL 1' => ['Adaptasi air', 'Pernafasan dasar', 'Berani masuk kolam'],
-                    'LEVEL 2' => ['Mengapung telentang & tengkurap', 'Streamline', 'Meluncur'],
-                    'LEVEL 3' => ['Freestyle Kick', 'Backstroke Kick', 'Breaststroke Kick', 'Dolphin Kick'],
-                    'LEVEL 4' => ['Gerakan tangan', 'Side breathing', 'Koordinasi gaya bebas'],
-                    'LEVEL 5' => ['Teknik gaya punggung', 'Koordinasi penuh'],
-                    'LEVEL 6' => ['Breaststroke Kick', 'Pull & Glide', 'Koordinasi penuh'],
-                    'LEVEL 7' => ['Dolphin Body Motion', 'Butterfly Arm Recovery', 'Koordinasi gaya kupu-kupu'],
-                    'LEVEL 8' => ['Penyempurnaan 4 gaya', 'Endurance', 'Speed Training'],
-                    'LEVEL 9' => ['Start', 'Turn', 'Finish', 'Race Technique'],
-                    'LEVEL 10' => ['Program atlet', 'Target lomba', 'Performance training']
+                    'LEVEL 1' => ['Water confidence', 'Blowing bubbles', 'Floating dasar', 'Safety dasar'],
+                    'LEVEL 2' => ['Floating & gliding', 'Gerakan kaki dasar', 'Koordinasi tangan dan kaki', 'Berenang jarak pendek'],
+                    'LEVEL 3' => ['Gaya bebas', 'Gaya dada', 'Start dasar', 'Renang 25–50 meter'],
+                    'LEVEL 4' => ['Gaya punggung', 'Flip turn', 'Penyempurnaan gaya bebas & dada', 'Menguasai 3 gaya'],
+                    'LEVEL 5' => ['Gaya kupu-kupu', 'Menguasai 4 gaya', 'Individual Medley', 'Endurance & teknik lanjutan'],
+                    'LEVEL 6' => ['Speed training', 'Race technique', 'Start & turn', 'Endurance', 'Persiapan lomba']
                 ];
 
                 $studentLevel = strtoupper(trim($student['level'] ?? 'LEVEL 1'));

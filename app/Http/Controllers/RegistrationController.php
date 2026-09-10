@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class RegistrationController extends Controller
 {
@@ -16,7 +17,11 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => ['required', 'string', Password::min(8)->letters()->numbers()],
+        ], [
+            'password.min' => 'Password minimal harus 8 karakter.',
+            'password.letters' => 'Password harus mengandung setidaknya satu huruf.',
+            'password.numbers' => 'Password harus mengandung setidaknya satu angka.',
         ]);
 
         // Get name from email (before @)

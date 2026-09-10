@@ -261,9 +261,29 @@ class DashboardController extends Controller
         }
 
         $parent = \App\Models\User::where('role', 'parent')->findOrFail($id);
+        
+        // Hapus sesi aktif pengguna agar langsung ter-logout
+        \DB::table('sessions')->where('user_id', $parent->id)->delete();
+
         $parent->delete();
 
         return back()->with('success', 'Akun Orang Tua berhasil dihapus!');
+    }
+
+    public function approveParent($id)
+    {
+        $user = auth()->user();
+        $isAuthorized = stripos($user->name, 'Vicky') !== false || stripos($user->name, 'Arin') !== false;
+
+        if (!$isAuthorized) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menyetujui Akun Orang Tua.');
+        }
+
+        $parent = \App\Models\User::where('role', 'parent')->findOrFail($id);
+        $parent->status = 'active';
+        $parent->save();
+
+        return back()->with('success', 'Akun Orang Tua berhasil disetujui!');
     }
 
     public function bulkDestroyCoaches(Request $request)
@@ -286,6 +306,8 @@ class DashboardController extends Controller
         });
 
         if (count($ids) > 0) {
+            // Hapus sesi aktif untuk Coach yang dihapus
+            \DB::table('sessions')->whereIn('user_id', $ids)->delete();
             \App\Models\User::where('role', 'coach')->whereIn('id', $ids)->delete();
         }
 
@@ -306,6 +328,8 @@ class DashboardController extends Controller
             return back()->with('error', 'Tidak ada akun yang dipilih.');
         }
 
+        // Hapus sesi aktif untuk Orang Tua yang dihapus
+        \DB::table('sessions')->whereIn('user_id', $ids)->delete();
         \App\Models\User::where('role', 'parent')->whereIn('id', $ids)->delete();
 
         return back()->with('success', count($ids) . ' Akun Orang Tua berhasil dihapus!');

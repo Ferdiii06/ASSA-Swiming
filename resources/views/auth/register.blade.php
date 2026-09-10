@@ -60,7 +60,11 @@
                     <i class="fa-solid fa-lock text-slate-400"></i>
                 </div>
                 <input type="password" id="password" name="password" required minlength="8"
-                       class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all bg-slate-50 focus:bg-white">
+                       class="w-full pl-10 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all bg-slate-50 focus:bg-white">
+                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-cyan-600 focus:outline-none transition-colors">
+                    <i id="eyeIcon" class="fa-regular fa-eye"></i>
+                    <i id="eyeSlashIcon" class="fa-regular fa-eye-slash hidden"></i>
+                </button>
             </div>
         </div>
 
@@ -73,4 +77,23 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        const eyeIcon = document.querySelector('#eyeIcon');
+        const eyeSlashIcon = document.querySelector('#eyeSlashIcon');
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function () {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                eyeIcon.classList.toggle('hidden');
+                eyeSlashIcon.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
 @endsection

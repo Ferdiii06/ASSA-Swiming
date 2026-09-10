@@ -380,7 +380,14 @@
                             <td class="py-3 px-2 border-b border-slate-100 text-center">
                                 <input type="checkbox" name="ids[]" value="{{ $parentAcc->id }}" class="parent-checkbox rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
                             </td>
-                            <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">{{ $parentAcc->name }}</td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">
+                                {{ $parentAcc->name }}
+                                @if(isset($parentAcc->status) && $parentAcc->status === 'pending')
+                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-800">Pending</span>
+                                @elseif(isset($parentAcc->status) && $parentAcc->status === 'active')
+                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-100 text-emerald-800">Active</span>
+                                @endif
+                            </td>
                             <td class="py-3 px-2 border-b border-slate-100 text-sm text-slate-600">
                                 {{ $parentAcc->email }}
                                 @if(!empty($parentAcc->phone))
@@ -389,6 +396,11 @@
                             </td>
                             <td class="py-3 px-2 border-b border-slate-100 text-center">
                                 <div class="flex items-center justify-center gap-3">
+                                    @if(isset($parentAcc->status) && $parentAcc->status === 'pending')
+                                        <button type="button" onclick="event.preventDefault(); document.getElementById('approve-form-{{ $parentAcc->id }}').submit();" class="text-emerald-600 hover:text-emerald-800 text-sm font-semibold transition" title="Setujui Akun">
+                                            <i class="fa-solid fa-check"></i> Setujui
+                                        </button>
+                                    @endif
                                     <button type="button" onclick="openEditParentModal('{{ $parentAcc->id }}', '{{ addslashes($parentAcc->name) }}', '{{ addslashes($parentAcc->email) }}', '{{ addslashes($parentAcc->phone ?? '') }}')" class="text-cyan-600 hover:text-cyan-800 text-sm font-semibold transition" title="Edit Akun">
                                         <i class="fa-solid fa-pen-to-square"></i> Edit
                                     </button>
@@ -405,6 +417,14 @@
             </div>
         </form>
     </div>
+
+    @foreach($parentsList as $parentAcc)
+        @if(isset($parentAcc->status) && $parentAcc->status === 'pending')
+            <form id="approve-form-{{ $parentAcc->id }}" action="{{ route('parents.approve', $parentAcc->id) }}" method="POST" class="hidden">
+                @csrf
+            </form>
+        @endif
+    @endforeach
 
     <!-- Edit Coach Modal -->
     <div id="editCoachModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm transition-opacity">

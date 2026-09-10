@@ -2,6 +2,28 @@
 @section('title', 'Detail Siswa - ' . $student->name)
 
 @section('content')
+@php
+    $levelTitles = [
+        'LEVEL 1' => 'WATER DISCOVERY',
+        'LEVEL 2' => 'WATER CONFIDENCE',
+        'LEVEL 3' => 'BASIC SWIMMING',
+        'LEVEL 4' => 'INTERMEDIATE SWIMMING',
+        'LEVEL 5' => 'ADVANCED SWIMMING',
+        'LEVEL 6' => 'SWIM CHAMPION'
+    ];
+    $levelDescriptions = [
+        'LEVEL 1' => 'Mengenal & Beradaptasi dengan Air',
+        'LEVEL 2' => 'Percaya Diri & Mandiri di Air',
+        'LEVEL 3' => 'Menguasai Teknik Dasar Renang',
+        'LEVEL 4' => 'Pengembangan Teknik Renang',
+        'LEVEL 5' => 'Penguasaan Teknik Lanjutan',
+        'LEVEL 6' => 'Persiapan Prestasi & Kompetisi'
+    ];
+    $levelName = strtoupper(trim($student->level ?? 'LEVEL 1'));
+    $levelTitle = $levelTitles[$levelName] ?? '';
+    $levelDesc = $levelDescriptions[$levelName] ?? '';
+    $levelDisplay = $levelName . ($levelTitle ? ' - ' . $levelTitle : '');
+@endphp
 <div class="space-y-6" id="content-area">
 
     <!-- Header Actions -->
@@ -35,7 +57,7 @@
                     <p class="text-slate-500 font-medium text-sm mt-1">{{ $student->code }}</p>
 
                     <span class="mt-4 px-4 py-1.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-full text-sm font-bold uppercase tracking-wider">
-                        {{ $student->level ?? 'BELUM ADA LEVEL' }}
+                        {{ $student->level ? $levelDisplay : 'BELUM ADA LEVEL' }}
                     </span>
                 </div>
 
@@ -77,7 +99,7 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Level</span>
-                        <span class="font-medium text-slate-700 text-right">{{ $student->level ?? '-' }}</span>
+                        <span class="font-medium text-slate-700 text-right">{{ $student->level ? $levelDisplay : '-' }}</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Schedule</span>
@@ -120,13 +142,16 @@
 
             <!-- Skills Checklist -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
-                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-slate-400"></i> Skill yang Dilampaui ({{ $student->level ?? 'Level 1' }})
+                <h3 class="text-lg font-bold text-slate-800 mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-slate-400"></i> Skill yang Dilampaui ({{ $levelDisplay }})
                 </h3>
+                @if($levelDesc)
+                    <p class="text-sm text-slate-500 mb-4 ml-7">{{ $levelDesc }}</p>
+                @endif
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @foreach($completedSkills as $skillName => $skillData)
-                        @php 
-                            $isCompleted = is_array($skillData) ? $skillData['is_completed'] : $skillData; 
+                        @php
+                            $isCompleted = is_array($skillData) ? $skillData['is_completed'] : $skillData;
                             $desc = is_array($skillData) ? $skillData['description'] : '';
                         @endphp
 
@@ -196,10 +221,10 @@
                         <i class="fa-regular fa-calendar-check text-slate-400"></i> Kehadiran ({{ $package_meetings ?? 8 }}x Pertemuan)
                     </h3>
                     <div class="flex items-center gap-3">
-                        <input type="month" id="month-selector" value="{{ $selectedMonth }}" 
+                        <input type="month" id="month-selector" value="{{ $selectedMonth }}"
                             onchange="window.location.href='?month=' + this.value"
                             class="text-sm rounded-lg border-slate-300 py-1.5 px-3 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm">
-                        
+
                         @if(Auth::check() && !Auth::user()->isParent())
                             <input type="hidden" name="month" value="{{ $selectedMonth }}">
                             <button type="button" onclick="addHoliday()" class="text-xs px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold rounded-lg transition shadow-sm border border-rose-100">

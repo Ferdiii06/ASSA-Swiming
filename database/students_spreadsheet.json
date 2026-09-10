@@ -2,22 +2,24 @@
     {
         "id": 1,
         "code": "ASSA-6001",
-        "name": "MUH. IZZAM",
-        "age": "16",
-        "parent_name": "Luky",
-        "phone": "085646501997",
-        "address": "Urangagungkidul",
-        "program": "PRIVATE",
-        "nominal": "Rp 400.000",
-        "location": "LONG STORAGE KWATU WATERPARK",
-        "schedule": "Bebas",
-        "level": "LEVEL 2",
-        "progress": 100,
+        "name": "Ferdi",
+        "age": "18",
+        "gender": "Laki-laki",
+        "parent_name": "Ferry Ferdiansyah",
+        "phone": "08113555838",
+        "address": "-",
+        "program": "private",
+        "nominal": "-",
+        "location": "Kolam Delta Sari",
+        "coach_name": "Coach Vicky",
+        "schedule": "-",
+        "level": "LEVEL 3",
+        "progress": 50,
         "status": "Active",
+        "package_meetings": 8,
         "completed_skills": [
-            "Mengapung telentang & tengkurap",
-            "Streamline",
-            "Meluncur"
+            "Gaya dada",
+            "Start dasar"
         ],
         "attendance": [
             "Belum",
@@ -29,6 +31,22 @@
             "Belum",
             "Belum"
         ],
-        "holidays": []
+        "holidays": [],
+        "coach_notes": "testing",
+        "attendance_history": {
+            "2026-09": [
+                "Belum",
+                "Belum",
+                "Belum",
+                "Belum",
+                "Belum",
+                "Belum",
+                "Belum",
+                "Belum"
+            ]
+        },
+        "holidays_history": {
+            "2026-09": []
+        }
     }
 ]

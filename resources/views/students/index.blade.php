@@ -63,14 +63,20 @@
     <!-- Search & Filter Toolbar -->
     <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-4">
         <form method="GET" action="{{ route('students.index') }}" class="w-full flex flex-col sm:flex-row items-center gap-3">
-            <!-- Search Bar -->
-            <div class="relative w-full sm:w-72">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text"
-                       name="search"
-                       value="{{ request('search') }}"
-                       placeholder="Search student name or ID..."
-                       class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition">
+            <!-- Search Bar & Button (Mobile Friendly) -->
+            <div class="flex w-full sm:w-auto items-center gap-2">
+                <div class="relative flex-1 sm:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text"
+                           name="search"
+                           value="{{ request('search') }}"
+                           placeholder="Search student name or ID..."
+                           class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition">
+                </div>
+                <button type="submit" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 active:scale-95 text-white text-sm font-semibold rounded-xl shadow-sm transition flex items-center justify-center gap-1.5 shrink-0" title="Cari Siswa">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    <span>Cari</span>
+                </button>
             </div>
 
             <!-- Location Filter -->
@@ -116,7 +122,9 @@
         <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
             <div class="flex justify-between items-start mb-3">
                 <div>
-                    <h3 class="font-bold text-slate-800 uppercase">{{ $student->name }}</h3>
+                    <a href="{{ route('students.show', $student->id) }}" class="font-bold text-slate-800 uppercase hover:text-cyan-600 transition block">
+                        {{ $student->name }}
+                    </a>
                     <p class="text-xs text-slate-400 mt-0.5">{{ $student->code }} @if(!empty($student->parent_name)) • Ortu: {{ $student->parent_name }} @endif</p>
                 </div>
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-600 border border-emerald-200">
@@ -194,7 +202,9 @@
                     <tr class="hover:bg-slate-50/80 transition">
                         <!-- Student Name & Code -->
                         <td class="py-4 px-5">
-                            <div class="font-bold text-slate-800 tracking-wide uppercase">{{ $student->name }}</div>
+                            <a href="{{ route('students.show', $student->id) }}" class="font-bold text-slate-800 tracking-wide uppercase hover:text-cyan-600 transition inline-block" title="Buka Detail Siswa">
+                                {{ $student->name }}
+                            </a>
                             <div class="text-xs text-slate-400 mt-0.5 font-medium flex items-center gap-2">
                                 <span>{{ $student->code }}</span>
                                 @if(!empty($student->parent_name))

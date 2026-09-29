@@ -32,6 +32,7 @@ class RegistrationController extends Controller
             'name' => $nameFromEmail,
             'email' => $request->email,
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'plain_password' => $request->password,
             'role' => 'parent',
         ]);
 

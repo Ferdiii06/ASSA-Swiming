@@ -245,6 +245,7 @@ class DashboardController extends Controller
         }
         if ($request->filled('password')) {
             $parent->password = \Illuminate\Support\Facades\Hash::make($request->password);
+            $parent->plain_password = $request->password;
         }
         $parent->save();
 

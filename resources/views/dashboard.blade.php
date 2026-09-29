@@ -394,11 +394,15 @@
                             </th>
                             <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Nama Orang Tua</th>
                             <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Email & Telepon</th>
+                            <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">Password Login</th>
                             <th class="py-3 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($parentsList as $parentAcc)
+                        @php
+                            $parentPass = $parentAcc->plain_password ?? 'password123';
+                        @endphp
                         <tr class="hover:bg-slate-50 transition">
                             <td class="py-3 px-2 border-b border-slate-100 text-center">
                                 <input type="checkbox" name="ids[]" value="{{ $parentAcc->id }}" class="parent-checkbox rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
@@ -412,10 +416,26 @@
                                 @endif
                             </td>
                             <td class="py-3 px-2 border-b border-slate-100 text-sm text-slate-600">
-                                {{ $parentAcc->email }}
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-medium text-slate-700">{{ $parentAcc->email }}</span>
+                                    <button type="button" onclick="copyParentText('{{ addslashes($parentAcc->email) }}', 'Email disalin!')" class="text-slate-400 hover:text-cyan-600 text-xs" title="Salin Email">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
                                 @if(!empty($parentAcc->phone))
-                                    <br><span class="text-xs text-slate-400"><i class="fa-solid fa-phone mr-1"></i>{{ $parentAcc->phone }}</span>
+                                    <span class="text-xs text-slate-500 flex items-center gap-1 mt-0.5"><i class="fa-solid fa-phone text-slate-400 text-[10px]"></i> {{ $parentAcc->phone }}</span>
                                 @endif
+                            </td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm">
+                                <div class="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1">
+                                    <span id="pw-text-{{ $parentAcc->id }}" class="font-mono text-xs font-semibold text-slate-700">••••••••</span>
+                                    <button type="button" onclick="toggleParentPassword('{{ $parentAcc->id }}', '{{ addslashes($parentPass) }}')" class="text-slate-400 hover:text-cyan-600 text-xs transition" title="Lihat/Sembunyikan Password">
+                                        <i id="pw-icon-{{ $parentAcc->id }}" class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <button type="button" onclick="copyParentText('{{ addslashes($parentPass) }}', 'Password disalin!')" class="text-slate-400 hover:text-emerald-600 text-xs transition" title="Salin Password">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
                             </td>
                             <td class="py-3 px-2 border-b border-slate-100 text-center">
                                 <div class="flex items-center justify-center gap-3">
@@ -424,7 +444,7 @@
                                             <i class="fa-solid fa-check"></i> Setujui
                                         </button>
                                     @endif
-                                    <button type="button" onclick="openEditParentModal('{{ $parentAcc->id }}', '{{ addslashes($parentAcc->name) }}', '{{ addslashes($parentAcc->email) }}', '{{ addslashes($parentAcc->phone ?? '') }}')" class="text-cyan-600 hover:text-cyan-800 text-sm font-semibold transition" title="Edit Akun">
+                                    <button type="button" onclick="openEditParentModal('{{ $parentAcc->id }}', '{{ addslashes($parentAcc->name) }}', '{{ addslashes($parentAcc->email) }}', '{{ addslashes($parentAcc->phone ?? '') }}', '{{ addslashes($parentPass) }}')" class="text-cyan-600 hover:text-cyan-800 text-sm font-semibold transition" title="Edit Akun & Reset Password">
                                         <i class="fa-solid fa-pen-to-square"></i> Edit
                                     </button>
                                 </div>
@@ -432,7 +452,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="py-6 text-center text-sm text-slate-500 border-b border-slate-100">Belum ada akun orang tua yang terdaftar.</td>
+                            <td colspan="5" class="py-6 text-center text-sm text-slate-500 border-b border-slate-100">Belum ada akun orang tua yang terdaftar.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -512,9 +532,9 @@
                             <input type="text" id="edit-parent-phone" name="phone" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Password Baru (Reset)</label>
-                            <input type="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3">
-                            <p class="text-[10px] text-slate-400 mt-1">Jika orang tua lupa password, isi form ini untuk mereset passwordnya.</p>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Password Login (Bisa Diubah)</label>
+                            <input type="text" id="edit-parent-password" name="password" placeholder="Kosongkan jika tidak ingin mengubah" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 text-sm py-2 px-3 font-mono">
+                            <p class="text-[10px] text-slate-400 mt-1">Jika orang tua lupa password, masukkan password baru di sini lalu klik Simpan.</p>
                         </div>
                     </div>
                     <div class="mt-6 flex justify-end gap-3">
@@ -551,10 +571,11 @@
             }, 200);
         }
 
-        function openEditParentModal(id, name, email, phone) {
+        function openEditParentModal(id, name, email, phone, plainPassword) {
             document.getElementById('edit-parent-name').value = name;
             document.getElementById('edit-parent-email').value = email;
             document.getElementById('edit-parent-phone').value = phone;
+            document.getElementById('edit-parent-password').value = plainPassword || '';
             document.getElementById('editParentForm').action = '/parents/' + id;
             
             const modal = document.getElementById('editParentModal');
@@ -574,6 +595,38 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 200);
+        }
+
+        function toggleParentPassword(id, realPassword) {
+            const textElem = document.getElementById('pw-text-' + id);
+            const iconElem = document.getElementById('pw-icon-' + id);
+            if (!textElem) return;
+
+            if (textElem.innerText === '••••••••') {
+                textElem.innerText = realPassword;
+                iconElem.classList.remove('fa-eye');
+                iconElem.classList.add('fa-eye-slash');
+            } else {
+                textElem.innerText = '••••••••';
+                iconElem.classList.remove('fa-eye-slash');
+                iconElem.classList.add('fa-eye');
+            }
+        }
+
+        function copyParentText(text, successMsg) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert(successMsg || 'Berhasil disalin ke clipboard!');
+                });
+            } else {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert(successMsg || 'Berhasil disalin ke clipboard!');
+            }
         }
 
         function toggleAllCheckboxes(source, className) {

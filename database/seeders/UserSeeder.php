@@ -14,11 +14,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $coaches = [
-            ['name' => 'Coach Vicky', 'email' => 'coach.vicky@gmail.com', 'password' => Hash::make('VickyRenang123!'), 'role' => 'coach'],
-            ['name' => 'Coach Arin', 'email' => 'coach.arin@gmail.com', 'password' => Hash::make('ArinRenang123!'), 'role' => 'coach'],
-            ['name' => 'Coach Tiwi', 'email' => 'coach.tiwi@gmail.com', 'password' => Hash::make('TiwiRenang123!'), 'role' => 'coach'],
-            ['name' => 'Coach Tasya', 'email' => 'coach.tasya@gmail.com', 'password' => Hash::make('TasyaRenang123!'), 'role' => 'coach'],
-            ['name' => 'Coach Abiyu', 'email' => 'coach.abiyu@gmail.com', 'password' => Hash::make('AbiyuRenang123!'), 'role' => 'coach'],
+            ['name' => 'Coach Vicky', 'email' => 'coach.vicky@gmail.com', 'password' => Hash::make('VickyRenang123!'), 'role' => 'coach', 'status' => 'active'],
+            ['name' => 'Coach Arin', 'email' => 'coach.arin@gmail.com', 'password' => Hash::make('ArinRenang123!'), 'role' => 'coach', 'status' => 'active'],
+            ['name' => 'Coach Tiwi', 'email' => 'coach.tiwi@gmail.com', 'password' => Hash::make('TiwiRenang123!'), 'role' => 'coach', 'status' => 'active'],
+            ['name' => 'Coach Tasya', 'email' => 'coach.tasya@gmail.com', 'password' => Hash::make('TasyaRenang123!'), 'role' => 'coach', 'status' => 'active'],
+            ['name' => 'Coach Abiyu', 'email' => 'coach.abiyu@gmail.com', 'password' => Hash::make('AbiyuRenang123!'), 'role' => 'coach', 'status' => 'active'],
         ];
 
         foreach ($coaches as $coach) {

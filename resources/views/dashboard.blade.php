@@ -355,7 +355,10 @@
                                     <input type="checkbox" name="ids[]" value="{{ $coach->id }}" class="coach-checkbox rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer">
                                 @endif
                             </td>
-                            <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">{{ $coach->name }}</td>
+                            <td class="py-3 px-2 border-b border-slate-100 text-sm font-medium text-slate-800">
+                                {{ $coach->name }}
+                                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-100 text-emerald-800">Active</span>
+                            </td>
                             <td class="py-3 px-2 border-b border-slate-100 text-sm text-slate-600">{{ $coach->email }}</td>
                             <td class="py-3 px-2 border-b border-slate-100 text-center">
                                 <div class="flex items-center justify-center gap-3">

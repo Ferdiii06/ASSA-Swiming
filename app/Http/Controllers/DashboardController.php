@@ -165,7 +165,9 @@ class DashboardController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'plain_password' => $request->password,
             'role' => 'coach',
+            'status' => 'active',
             'email_verified_at' => now(), // Auto verify for coaches
         ]);
 
